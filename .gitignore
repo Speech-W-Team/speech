@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Gradle files
 .gradle/
 build/
@@ -31,3 +32,20 @@ google-services.json
 
 # Android Profiling
 *.hprof
+=======
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+build/
+/captures
+.externalNativeBuild
+.cxx
+vaultIos/Podfile.lock
+vaultIos/Pods/*
+vaultIos/iosApp.xcworkspace/*
+vaultIos/iosApp.xcodeproj/*
+!vaultIos/iosApp.xcodeproj/project.pbxproj
+shared/shared.podspec
+>>>>>>> a133881 (Compose Multiplatform Mobile project template)
