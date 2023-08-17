@@ -1,7 +1,14 @@
-rootProject.name = "MyApplication"
+rootProject.name = "SpeechMono"
 
 include(":vaultAndroid")
 include(":shared")
+
+
+include(":shared:core:domain")
+
+include(":shared:compose-kit")
+
+include(":shared:crypto:domain")
 
 pluginManagement {
     repositories {
