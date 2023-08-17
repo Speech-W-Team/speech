@@ -14,12 +14,12 @@ kotlin {
 
     cocoapods {
         version = "1.0.0"
-        summary = "Some description for the Shared Module"
+        summary = "Some description for the Compose KIT Module"
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = "14.1"
-        podfile = project.file("../vaultIos/Podfile")
+        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
         framework {
-            baseName = "shared"
+            baseName = ":shared:compose-kit"
             isStatic = true
         }
         extraSpecAttributes["resources"] =
@@ -34,7 +34,6 @@ kotlin {
                 implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation(project(":shared:compose-kit"))
             }
         }
         val androidMain by getting {
@@ -58,7 +57,7 @@ kotlin {
 
 android {
     compileSdk = (findProperty("android.compileSdk") as String).toInt()
-    namespace = "com.myapplication.common"
+    namespace = "wtf.speech.compose.kit"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
