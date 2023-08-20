@@ -37,7 +37,6 @@ kotlin {
                 api(libs.ktor.core)
                 api(libs.ktor.json)
                 api(libs.ktor.serialization)
-//                api(libs.ktor.logging)
 
                 api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             }

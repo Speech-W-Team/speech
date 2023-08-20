@@ -5,7 +5,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
@@ -31,12 +33,12 @@ abstract class BaseViewModel<E : ErrorState, S : ScreenState<E>, A : ScreenActio
     /**
      * A Channel for sending effects to the screen.
      */
-    private val _effect = Channel<F>(Channel.BUFFERED)
+    private val _effect = MutableSharedFlow<F>()
 
     /**
      * A property for sending effects to the screen.
      */
-    val effect: Flow<F> = _effect.receiveAsFlow()
+    val effect: Flow<F> = _effect
 
     /**
      * A CoroutineScope for launching coroutines.
@@ -53,7 +55,7 @@ abstract class BaseViewModel<E : ErrorState, S : ScreenState<E>, A : ScreenActio
         _state.value = newState
         val effect = handleEvent(event)
         if (effect != null) {
-            _effect.send(effect)
+            _effect.emit(effect)
         }
     }
 
