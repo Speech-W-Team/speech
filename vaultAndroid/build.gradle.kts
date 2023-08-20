@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    id("com.android.application")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.compose)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
 kotlin {
@@ -16,17 +16,19 @@ kotlin {
 }
 
 android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
+    compileSdk = config.versions.android.compileSdk.get().toInt()
     namespace = "com.myapplication"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
     defaultConfig {
-        applicationId = "com.myapplication.MyApplication"
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
-        versionCode = 1
-        versionName = "1.0"
+        with(config.versions) {
+            applicationId = android.id.get()
+            minSdk = android.minSdk.get().toInt()
+            targetSdk = android.minSdk.get().toInt()
+            versionCode = android.versionCode.get().toInt()
+            versionName = android.versionName.get()
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

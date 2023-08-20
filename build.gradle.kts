@@ -1,8 +1,10 @@
 plugins {
-    // this is necessary to avoid the plugins to be loaded multiple times
-    // in each subproject's classloader
-    kotlin("multiplatform").apply(false)
-    id("com.android.application").apply(false)
-    id("com.android.library").apply(false)
-    id("org.jetbrains.compose").apply(false)
+    with(libs.plugins) {
+        alias(kotlin.multiplatform) apply false
+        alias(kotlin.cocoapods) apply false
+        alias(kotlin.android) apply false
+        alias(kotlin.jvm) apply false
+        alias(android.library) apply false
+        alias(android.application) apply false
+    }
 }
