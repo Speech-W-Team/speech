@@ -12,6 +12,7 @@ compose = "1.4.3"
 [libraries]
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
+ktor-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktor" }
 ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 

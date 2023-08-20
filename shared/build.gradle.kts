@@ -29,8 +29,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-
-                implementation(project(":shared:compose-kit"))
                 implementation(project(":shared:crypto:domain"))
                 implementation(project(":shared:core:ui"))
 
@@ -39,7 +37,6 @@ kotlin {
                 implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation(project(":shared:compose-kit"))
             }
         }
         val androidMain by getting {

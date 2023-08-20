@@ -12,8 +12,8 @@ kotlin {
                 implementation(compose.preview)
                 val ktorVersion = "2.3.3"
 
-                implementation(libs.ktor.client.okhttp)
-                implementation(libs.ktor.ktor.serialization.kotlinx.json)
+//                implementation(libs.ktor.client.okhttp)
+//                implementation(libs.ktor.ktor.serialization.kotlinx.json)
 
                 implementation(project(":shared"))
                 implementation(project(":shared:crypto:domain"))

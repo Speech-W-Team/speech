@@ -37,7 +37,7 @@ kotlin {
                 api(libs.ktor.core)
                 api(libs.ktor.json)
                 api(libs.ktor.serialization)
-                api(libs.ktor.logging)
+//                api(libs.ktor.logging)
 
                 api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             }
@@ -46,7 +46,7 @@ kotlin {
 }
 
 android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
+    compileSdk = config.versions.android.compileSdk.get().toInt()
     namespace = "wtf.speech.shared.crypto.domain"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -54,8 +54,8 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
+        minSdk = config.versions.android.minSdk.get().toInt()
+        targetSdk = config.versions.android.targetSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
