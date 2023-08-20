@@ -1,0 +1,38 @@
+[versions]
+agp = "8.1.0"
+ktor = "2.3.3"
+compose_bom = "2023.08.00"
+compose_activity = "1.7.2"
+appcompat = "1.6.1"
+coreKtx = "1.10.1"
+kotlin = "1.9.0"
+coroutines = "1.7.2"
+compose = "1.4.3"
+
+[libraries]
+ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-json = { group = "io.ktor", name = "ktor-client-json", version.ref = "ktor" }
+ktor-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktor" }
+ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
+
+compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
+compose-animation = { group = "androidx.compose.animation", name = "animation" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
+compose-ui = { group = "androidx.compose.ui", name = "ui" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "compose_activity" }
+
+appCompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+
+kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
+coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose" }

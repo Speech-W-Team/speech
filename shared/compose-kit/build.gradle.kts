@@ -17,7 +17,7 @@ kotlin {
         summary = "Some description for the Compose KIT Module"
         homepage = "Link to the Shared Module homepage"
         ios.deploymentTarget = config.versions.ios.deploymentTarget.get()
-        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
+        podfile = project.file("/Users/nassdk/Development/kmm/speech/vaultIos/Podfile")
         framework {
             baseName = ":shared:compose-kit"
             isStatic = true
