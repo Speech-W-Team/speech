@@ -1,8 +1,8 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.android.library")
-    id("org.jetbrains.compose")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.cocoapods)
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.compose)
 }
 
 kotlin {
@@ -13,11 +13,11 @@ kotlin {
     iosSimulatorArm64()
 
     cocoapods {
-        version = "1.0.0"
+        version = config.versions.ios.versionName.get()
         summary = "Some description for the Compose KIT Module"
         homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
+        ios.deploymentTarget = config.versions.ios.deploymentTarget.get()
+        podfile = project.file("/Users/nassdk/Development/kmm/speech/vaultIos/Podfile")
         framework {
             baseName = ":shared:compose-kit"
             isStatic = true
@@ -53,7 +53,7 @@ kotlin {
 }
 
 android {
-    compileSdk = (findProperty("android.compileSdk") as String).toInt()
+    compileSdk = config.versions.android.compileSdk.get().toInt()
     namespace = "wtf.speech.compose.kit"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
@@ -61,8 +61,8 @@ android {
     sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
     defaultConfig {
-        minSdk = (findProperty("android.minSdk") as String).toInt()
-        targetSdk = (findProperty("android.targetSdk") as String).toInt()
+        minSdk = config.versions.android.minSdk.get().toInt()
+        targetSdk = config.versions.android.targetSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

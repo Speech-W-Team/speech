@@ -1,7 +1,7 @@
 plugins {
-    kotlin("multiplatform")
-    kotlin("native.cocoapods")
-    id("com.android.library")
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.cocoapods)
+    alias(libs.plugins.android.library)
     kotlin("plugin.serialization") version "1.9.0"
 
 }
@@ -34,13 +34,12 @@ kotlin {
                 val ktorVersion = "2.3.3"
 
                 api("com.ionspin.kotlin:bignum:0.3.8")
-                api("io.ktor:ktor-client-core:$ktorVersion")
-                api("io.ktor:ktor-client-json:$ktorVersion")
-//                api("io.ktor:ktor-client-serialization:$ktorVersion")
+                api(libs.ktor.core)
+                api(libs.ktor.json)
+                api(libs.ktor.serialization)
+                api(libs.ktor.logging)
 
-                api("io.ktor:ktor-client-logging:$ktorVersion")
                 api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
-//                api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0-RC")
             }
         }
     }
