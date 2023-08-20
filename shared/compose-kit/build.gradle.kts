@@ -15,9 +15,9 @@ kotlin {
     cocoapods {
         version = config.versions.ios.versionName.get()
         summary = "Some description for the Compose KIT Module"
-        homepage = "Link to the Shared Module homepage"
+        homepage = "Link to the Compose KIT Module homepage"
         ios.deploymentTarget = config.versions.ios.deploymentTarget.get()
-        podfile = project.file("/Users/nassdk/Development/kmm/speech/vaultIos/Podfile")
+        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
         framework {
             baseName = ":shared:compose-kit"
             isStatic = true
@@ -29,17 +29,15 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(compose.foundation)
-                implementation(compose.material3)
+                api(compose.runtime)
+                api(compose.foundation)
+                api(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
-                implementation(compose.components.resources)
+                api(compose.components.resources)
             }
         }
         val androidMain by getting {
             dependencies {
-                api(dependencyNotation = libs.compose.activity)
-                api(dependencyNotation = libs.appCompat)
-                api(dependencyNotation = libs.coreKtx)
             }
         }
         val iosX64Main by getting
@@ -69,6 +67,14 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    buildFeatures {
+        compose = true
+    }
+
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
     kotlin {
         jvmToolchain(11)

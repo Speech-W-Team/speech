@@ -1,5 +1,6 @@
 import androidx.compose.ui.window.ComposeUIViewController
+import wtf.speech.vault.shared.App
 
-actual fun getPlatformName(): String = "iOS"
 
+@Suppress
 fun MainViewController() = ComposeUIViewController { App() }

@@ -9,7 +9,14 @@ kotlin {
     sourceSets {
         val androidMain by getting {
             dependencies {
+                implementation(compose.preview)
+                val ktorVersion = "2.3.3"
+
+//                implementation(libs.ktor.client.okhttp)
+//                implementation(libs.ktor.ktor.serialization.kotlinx.json)
+
                 implementation(project(":shared"))
+                implementation(project(":shared:crypto:domain"))
             }
         }
     }
@@ -17,7 +24,7 @@ kotlin {
 
 android {
     compileSdk = config.versions.android.compileSdk.get().toInt()
-    namespace = "com.myapplication"
+    namespace = "wtf.speech.vault.android.app"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
@@ -36,5 +43,18 @@ android {
     }
     kotlin {
         jvmToolchain(11)
+    }
+
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
+
+    buildFeatures {
+        compose = true
+    }
+
+
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
 }

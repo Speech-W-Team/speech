@@ -1,10 +1,9 @@
 plugins {
-    alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kotlin.cocoapods)
-    alias(libs.plugins.android.library)
-    kotlin("plugin.serialization") version "1.9.0"
-
+    kotlin("multiplatform")
+    kotlin("native.cocoapods")
+    id("com.android.library")
 }
+
 kotlin {
     androidTarget()
 
@@ -14,12 +13,12 @@ kotlin {
 
     cocoapods {
         version = "1.0.0"
-        summary = "Some description for the Crypto Domain Module"
-        homepage = "Link to the Crypto Domain Module homepage"
+        summary = "Some description for the Core UI Module"
+        homepage = "Link to the Core UI Module homepage"
         ios.deploymentTarget = "14.1"
         podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
         framework {
-            baseName = "crypto-domain"
+            baseName = "core-ui"
             isStatic = true
         }
         extraSpecAttributes["resources"] =
@@ -29,24 +28,20 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":shared:core:domain"))
-
-                val ktorVersion = "2.3.3"
+                api(project(":shared:core:domain"))
+                api(project(":shared:compose-kit"))
 
                 api("com.ionspin.kotlin:bignum:0.3.8")
-                api(libs.ktor.core)
-                api(libs.ktor.json)
-                api(libs.ktor.serialization)
-
-                api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             }
         }
     }
 }
 
+
+
 android {
     compileSdk = config.versions.android.compileSdk.get().toInt()
-    namespace = "wtf.speech.shared.crypto.domain"
+    namespace = "wtf.speech.shared.core.ui"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -63,8 +58,11 @@ android {
     kotlin {
         jvmToolchain(11)
     }
+    buildFeatures {
+        compose = true
+    }
 
-    packagingOptions {
-        resources.excludes.add("META-INF/*")
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.0"
     }
 }

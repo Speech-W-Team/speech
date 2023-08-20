@@ -29,16 +29,20 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(project(":shared:crypto:domain"))
+                implementation(project(":shared:core:ui"))
+
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 implementation(compose.components.resources)
-                implementation(project(":shared:compose-kit"))
             }
         }
         val androidMain by getting {
             dependencies {
+                api(compose.preview)
+
                 api(dependencyNotation = libs.compose.activity)
                 api(dependencyNotation = libs.appCompat)
                 api(dependencyNotation = libs.coreKtx)
@@ -58,7 +62,7 @@ kotlin {
 
 android {
     compileSdk = config.versions.android.compileSdk.get().toInt()
-    namespace = "com.myapplication.common"
+    namespace = "wtf.speech.shared"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")

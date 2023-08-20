@@ -24,6 +24,7 @@ dependencyResolutionManagement {
 include(":vaultAndroid")
 include(":shared")
 include(":shared:core:domain")
+include(":shared:core:ui")
 include(":shared:compose-kit")
 include(":shared:crypto:domain")
 

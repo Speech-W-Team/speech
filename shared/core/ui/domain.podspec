@@ -1,24 +1,24 @@
 Pod::Spec.new do |spec|
-    spec.name                     = 'compose_kit'
-    spec.version                  = '0.0.1'
-    spec.homepage                 = 'Link to the Compose KIT Module homepage'
+    spec.name                     = 'domain'
+    spec.version                  = '1.0.0'
+    spec.homepage                 = 'Link to the Core Module homepage'
     spec.source                   = { :http=> ''}
     spec.authors                  = ''
     spec.license                  = ''
-    spec.summary                  = 'Some description for the Compose KIT Module'
-    spec.vendored_frameworks      = 'build/cocoapods/framework/:shared:compose_kit.framework'
+    spec.summary                  = 'Some description for the Core Module'
+    spec.vendored_frameworks      = 'build/cocoapods/framework/core.framework'
     spec.libraries                = 'c++'
     spec.ios.deployment_target = '14.1'
                 
                 
     spec.pod_target_xcconfig = {
-        'KOTLIN_PROJECT_PATH' => ':shared:compose-kit',
-        'PRODUCT_MODULE_NAME' => ':shared:compose_kit',
+        'KOTLIN_PROJECT_PATH' => ':shared:core:domain',
+        'PRODUCT_MODULE_NAME' => 'core',
     }
                 
     spec.script_phases = [
         {
-            :name => 'Build compose_kit',
+            :name => 'Build domain',
             :execution_position => :before_compile,
             :shell_path => '/bin/sh',
             :script => <<-SCRIPT
@@ -28,7 +28,7 @@ Pod::Spec.new do |spec|
                 fi
                 set -ev
                 REPO_ROOT="$PODS_TARGET_SRCROOT"
-                "$REPO_ROOT/../../gradlew" -p "$REPO_ROOT" $KOTLIN_PROJECT_PATH:syncFramework \
+                "$REPO_ROOT/../../../gradlew" -p "$REPO_ROOT" $KOTLIN_PROJECT_PATH:syncFramework \
                     -Pkotlin.native.cocoapods.platform=$PLATFORM_NAME \
                     -Pkotlin.native.cocoapods.archs="$ARCHS" \
                     -Pkotlin.native.cocoapods.configuration="$CONFIGURATION"
