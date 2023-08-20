@@ -1,30 +1,72 @@
 plugins {
-    id("java-library")
-    id("org.jetbrains.kotlin.jvm")
+    kotlin("multiplatform")
+    kotlin("native.cocoapods")
+    id("com.android.library")
     kotlin("plugin.serialization") version "1.9.0"
 
 }
+kotlin {
+    androidTarget()
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
+
+    cocoapods {
+        version = "1.0.0"
+        summary = "Some description for the Crypto Domain Module"
+        homepage = "Link to the Crypto Domain Module homepage"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
+        framework {
+            baseName = "crypto-domain"
+            isStatic = true
+        }
+        extraSpecAttributes["resources"] =
+            "['src/commonMain/resources/**', 'src/iosMain/resources/**']"
+    }
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(project(":shared:core:domain"))
+
+                val ktorVersion = "2.3.3"
+
+                api("com.ionspin.kotlin:bignum:0.3.8")
+                api("io.ktor:ktor-client-core:$ktorVersion")
+                api("io.ktor:ktor-client-json:$ktorVersion")
+//                api("io.ktor:ktor-client-serialization:$ktorVersion")
+
+                api("io.ktor:ktor-client-logging:$ktorVersion")
+                api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+//                api("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0-RC")
+            }
+        }
+    }
 }
 
-dependencies {
-    implementation(project(":shared:core:domain"))
-    testImplementation("org.testng:testng:6.9.6")
+android {
+    compileSdk = (findProperty("android.compileSdk") as String).toInt()
+    namespace = "wtf.speech.shared.crypto.domain"
 
-    val ktor_version = "2.3.3"
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 
-    implementation("com.ionspin.kotlin:bignum:0.3.8")
-    implementation("io.ktor:ktor-client-core:$ktor_version")
-    implementation("io.ktor:ktor-client-json:$ktor_version")
-    implementation("io.ktor:ktor-client-serialization:$ktor_version")
+    defaultConfig {
+        minSdk = (findProperty("android.minSdk") as String).toInt()
+        targetSdk = (findProperty("android.targetSdk") as String).toInt()
+    }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
+    }
+    kotlin {
+        jvmToolchain(11)
+    }
 
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0-RC")
-
-    testImplementation("org.jetbrains.kotlin:kotlin-test:1.9.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.2")
-    testImplementation("io.ktor:ktor-client-mock:$ktor_version")
-
+    packagingOptions {
+        resources.excludes.add("META-INF/*")
+    }
 }
