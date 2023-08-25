@@ -28,6 +28,7 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
+            //create custom compilation for commonMain
             dependencies {
                 implementation(project(":shared:core:domain"))
 
@@ -41,7 +42,34 @@ kotlin {
                 api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             }
         }
+        val commonMainnet by creating {
+            dependsOn(commonMain)
+        }
+        val commonTestnet by creating {
+            dependsOn(commonMain)
+        }
+        val androidMain by getting {
+            dependencies {
+                dependsOn(commonMain)
+                implementation(libs.bouncycastle)
+
+                implementation("junit:junit:4.13.2")
+                implementation("org.mockito:mockito-core:3.11.0")
+                implementation("org.mockito:mockito-android:3.11.0")
+            }
+        }
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+        val iosMain by creating {
+            dependsOn(commonMain)
+            iosX64Main.dependsOn(this)
+            iosArm64Main.dependsOn(this)
+            iosSimulatorArm64Main.dependsOn(this)
+        }
     }
+
+    // create custom compilation for commonMain
 }
 
 android {

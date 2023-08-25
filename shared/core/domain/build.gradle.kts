@@ -28,6 +28,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                api(libs.kotlinx.datetime)
                 api("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
                 api("com.ionspin.kotlin:bignum:0.3.8")
             }
