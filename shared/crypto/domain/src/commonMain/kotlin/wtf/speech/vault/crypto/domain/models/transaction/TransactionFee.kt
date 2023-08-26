@@ -1,4 +1,5 @@
 package wtf.speech.vault.crypto.domain.models.transaction
+
 sealed class TransactionFee {
 
     data class Choosable(

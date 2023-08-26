@@ -2,8 +2,6 @@ package wtf.speech.vault.crypto.domain.models
 
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import wtf.speech.shared.core.domain.models.PublicKey
-import wtf.speech.vault.crypto.domain.models.Address
-import wtf.speech.vault.crypto.domain.models.Blockchain
 
 
 /**

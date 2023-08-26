@@ -1,21 +1,12 @@
 import kotlinx.coroutines.runBlocking
-import org.bouncycastle.crypto.ec.CustomNamedCurves
-import org.bouncycastle.jce.provider.BouncyCastleProvider
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import wtf.speech.shared.core.domain.models.PrivateKey
 import wtf.speech.vault.crypto.domain.models.Blockchain
-import wtf.speech.vault.crypto.domain.models.CurveType
 import wtf.speech.vault.crypto.domain.usecases.AndroidKeyGenerator
 import wtf.speech.vault.crypto.domain.usecases.BitcoinAddressGenerator
 import wtf.speech.vault.crypto.domain.usecases.WalletFactory
-import wtf.speech.vault.crypto.domain.usecases.base58Decode
-import wtf.speech.vault.crypto.domain.usecases.base58Encode
 import wtf.speech.vault.crypto.domain.usecases.privateKeyFromWIF
-import wtf.speech.vault.crypto.domain.usecases.ripemd160
-import wtf.speech.vault.crypto.domain.usecases.sha256
-import java.math.BigInteger
-import java.security.Security
 
 class BitcoinAddressGeneratorTest {
     private val walletFactory = WalletFactory(BitcoinAddressGenerator, AndroidKeyGenerator)

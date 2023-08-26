@@ -6,7 +6,7 @@ import wtf.speech.vault.crypto.domain.models.transaction.Transaction
  * Repository interface for working with cryptocurrency transactions.
  */
 interface TransactionRepository {
-    
+
     /**
      * Fetches a list of transactions for a given cryptocurrency type.
      *
@@ -14,7 +14,7 @@ interface TransactionRepository {
      * @return A list of transactions.
      */
     suspend fun getTransactions(cryptoType: CryptoType): List<Transaction>
-    
+
     /**
      * Executes a cryptocurrency transaction.
      *

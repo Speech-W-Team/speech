@@ -12,21 +12,16 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import io.ktor.utils.io.core.toByteArray
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
 import wtf.speech.compose.kit.texts.HeadlineLargeText
 import wtf.speech.compose.kit.themes.SpeechTheme
-import wtf.speech.shared.core.domain.models.PrivateKey
-import wtf.speech.shared.core.domain.models.PublicKey
-import wtf.speech.vault.crypto.domain.usecases.BitcoinAddressGenerator
 
 @OptIn(ExperimentalResourceApi::class, ExperimentalMaterial3Api::class)
 @Composable

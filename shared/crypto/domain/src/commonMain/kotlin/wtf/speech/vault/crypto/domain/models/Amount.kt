@@ -1,7 +1,6 @@
 package wtf.speech.vault.crypto.domain.models
 
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
-import wtf.speech.vault.crypto.domain.models.Token
 
 data class Amount(
     val currencySymbol: String,
@@ -17,13 +16,13 @@ data class Amount(
     ) : this(blockchain.currency, value, blockchain.decimals, type)
 
     constructor(token: Token, value: BigDecimal? = null) :
-        this(token.symbol, value, token.decimals, AmountType.AmountToken(token))
+            this(token.symbol, value, token.decimals, AmountType.AmountToken(token))
 
     constructor(amount: Amount, value: BigDecimal) :
-        this(amount.currencySymbol, value, amount.decimals, amount.type)
+            this(amount.currencySymbol, value, amount.decimals, amount.type)
 
     constructor(blockchain: Blockchain) :
-        this(blockchain.currency, BigDecimal.ZERO, blockchain.decimals, AmountType.Coin)
+            this(blockchain.currency, BigDecimal.ZERO, blockchain.decimals, AmountType.Coin)
 
     val longValue: Long?
         get() = value?.moveDecimalPoint(decimals)?.longValue()

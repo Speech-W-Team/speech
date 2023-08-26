@@ -1,8 +1,5 @@
 package wtf.speech.vault.crypto.domain.models
 
-import wtf.speech.vault.crypto.domain.models.BlockchainNetworkSetup
-import wtf.speech.vault.crypto.domain.models.CurveType
-
 enum class Blockchain(
     val currency: String,
     val decimals: Int,
