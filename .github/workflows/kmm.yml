@@ -44,15 +44,15 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile.lock') }}
+          key: ${{ runner.os }}-pods-${{ hashFiles('vaultIos/Podfile.lock') }}
           restore-keys: |
             ${{ runner.os }}-pods-
 
       - name: Install Pods
-        run: pod install --project-directory=/Users/usman/StudioProjects/speech/speech/vaultIos
+        run: pod install --project-directory=vaultIos
 
       - name: Build iOS app
-        run: xcodebuild -workspace /Users/usman/StudioProjects/speech/speech/vaultIos/iosApp.xcworkspace -scheme iosApp -configuration Release build | xcpretty
+        run: xcodebuild -workspace vaultIos/iosApp.xcworkspace -scheme iosApp -configuration Release build | xcpretty
 
       - name: Run iOS tests
-        run: xcodebuild test -workspace /Users/usman/StudioProjects/speech/speech/vaultIos/iosApp.xcworkspace -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 12,OS=latest' | xcpretty
+        run: xcodebuild test -workspace vaultIos/iosApp.xcworkspace -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 12,OS=latest' | xcpretty
