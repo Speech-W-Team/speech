@@ -17,7 +17,7 @@ kotlin {
         summary = "Some description for the Crypto Domain Module"
         homepage = "Link to the Crypto Domain Module homepage"
         ios.deploymentTarget = "14.1"
-        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
+        podfile = project.file("/Users/rustamashurov/Desktop/StudioProject/speech/vaultIos/Podfile")
         framework {
             baseName = "crypto-domain"
             isStatic = true
