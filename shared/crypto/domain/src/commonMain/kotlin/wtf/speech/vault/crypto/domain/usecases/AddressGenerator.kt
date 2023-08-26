@@ -1,5 +1,11 @@
 package wtf.speech.vault.crypto.domain.usecases
 
+import com.ionspin.kotlin.bignum.integer.BigInteger
+import com.ionspin.kotlin.bignum.integer.Sign
+import org.komputing.khash.keccak.Keccak
+import org.komputing.khash.keccak.KeccakParameter
+import org.komputing.khash.ripemd160.Ripemd160Digest
+import org.komputing.khash.sha256.Sha256
 import wtf.speech.shared.core.domain.models.PublicKey
 import wtf.speech.vault.crypto.domain.models.Address
 
@@ -25,7 +31,7 @@ interface AddressGenerator {
      *
      * @throws InvalidPublicKeyException if the provided public key is invalid or unsuitable for address generation.
      */
-    fun generateAddress(publicKey: PublicKey): Address
+    suspend fun generateAddress(publicKey: PublicKey): Address
 
     /**
      * Validates a blockchain address.
@@ -34,7 +40,7 @@ interface AddressGenerator {
      *
      * @return true if the address is valid, false otherwise.
      */
-    fun validateAddress(address: Address): Boolean
+    suspend fun validateAddress(address: Address): Boolean
 }
 
 
@@ -57,22 +63,21 @@ interface AddressGenerator {
  * This process is known as Base58Check encoding and it ensures that Bitcoin addresses are
  * human-readable, case-sensitive, and have built-in error detection.
  */
-class BitcoinAddressGenerator : AddressGenerator {
+object BitcoinAddressGenerator : AddressGenerator {
 
-    override fun generateAddress(publicKey: PublicKey): Address {
+    override suspend fun generateAddress(publicKey: PublicKey): Address {
         val sha256Hash = sha256(publicKey.value)
         val ripemd160Hash = ripemd160(sha256Hash)
 
-        val extendedRipemd160 = byteArrayOf(0x00) + ripemd160Hash
+        val preChecksumAddress = byteArrayOf(0) + ripemd160Hash
+        val checksum = sha256(sha256(preChecksumAddress)).take(4).toByteArray()
+        val finalAddressBytes = preChecksumAddress + checksum
 
-        val checksum = sha256(sha256(extendedRipemd160)).take(4).toByteArray()
-        val finalData = extendedRipemd160 + checksum
-
-        val address = base58Encode(finalData)
+        val address = base58Encode(finalAddressBytes)
         return Address(address)
     }
 
-    override fun validateAddress(address: Address): Boolean {
+    override suspend fun validateAddress(address: Address): Boolean {
         val decoded = base58Decode(address.value)
         val checksum = decoded.takeLast(4).toByteArray()
         val data = decoded.dropLast(4).toByteArray()
@@ -82,19 +87,19 @@ class BitcoinAddressGenerator : AddressGenerator {
     }
 }
 
-class EthereumAddressGenerator : AddressGenerator {
-    override fun generateAddress(publicKey: PublicKey): Address {
+object EthereumAddressGenerator : AddressGenerator {
+    override suspend fun generateAddress(publicKey: PublicKey): Address {
         return Address("0x" + sha256(publicKey.value).takeLast(20).toByteArray().decodeToString())
     }
 
-    override fun validateAddress(address: Address): Boolean {
+    override suspend fun validateAddress(address: Address): Boolean {
         return address.value.startsWith("0x") && address.value.length == 42
     }
 }
 
 
-class BnbAddressGenerator : AddressGenerator {
-    override fun generateAddress(publicKey: PublicKey): Address {
+object BnbAddressGenerator : AddressGenerator {
+    override suspend fun generateAddress(publicKey: PublicKey): Address {
         // generate address for BNB Smart Chain
         // https://docs.binance.org/smart-chain/developer/address.html
         val pubKeyBytes = publicKey.value
@@ -105,7 +110,7 @@ class BnbAddressGenerator : AddressGenerator {
         return Address(address)
     }
 
-    override fun validateAddress(address: Address): Boolean {
+    override suspend fun validateAddress(address: Address): Boolean {
         // validate address for BNB Smart Chain
         // https://docs.binance.org/smart-chain/developer/address.html
         try {
@@ -123,9 +128,29 @@ class BnbAddressGenerator : AddressGenerator {
 }
 
 
-expect fun keccak256(data: ByteArray): ByteArray
+suspend fun privateKeyFromWIF(wif: String): BigInteger {
+    val decoded = base58Decode(wif)
+    return BigInteger.fromByteArray(decoded.sliceArray(1 until 33), Sign.POSITIVE)
+}
 
-expect fun sha256(data: ByteArray): ByteArray
-expect fun ripemd160(data: ByteArray): ByteArray
-expect fun base58Encode(data: ByteArray): String
-expect fun base58Decode(data: String): ByteArray
+fun keccak256(data: ByteArray): ByteArray {
+    return Keccak.digest(data, KeccakParameter.KECCAK_512)
+}
+
+fun sha256(data: ByteArray): ByteArray {
+    return Sha256.digest(data)
+}
+
+fun ripemd160(data: ByteArray): ByteArray {
+    val output = ByteArray(Ripemd160Digest.DIGEST_LENGTH)
+    Ripemd160Digest().apply {
+        update(data, 0, data.size)
+        doFinal(output, 0)
+    }
+
+    return output
+}
+
+expect suspend fun base58Encode(data: ByteArray): String
+
+expect suspend fun base58Decode(data: String): ByteArray

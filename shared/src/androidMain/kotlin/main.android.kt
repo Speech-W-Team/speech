@@ -1,5 +1,6 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import wtf.speech.vault.shared.App
 
 @Composable
 fun MainView() = CryptoScreenPreview()
@@ -10,5 +11,5 @@ fun MainView() = CryptoScreenPreview()
 @Composable
 @Preview
 fun CryptoScreenPreview() {
-//    CryptoScreenContent({}, {}, CryptoScreenState.preview, null)
+    App()
 }

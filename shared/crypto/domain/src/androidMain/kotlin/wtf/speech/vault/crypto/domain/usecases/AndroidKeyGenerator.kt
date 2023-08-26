@@ -1,25 +1,18 @@
 package wtf.speech.vault.crypto.domain.usecases
 
-import org.bouncycastle.asn1.sec.SECNamedCurves
-import org.bouncycastle.asn1.x9.X9ECParameters
-import org.bouncycastle.crypto.params.ECDomainParameters
-import org.bouncycastle.crypto.params.ECPrivateKeyParameters
+import org.bouncycastle.crypto.ec.CustomNamedCurves
 import org.bouncycastle.jce.provider.BouncyCastleProvider
-import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec
-import org.bouncycastle.jce.spec.ECPublicKeySpec
-import org.bouncycastle.math.ec.ECPoint
-import org.bouncycastle.math.ec.FixedPointCombMultiplier
 import wtf.speech.shared.core.domain.models.KeyPair
 import wtf.speech.shared.core.domain.models.PrivateKey
 import wtf.speech.shared.core.domain.models.PublicKey
 import wtf.speech.vault.crypto.domain.models.CurveType
 import java.math.BigInteger
-import java.security.KeyFactory
 import java.security.KeyPairGenerator
 import java.security.Security
 import java.security.spec.ECGenParameterSpec
 
-class AndroidKeyGenerator : KeyGenerator {
+object AndroidKeyGenerator : KeyGenerator {
+    private val EC_PARAMS = CustomNamedCurves.getByName("secp256k1")
 
     init {
         Security.addProvider(BouncyCastleProvider())
@@ -50,19 +43,13 @@ class AndroidKeyGenerator : KeyGenerator {
             throw UnsupportedOperationException("Only SECP256K1 curve is supported in this example.")
         }
 
-        val x9: X9ECParameters = SECNamedCurves.getByName("secp256k1")
-        val domainParams = ECDomainParameters(x9.curve, x9.g, x9.n, x9.h)
-        val privKey = ECPrivateKeyParameters(BigInteger(privateKey.value), domainParams)
-        val q: ECPoint = FixedPointCombMultiplier().multiply(domainParams.g, privKey.d)
+        val privKey = BigInteger(1, privateKey.value)
+        val pubKey = EC_PARAMS.g.multiply(privKey)
 
-        // Convert to PublicKey
-        val pubKeySpec = ECPublicKeySpec(q, ECNamedCurveParameterSpec(
-            "secp256k1", domainParams.curve, domainParams.g, domainParams.n, domainParams.h, domainParams.seed
-        )
-        )
-        val kf = KeyFactory.getInstance("ECDSA", "BC")
-        val publicKey = kf.generatePublic(pubKeySpec)
-        return PublicKey(publicKey.encoded)
+        val pubKeyBytes = pubKey.getEncoded(true)
+
+        return PublicKey(pubKeyBytes)
     }
+
 }
 

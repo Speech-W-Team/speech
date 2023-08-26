@@ -48,7 +48,7 @@ class WalletFactory(
      * @return A [Wallet] instance with recovered keys and address.
      */
     suspend fun recoverWallet(blockchain: Blockchain, privateKey: PrivateKey): Wallet {
-        val publicKey = keyGenerator.generatePublicKey(privateKey, CurveType.SECP256K1)
+        val publicKey = keyGenerator.generatePublicKey(privateKey, blockchain.curveType)
         val address = addressGenerator.generateAddress(publicKey)
 
         return Wallet(

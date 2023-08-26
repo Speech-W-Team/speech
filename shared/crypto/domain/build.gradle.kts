@@ -35,6 +35,10 @@ kotlin {
                 val ktorVersion = "2.3.3"
 
                 api("com.ionspin.kotlin:bignum:0.3.8")
+                implementation("com.ionspin.kotlin:multiplatform-crypto-libsodium-bindings:0.8.9")
+                implementation("com.github.komputing.khash:sha256:1.1.3")
+                implementation("com.github.komputing.khash:keccak:1.1.3")
+                implementation("com.github.komputing.khash:ripemd160:1.1.3")
                 api(libs.ktor.core)
                 api(libs.ktor.json)
                 api(libs.ktor.serialization)
