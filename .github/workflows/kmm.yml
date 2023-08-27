@@ -1,58 +1,40 @@
-name: KMM CI
+name: Build Release
 
-on: [ push, pull_request ]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  android_build:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Set up JDK
+      - name: Setup JDK 18
         uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
-          java-version: 18
+          java-version: '18'
 
-      - name: Cache Gradle dependencies
-        uses: actions/cache@v2
+      - name: Setup Xcode 13.0
+        uses: xcpretty/xcode-action@v3.7.0
         with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+          xcode-version: '13.0'
 
-      - name: Build Android and shared code
+      - name: Build
         run: ./gradlew build
 
-      - name: Run Android and shared tests
-        run: ./gradlew test
-
-  ios_build:
-    runs-on: macOS-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install CocoaPods
-        run: sudo gem install cocoapods
-
-      - name: Cache CocoaPods
-        uses: actions/cache@v2
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
         with:
-          path: Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('vaultIos/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
+          name: app-release.apk
+          path: app/build/outputs/apk/release/app-release.apk
 
-      - name: Install Pods
-        run: pod install --project-directory=vaultIos
+      - name: Upload IPA
+        uses: actions/upload-artifact@v2
+        with:
+          name: MyApp.ipa
+          path: iosApp/build/outputs/ipa/myApp.ipa
 
-      - name: Build iOS app
-        run: xcodebuild -workspace vaultIos/iosApp.xcworkspace -scheme iosApp -configuration Release build | xcpretty
-
-      - name: Run iOS tests
-        run: xcodebuild test -workspace vaultIos/iosApp.xcworkspace -scheme iosApp -destination 'platform=iOS Simulator,name=iPhone 12,OS=latest' | xcpretty
