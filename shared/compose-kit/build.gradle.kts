@@ -12,12 +12,14 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    val file = project.file("../../")
+    println("RELATIVEPATH" + file.absolutePath)
     cocoapods {
         version = config.versions.ios.versionName.get()
         summary = "Some description for the Compose KIT Module"
         homepage = "Link to the Compose KIT Module homepage"
         ios.deploymentTarget = config.versions.ios.deploymentTarget.get()
-        podfile = project.file("/Users/rustamashurov/Desktop/StudioProject/speech/vaultIos/Podfile")
+        podfile = project.file("../../vaultIos/Podfile")
         framework {
             baseName = ":shared:compose-kit"
             isStatic = true

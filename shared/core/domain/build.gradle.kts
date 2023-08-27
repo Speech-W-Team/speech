@@ -11,12 +11,14 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    val file = project.file("../../")
+    println("RELATIVEPATH" + file.absolutePath)
     cocoapods {
         version = "1.0.0"
         summary = "Some description for the Core Domain Module"
         homepage = "Link to the Core Domain Module homepage"
         ios.deploymentTarget = "14.1"
-        podfile = project.file("/Users/rustamashurov/Desktop/StudioProject/speech/vaultIos/Podfile")
+        podfile = project.file("../../../vaultIos/Podfile")
         framework {
             baseName = "core-domain"
             isStatic = true

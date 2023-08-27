@@ -16,7 +16,7 @@ kotlin {
         summary = "Some description for the Core UI Module"
         homepage = "Link to the Core UI Module homepage"
         ios.deploymentTarget = "14.1"
-        podfile = project.file("/Users/rustamashurov/Desktop/StudioProject/speech/vaultIos/Podfile")
+        podfile = project.file("../../../vaultIos/Podfile")
         framework {
             baseName = "core-ui"
             isStatic = true
