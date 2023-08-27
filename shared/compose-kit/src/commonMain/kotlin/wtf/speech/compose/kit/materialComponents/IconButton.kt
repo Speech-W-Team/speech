@@ -18,7 +18,15 @@ fun IconButton(
     colors: IconButtonColors = IconButtonDefaults.iconButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    IconButton(
+        onClick,
+        modifier,
+        enabled,
+        colors,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -30,7 +38,16 @@ fun IconToggleButton(
     colors: IconToggleButtonColors = IconButtonDefaults.iconToggleButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    IconToggleButton(
+        checked,
+        onCheckedChange,
+        modifier,
+        enabled,
+        colors,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -42,7 +59,16 @@ fun FilledIconButton(
     colors: IconButtonColors = IconButtonDefaults.filledIconButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    FilledIconButton(
+        onClick,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -55,7 +81,17 @@ fun FilledIconToggleButton(
     colors: IconToggleButtonColors = IconButtonDefaults.filledIconToggleButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    FilledIconToggleButton(
+        checked,
+        onCheckedChange,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -67,7 +103,16 @@ fun FilledTonalIconButton(
     colors: IconButtonColors = IconButtonDefaults.filledTonalIconButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    FilledTonalIconButton(
+        onClick,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -80,7 +125,17 @@ fun FilledTonalIconToggleButton(
     colors: IconToggleButtonColors = IconButtonDefaults.filledTonalIconToggleButtonColors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    FilledTonalIconToggleButton(
+        checked,
+        onCheckedChange,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -93,7 +148,17 @@ fun OutlinedIconButton(
     border: BorderStroke? = IconButtonDefaults.outlinedIconButtonBorder(enabled),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    OutlinedIconButton(
+        onClick,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        border,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -107,5 +172,16 @@ fun OutlinedIconToggleButton(
     border: BorderStroke? = IconButtonDefaults.outlinedIconToggleButtonBorder(enabled, checked),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    OutlinedIconToggleButton(
+        checked,
+        onCheckedChange,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        border,
+        interactionSource,
+        content
+    )
 }

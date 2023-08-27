@@ -31,7 +31,20 @@ fun AssistChip(
     elevation: ChipElevation? = AssistChipDefaults.assistChipElevation(),
     border: ChipBorder? = AssistChipDefaults.assistChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit {
+) {
+    AssistChip(
+        onClick,
+        label,
+        modifier,
+        enabled,
+        leadingIcon,
+        trailingIcon,
+        shape,
+        colors,
+        elevation,
+        border,
+        interactionSource
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -48,7 +61,20 @@ fun ElevatedAssistChip(
     elevation: ChipElevation? = AssistChipDefaults.elevatedAssistChipElevation(),
     border: ChipBorder? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit {
+) {
+    ElevatedAssistChip(
+        onClick,
+        label,
+        modifier,
+        enabled,
+        leadingIcon,
+        trailingIcon,
+        shape,
+        colors,
+        elevation,
+        border,
+        interactionSource
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -66,7 +92,21 @@ fun FilterChip(
     elevation: SelectableChipElevation? = FilterChipDefaults.filterChipElevation(),
     border: SelectableChipBorder? = FilterChipDefaults.filterChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit {
+) {
+    FilterChip(
+        selected,
+        onClick,
+        label,
+        modifier,
+        enabled,
+        leadingIcon,
+        trailingIcon,
+        shape,
+        colors,
+        elevation,
+        border,
+        interactionSource
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -84,7 +124,21 @@ fun ElevatedFilterChip(
     elevation: SelectableChipElevation? = FilterChipDefaults.elevatedFilterChipElevation(),
     border: SelectableChipBorder? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit {
+) {
+    androidx.compose.material3.ElevatedFilterChip(
+        selected,
+        onClick,
+        label,
+        modifier,
+        enabled,
+        leadingIcon,
+        trailingIcon,
+        shape,
+        colors,
+        elevation,
+        border,
+        interactionSource
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -103,7 +157,22 @@ fun InputChip(
     elevation: SelectableChipElevation? = InputChipDefaults.inputChipElevation(),
     border: SelectableChipBorder? = InputChipDefaults.inputChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit {
+) {
+    InputChip(
+        selected,
+        onClick,
+        label,
+        modifier,
+        enabled,
+        leadingIcon,
+        avatar,
+        trailingIcon,
+        shape,
+        colors,
+        elevation,
+        border,
+        interactionSource
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -119,7 +188,19 @@ fun SuggestionChip(
     elevation: ChipElevation? = SuggestionChipDefaults.suggestionChipElevation(),
     border: ChipBorder? = SuggestionChipDefaults.suggestionChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit {
+) {
+    androidx.compose.material3.SuggestionChip(
+        onClick,
+        label,
+        modifier,
+        enabled,
+        icon,
+        shape,
+        colors,
+        elevation,
+        border,
+        interactionSource
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -135,6 +216,18 @@ fun ElevatedSuggestionChip(
     elevation: ChipElevation? = SuggestionChipDefaults.elevatedSuggestionChipElevation(),
     border: ChipBorder? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit {
+) {
+    androidx.compose.material3.ElevatedSuggestionChip(
+        onClick,
+        label,
+        modifier,
+        enabled,
+        icon,
+        shape,
+        colors,
+        elevation,
+        border,
+        interactionSource
+    )
 }
 

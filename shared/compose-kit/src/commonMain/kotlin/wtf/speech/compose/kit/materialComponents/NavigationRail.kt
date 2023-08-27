@@ -20,7 +20,15 @@ fun NavigationRail(
     header: (@Composable ColumnScope.() -> Unit)? = null,
     windowInsets: WindowInsets = NavigationRailDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
-): Unit{
+) {
+    NavigationRail(
+        modifier,
+        containerColor,
+        contentColor,
+        header,
+        windowInsets,
+        content
+    )
 }
 
 @Composable
@@ -34,5 +42,16 @@ fun NavigationRailItem(
     alwaysShowLabel: Boolean = true,
     colors: NavigationRailItemColors = NavigationRailItemDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit{
+) {
+    NavigationRailItem(
+        selected,
+        onClick,
+        icon,
+        modifier,
+        enabled,
+        label,
+        alwaysShowLabel,
+        colors,
+        interactionSource
+    )
 }

@@ -15,6 +15,11 @@ fun Badge(
     containerColor: Color = BadgeDefaults.containerColor,
     contentColor: Color = contentColorFor(containerColor),
     content: (@Composable RowScope.() -> Unit)? = null
-): Unit{
-
+) {
+    Badge(
+        modifier,
+        containerColor,
+        contentColor,
+        content
+    )
 }

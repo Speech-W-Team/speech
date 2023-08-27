@@ -18,5 +18,16 @@ fun Snackbar(
     actionColor: Color = SnackbarDefaults.actionColor,
     actionContentColor: Color = SnackbarDefaults.actionContentColor,
     dismissActionContentColor: Color = SnackbarDefaults.dismissActionContentColor
-): Unit{
+) {
+    Snackbar(
+        snackbarData,
+        modifier,
+        actionOnNewLine,
+        shape,
+        containerColor,
+        contentColor,
+        actionColor,
+        actionContentColor,
+        dismissActionContentColor
+    )
 }

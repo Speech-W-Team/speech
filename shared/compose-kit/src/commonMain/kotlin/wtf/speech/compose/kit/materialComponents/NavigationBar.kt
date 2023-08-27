@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemColors
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.contentColorFor
@@ -22,7 +23,15 @@ fun NavigationBar(
     tonalElevation: Dp = NavigationBarDefaults.Elevation,
     windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
     content: @Composable RowScope.() -> Unit
-): Unit{
+) {
+    NavigationBar(
+        modifier,
+        containerColor,
+        contentColor,
+        tonalElevation,
+        windowInsets,
+        content
+    )
 }
 
 @Composable
@@ -36,5 +45,16 @@ fun RowScope.NavigationBarItem(
     alwaysShowLabel: Boolean = true,
     colors: NavigationBarItemColors = NavigationBarItemDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit{
+) {
+    NavigationBarItem(
+        selected,
+        onClick,
+        icon,
+        modifier,
+        enabled,
+        label,
+        alwaysShowLabel,
+        colors,
+        interactionSource
+    )
 }

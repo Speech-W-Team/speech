@@ -19,5 +19,16 @@ fun ListItem(
     colors: ListItemColors = ListItemDefaults.colors(),
     tonalElevation: Dp = ListItemDefaults.Elevation,
     shadowElevation: Dp = ListItemDefaults.Elevation
-): Unit{
+) {
+    ListItem(
+        headlineContent,
+        modifier,
+        overlineContent,
+        supportingContent,
+        leadingContent,
+        trailingContent,
+        colors,
+        tonalElevation,
+        shadowElevation
+    )
 }

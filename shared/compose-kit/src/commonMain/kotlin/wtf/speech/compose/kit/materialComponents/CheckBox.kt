@@ -16,7 +16,15 @@ fun Checkbox(
     enabled: Boolean = true,
     colors: CheckboxColors = CheckboxDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit{
+) {
+    Checkbox(
+        checked,
+        onCheckedChange,
+        modifier,
+        enabled,
+        colors,
+        interactionSource
+    )
 }
 
 @Composable
@@ -27,5 +35,13 @@ fun TriStateCheckbox(
     enabled: Boolean = true,
     colors: CheckboxColors = CheckboxDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit{
+) {
+    TriStateCheckbox(
+        state,
+        onClick,
+        modifier,
+        enabled,
+        colors,
+        interactionSource
+    )
 }

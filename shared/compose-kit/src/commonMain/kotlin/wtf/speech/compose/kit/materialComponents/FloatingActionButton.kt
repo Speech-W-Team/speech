@@ -21,7 +21,17 @@ fun FloatingActionButton(
     elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    FloatingActionButton(
+        onClick,
+        modifier,
+        shape,
+        containerColor,
+        contentColor,
+        elevation,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -34,7 +44,17 @@ fun SmallFloatingActionButton(
     elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    SmallFloatingActionButton(
+        onClick,
+        modifier,
+        shape,
+        containerColor,
+        contentColor,
+        elevation,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -47,7 +67,17 @@ fun LargeFloatingActionButton(
     elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
-): Unit{
+) {
+    LargeFloatingActionButton(
+        onClick,
+        modifier,
+        shape,
+        containerColor,
+        contentColor,
+        elevation,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -60,5 +90,15 @@ fun ExtendedFloatingActionButton(
     elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
-): Unit{
+) {
+    ExtendedFloatingActionButton(
+        onClick,
+        modifier,
+        shape,
+        containerColor,
+        contentColor,
+        elevation,
+        interactionSource,
+        content
+    )
 }

@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_EXPRESSION")
+
 package wtf.speech.compose.kit.materialComponents
 
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,7 +25,16 @@ fun BottomAppBar(
     contentPadding: PaddingValues = BottomAppBarDefaults.ContentPadding,
     windowInsets: WindowInsets = BottomAppBarDefaults.windowInsets,
     content: @Composable RowScope.() -> Unit
-): Unit{
+) {
+    BottomAppBar(
+        modifier,
+        containerColor,
+        contentColor,
+        tonalElevation,
+        contentPadding,
+        windowInsets,
+        content
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -36,7 +47,16 @@ fun CenterAlignedTopAppBar(
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null
-): Unit{
+) {
+    CenterAlignedTopAppBar(
+        title,
+        modifier,
+        navigationIcon,
+        actions,
+        windowInsets,
+        colors,
+        scrollBehavior
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -49,7 +69,16 @@ fun MediumTopAppBar(
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
     colors: TopAppBarColors = TopAppBarDefaults.mediumTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null
-): Unit{
+) {
+    MediumTopAppBar(
+        title,
+        modifier,
+        navigationIcon,
+        actions,
+        windowInsets,
+        colors,
+        scrollBehavior
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -62,5 +91,14 @@ fun LargeTopAppBar(
     windowInsets: WindowInsets = TopAppBarDefaults.windowInsets,
     colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null
-): Unit{
+) {
+    LargeTopAppBar(
+        title,
+        modifier,
+        navigationIcon,
+        actions,
+        windowInsets,
+        colors,
+        scrollBehavior
+    )
 }

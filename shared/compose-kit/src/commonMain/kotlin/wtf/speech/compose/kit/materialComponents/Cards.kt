@@ -17,7 +17,15 @@ fun Card(
     elevation: CardElevation = CardDefaults.cardElevation(),
     border: BorderStroke? = null,
     content: @Composable ColumnScope.() -> Unit
-): Unit{
+) {
+    Card(
+        modifier,
+        shape,
+        colors,
+        elevation,
+        border,
+        content
+    )
 }
 
 @Composable
@@ -27,7 +35,14 @@ fun ElevatedCard(
     colors: CardColors = CardDefaults.elevatedCardColors(),
     elevation: CardElevation = CardDefaults.elevatedCardElevation(),
     content: @Composable ColumnScope.() -> Unit
-): Unit{
+) {
+    ElevatedCard(
+        modifier,
+        shape,
+        colors,
+        elevation,
+        content
+    )
 }
 
 @Composable
@@ -38,5 +53,13 @@ fun OutlinedCard(
     elevation: CardElevation = CardDefaults.outlinedCardElevation(),
     border: BorderStroke = CardDefaults.outlinedCardBorder(),
     content: @Composable ColumnScope.() -> Unit
-): Unit{
+) {
+    OutlinedCard(
+        modifier,
+        shape,
+        colors,
+        elevation,
+        border,
+        content
+    )
 }

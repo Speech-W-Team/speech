@@ -26,7 +26,19 @@ fun Button(
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
-): Unit {
+) {
+    Button(
+        onClick,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        elevation,
+        border,
+        contentPadding,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -41,7 +53,19 @@ fun ElevatedButton(
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
-): Unit {
+) {
+    ElevatedButton(
+        onClick,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        elevation,
+        border,
+        contentPadding,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -56,7 +80,19 @@ fun FilledTonalButton(
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
-): Unit {
+) {
+    FilledTonalButton(
+        onClick,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        elevation,
+        border,
+        contentPadding,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -71,7 +107,19 @@ fun OutlinedButton(
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
-): Unit{
+) {
+    OutlinedButton(
+        onClick,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        elevation,
+        border,
+        contentPadding,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -86,7 +134,19 @@ fun TextButton(
     contentPadding: PaddingValues = ButtonDefaults.TextButtonContentPadding,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
-): Unit{
+) {
+    TextButton(
+        onClick,
+        modifier,
+        enabled,
+        shape,
+        colors,
+        elevation,
+        border,
+        contentPadding,
+        interactionSource,
+        content
+    )
 }
 
 @Composable
@@ -97,5 +157,13 @@ fun RadioButton(
     enabled: Boolean = true,
     colors: RadioButtonColors = RadioButtonDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit{
+) {
+    RadioButton(
+        selected,
+        onClick,
+        modifier,
+        enabled,
+        colors,
+        interactionSource
+    )
 }

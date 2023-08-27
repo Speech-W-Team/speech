@@ -16,5 +16,14 @@ fun Switch(
     enabled: Boolean = true,
     colors: SwitchColors = SwitchDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-): Unit{
+) {
+    Switch(
+        checked,
+        onCheckedChange,
+        modifier,
+        thumbContent,
+        enabled,
+        colors,
+        interactionSource
+    )
 }

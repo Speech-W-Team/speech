@@ -24,7 +24,15 @@ fun ModalNavigationDrawer(
     gesturesEnabled: Boolean = true,
     scrimColor: Color = DrawerDefaults.scrimColor,
     content: @Composable () -> Unit
-): Unit{
+) {
+    ModalNavigationDrawer(
+        drawerContent,
+        modifier,
+        drawerState,
+        gesturesEnabled,
+        scrimColor,
+        content
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -37,7 +45,16 @@ fun ModalDrawerSheet(
     drawerTonalElevation: Dp = DrawerDefaults.ModalDrawerElevation,
     windowInsets: WindowInsets = DrawerDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
-): Unit{
+) {
+    ModalDrawerSheet(
+        modifier,
+        drawerShape,
+        drawerContainerColor,
+        drawerContentColor,
+        drawerTonalElevation,
+        windowInsets,
+        content
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -46,7 +63,12 @@ fun PermanentNavigationDrawer(
     drawerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
-): Unit{
+) {
+    PermanentNavigationDrawer(
+        drawerContent,
+        modifier,
+        content
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -59,7 +81,16 @@ fun PermanentDrawerSheet(
     drawerTonalElevation: Dp = DrawerDefaults.PermanentDrawerElevation,
     windowInsets: WindowInsets = DrawerDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
-): Unit{
+) {
+    PermanentDrawerSheet(
+        modifier,
+        drawerShape,
+        drawerContainerColor,
+        drawerContentColor,
+        drawerTonalElevation,
+        windowInsets,
+        content
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -70,7 +101,14 @@ fun DismissibleNavigationDrawer(
     drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
     gesturesEnabled: Boolean = true,
     content: @Composable () -> Unit
-): Unit{
+) {
+    DismissibleNavigationDrawer(
+        drawerContent,
+        modifier,
+        drawerState,
+        gesturesEnabled,
+        content
+    )
 }
 
 @ExperimentalMaterial3Api
@@ -83,5 +121,14 @@ fun DismissibleDrawerSheet(
     drawerTonalElevation: Dp = DrawerDefaults.DismissibleDrawerElevation,
     windowInsets: WindowInsets = DrawerDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
-): Unit{
+) {
+    DismissibleDrawerSheet(
+        modifier,
+        drawerShape,
+        drawerContainerColor,
+        drawerContentColor,
+        drawerTonalElevation,
+        windowInsets,
+        content
+    )
 }
