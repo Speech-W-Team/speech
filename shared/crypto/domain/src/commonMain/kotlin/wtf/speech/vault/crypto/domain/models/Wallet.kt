@@ -1,8 +1,8 @@
 package wtf.speech.vault.crypto.domain.models
 
 import com.ionspin.kotlin.bignum.decimal.BigDecimal
+import wtf.speech.shared.core.domain.models.PrivateKey
 import wtf.speech.shared.core.domain.models.PublicKey
-
 
 /**
  * Represents a digital cryptocurrency wallet. This class encapsulates
@@ -20,6 +20,7 @@ class Wallet(
     val blockchain: Blockchain,
     val addresses: MutableSet<Address>,
     val publicKey: PublicKey,
+    val privateKey: PrivateKey,
     tokens: MutableSet<Token>
 ) {
     private val _tokens: MutableSet<Token> = tokens
@@ -70,8 +71,8 @@ class Wallet(
          * @param publicKey the public key for the wallet
          * @return a new default wallet instance
          */
-        fun defaultWallet(blockchain: Blockchain, publicKey: PublicKey): Wallet {
-            return Wallet(blockchain, mutableSetOf(), publicKey, mutableSetOf())
+        fun defaultWallet(blockchain: Blockchain, privateKey: PrivateKey, publicKey: PublicKey): Wallet {
+            return Wallet(blockchain, mutableSetOf(), publicKey, privateKey, mutableSetOf())
         }
     }
 }
