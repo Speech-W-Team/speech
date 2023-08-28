@@ -3,8 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.cocoapods)
     alias(libs.plugins.android.library)
     kotlin("plugin.serialization") version "1.9.0"
-
 }
+
 kotlin {
     androidTarget()
 
@@ -16,8 +16,8 @@ kotlin {
         version = "1.0.0"
         summary = "Some description for the Crypto Domain Module"
         homepage = "Link to the Crypto Domain Module homepage"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
+        ios.deploymentTarget = "15.5"
+        podfile = project.file("../../../vaultIos/Podfile")
         framework {
             baseName = "crypto-domain"
             isStatic = true
@@ -28,7 +28,6 @@ kotlin {
 
     sourceSets {
         val commonMain by getting {
-            //create custom compilation for commonMain
             dependencies {
                 implementation(project(":shared:core:domain"))
 
@@ -46,12 +45,6 @@ kotlin {
                 api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             }
         }
-        val commonMainnet by creating {
-            dependsOn(commonMain)
-        }
-        val commonTestnet by creating {
-            dependsOn(commonMain)
-        }
         val androidMain by getting {
             dependencies {
                 dependsOn(commonMain)
@@ -62,15 +55,9 @@ kotlin {
                 implementation("org.mockito:mockito-android:3.11.0")
             }
         }
-        val iosX64Main by getting
-        val iosArm64Main by getting
-        val iosSimulatorArm64Main by getting
-        val iosMain by creating {
-            dependsOn(commonMain)
-            iosX64Main.dependsOn(this)
-            iosArm64Main.dependsOn(this)
-            iosSimulatorArm64Main.dependsOn(this)
-        }
+//        val iosMain by creating {
+//            dependsOn(commonMain)
+//        }
     }
 
     // create custom compilation for commonMain
@@ -86,7 +73,7 @@ android {
 
     defaultConfig {
         minSdk = config.versions.android.minSdk.get().toInt()
-        targetSdk = config.versions.android.targetSdk.get().toInt()
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

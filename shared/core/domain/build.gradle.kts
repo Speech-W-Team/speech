@@ -15,8 +15,8 @@ kotlin {
         version = "1.0.0"
         summary = "Some description for the Core Domain Module"
         homepage = "Link to the Core Domain Module homepage"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
+        ios.deploymentTarget = "15.5"
+        podfile = project.file("../../../vaultIos/Podfile")
         framework {
             baseName = "core-domain"
             isStatic = true
@@ -48,7 +48,6 @@ android {
 
     defaultConfig {
         minSdk = config.versions.android.minSdk.get().toInt()
-        targetSdk = config.versions.android.targetSdk.get().toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

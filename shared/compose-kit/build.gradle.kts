@@ -12,12 +12,14 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
+    val file = project.file("../../")
+    println("RELATIVEPATH" + file.absolutePath)
     cocoapods {
         version = config.versions.ios.versionName.get()
         summary = "Some description for the Compose KIT Module"
         homepage = "Link to the Compose KIT Module homepage"
         ios.deploymentTarget = config.versions.ios.deploymentTarget.get()
-        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
+        podfile = project.file("../../vaultIos/Podfile")
         framework {
             baseName = ":shared:compose-kit"
             isStatic = true
@@ -34,6 +36,7 @@ kotlin {
                 api(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 api(compose.components.resources)
+                implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
             }
         }
         val androidMain by getting {
@@ -62,7 +65,7 @@ android {
 
     defaultConfig {
         minSdk = config.versions.android.minSdk.get().toInt()
-        targetSdk = config.versions.android.targetSdk.get().toInt()
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

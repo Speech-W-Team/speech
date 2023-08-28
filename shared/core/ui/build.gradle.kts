@@ -16,7 +16,7 @@ kotlin {
         summary = "Some description for the Core UI Module"
         homepage = "Link to the Core UI Module homepage"
         ios.deploymentTarget = "14.1"
-        podfile = project.file("/Users/usman/StudioProjects/speech/speech/vaultIos/Podfile")
+        podfile = project.file("../../../vaultIos/Podfile")
         framework {
             baseName = "core-ui"
             isStatic = true
@@ -32,6 +32,7 @@ kotlin {
                 api(project(":shared:compose-kit"))
 
                 api("com.ionspin.kotlin:bignum:0.3.8")
+                implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
             }
         }
     }
@@ -49,7 +50,7 @@ android {
 
     defaultConfig {
         minSdk = config.versions.android.minSdk.get().toInt()
-        targetSdk = config.versions.android.targetSdk.get().toInt()
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
