@@ -151,7 +151,3 @@ fun ripemd160(data: ByteArray): ByteArray {
 
     return output
 }
-
-expect suspend fun base58Encode(data: ByteArray): String
-
-expect suspend fun base58Decode(data: String): ByteArray
