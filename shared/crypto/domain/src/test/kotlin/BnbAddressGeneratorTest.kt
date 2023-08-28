@@ -7,9 +7,7 @@ import wtf.speech.vault.crypto.domain.usecases.AndroidKeyGenerator
 import wtf.speech.vault.crypto.domain.usecases.BitcoinAddressGenerator
 import wtf.speech.vault.crypto.domain.usecases.BnbAddressGenerator
 import wtf.speech.vault.crypto.domain.usecases.WalletFactory
-import wtf.speech.vault.crypto.domain.usecases.decodeBase58
-import wtf.speech.vault.crypto.domain.usecases.encodeToBase58String
-import wtf.speech.vault.crypto.domain.usecases.privateKeyFromWIF
+import wtf.speech.vault.crypto.domain.utils.encodeToBase58String
 
 class BnbAddressGeneratorTest {
     private val walletFactory = WalletFactory(BnbAddressGenerator, AndroidKeyGenerator)

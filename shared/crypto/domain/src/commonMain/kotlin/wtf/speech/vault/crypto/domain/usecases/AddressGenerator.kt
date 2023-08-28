@@ -128,8 +128,7 @@ object BnbAddressGenerator : AddressGenerator {
     }
 }
 
-
-suspend fun privateKeyFromWIF(wif: String): BigInteger {
+fun privateKeyFromWIF(wif: String): BigInteger {
     val decoded = wif.decodeBase58()
     return BigInteger.fromByteArray(decoded.sliceArray(1 until 33), Sign.POSITIVE)
 }
