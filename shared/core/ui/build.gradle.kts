@@ -32,6 +32,7 @@ kotlin {
                 api(project(":shared:compose-kit"))
 
                 api("com.ionspin.kotlin:bignum:0.3.8")
+                implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
             }
         }
     }

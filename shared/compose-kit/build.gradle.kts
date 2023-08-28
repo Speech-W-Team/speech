@@ -36,6 +36,7 @@ kotlin {
                 api(compose.material3)
                 @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
                 api(compose.components.resources)
+                implementation("org.jetbrains.kotlinx:atomicfu:0.21.0")
             }
         }
         val androidMain by getting {

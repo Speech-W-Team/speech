@@ -5,6 +5,11 @@ pluginManagement {
         google()
         gradlePluginPortal()
         mavenCentral()
+        jcenter {
+            content {
+                includeModule("org.jetbrains.kotlinx", "kotlinx-collections-immutable-jvm")
+            }
+        }
         maven {
             name = "komputing/KHash GitHub Packages"
             url = uri("https://maven.pkg.github.com/komputing/KHash")

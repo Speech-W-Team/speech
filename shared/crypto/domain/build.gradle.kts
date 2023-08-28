@@ -46,12 +46,6 @@ kotlin {
                 api("io.ktor:ktor-client-content-negotiation:$ktorVersion")
             }
         }
-        val commonMainnet by creating {
-            dependsOn(commonMain)
-        }
-        val commonTestnet by creating {
-            dependsOn(commonMain)
-        }
         val androidMain by getting {
             dependencies {
                 dependsOn(commonMain)

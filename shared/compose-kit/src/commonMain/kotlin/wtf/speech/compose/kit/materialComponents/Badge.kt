@@ -16,7 +16,7 @@ fun Badge(
     contentColor: Color = contentColorFor(containerColor),
     content: (@Composable RowScope.() -> Unit)? = null
 ) {
-    Badge(
+    androidx.compose.material3.Badge(
         modifier,
         containerColor,
         contentColor,
