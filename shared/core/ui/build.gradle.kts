@@ -50,7 +50,7 @@ android {
 
     defaultConfig {
         minSdk = config.versions.android.minSdk.get().toInt()
-        targetSdk = config.versions.android.targetSdk.get().toInt()
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

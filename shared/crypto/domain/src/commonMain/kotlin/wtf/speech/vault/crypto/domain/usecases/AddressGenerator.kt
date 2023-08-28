@@ -8,6 +8,8 @@ import org.komputing.khash.ripemd160.Ripemd160Digest
 import org.komputing.khash.sha256.Sha256
 import wtf.speech.shared.core.domain.models.PublicKey
 import wtf.speech.vault.crypto.domain.models.Address
+import wtf.speech.vault.crypto.domain.utils.decodeBase58
+import wtf.speech.vault.crypto.domain.utils.encodeToBase58String
 
 /**
  * Interface for generating blockchain addresses based on public keys.
@@ -73,12 +75,12 @@ object BitcoinAddressGenerator : AddressGenerator {
         val checksum = sha256(sha256(preChecksumAddress)).take(4).toByteArray()
         val finalAddressBytes = preChecksumAddress + checksum
 
-        val address = base58Encode(finalAddressBytes)
+        val address = finalAddressBytes.encodeToBase58String()
         return Address(address)
     }
 
     override suspend fun validateAddress(address: Address): Boolean {
-        val decoded = base58Decode(address.value)
+        val decoded = address.value.decodeBase58()
         val checksum = decoded.takeLast(4).toByteArray()
         val data = decoded.dropLast(4).toByteArray()
 
@@ -106,7 +108,7 @@ object BnbAddressGenerator : AddressGenerator {
         val pubKeyHash = ripemd160(sha256(pubKeyBytes))
         val addressBytes = byteArrayOf(0x41) + pubKeyHash.sliceArray(0..19)
         val checksum = sha256(sha256(addressBytes)).sliceArray(0..3)
-        val address = base58Encode(addressBytes + checksum)
+        val address = (addressBytes + checksum).encodeToBase58String()
         return Address(address)
     }
 
@@ -114,7 +116,7 @@ object BnbAddressGenerator : AddressGenerator {
         // validate address for BNB Smart Chain
         // https://docs.binance.org/smart-chain/developer/address.html
         try {
-            val addressBytes = base58Decode(address.value)
+            val addressBytes = address.value.decodeBase58()
             if (addressBytes.size != 25 || addressBytes[0] != 0x41.toByte()) {
                 return false
             }
@@ -129,7 +131,7 @@ object BnbAddressGenerator : AddressGenerator {
 
 
 suspend fun privateKeyFromWIF(wif: String): BigInteger {
-    val decoded = base58Decode(wif)
+    val decoded = wif.decodeBase58()
     return BigInteger.fromByteArray(decoded.sliceArray(1 until 33), Sign.POSITIVE)
 }
 
@@ -150,7 +152,3 @@ fun ripemd160(data: ByteArray): ByteArray {
 
     return output
 }
-
-expect suspend fun base58Encode(data: ByteArray): String
-
-expect suspend fun base58Decode(data: String): ByteArray

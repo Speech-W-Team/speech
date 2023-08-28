@@ -16,7 +16,7 @@ kotlin {
         version = "1.0.0"
         summary = "Some description for the Shared Module"
         homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = "14.1"
+        ios.deploymentTarget = "15.5"
         podfile = project.file("../vaultIos/Podfile")
         framework {
             baseName = "shared"
@@ -70,7 +70,7 @@ android {
 
     defaultConfig {
         minSdk = config.versions.android.minSdk.get().toInt()
-        targetSdk = config.versions.android.targetSdk.get().toInt()
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
