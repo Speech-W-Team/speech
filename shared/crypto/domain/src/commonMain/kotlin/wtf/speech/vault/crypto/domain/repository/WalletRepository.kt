@@ -8,7 +8,6 @@ import wtf.speech.vault.crypto.domain.models.Wallet
 interface WalletRepository {
     fun getWallet(cryptoType: CryptoType): Wallet
 
-    fun get
     fun saveWallet(crypto: Wallet)
 }
 

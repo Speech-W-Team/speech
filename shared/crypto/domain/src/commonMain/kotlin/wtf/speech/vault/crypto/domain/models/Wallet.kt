@@ -59,10 +59,10 @@ class Wallet(
      * @param token the token to check
      * @return the balance of the token
      */
-    fun balanceOf(token: Token): BigDecimal {
-        // Fetch balance from a source...
-        return BigDecimal.ZERO
-    }
+//    fun balanceOf(token: Token): BigDecimal {
+//        // Fetch balance from a source...
+//        return BigDecimal.ZERO
+//    }
 
     companion object {
         /**
