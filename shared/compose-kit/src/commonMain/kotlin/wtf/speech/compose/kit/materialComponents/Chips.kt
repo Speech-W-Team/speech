@@ -32,7 +32,7 @@ fun AssistChip(
     border: ChipBorder? = AssistChipDefaults.assistChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    AssistChip(
+    androidx.compose.material3.AssistChip(
         onClick,
         label,
         modifier,
@@ -62,7 +62,7 @@ fun ElevatedAssistChip(
     border: ChipBorder? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    ElevatedAssistChip(
+    androidx.compose.material3.ElevatedAssistChip(
         onClick,
         label,
         modifier,
@@ -93,7 +93,7 @@ fun FilterChip(
     border: SelectableChipBorder? = FilterChipDefaults.filterChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    FilterChip(
+    androidx.compose.material3.FilterChip(
         selected,
         onClick,
         label,
@@ -158,7 +158,7 @@ fun InputChip(
     border: SelectableChipBorder? = InputChipDefaults.inputChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    InputChip(
+    androidx.compose.material3.InputChip(
         selected,
         onClick,
         label,

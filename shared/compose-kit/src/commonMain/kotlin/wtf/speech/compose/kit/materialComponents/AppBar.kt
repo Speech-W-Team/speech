@@ -1,5 +1,3 @@
-@file:Suppress("UNUSED_EXPRESSION")
-
 package wtf.speech.compose.kit.materialComponents
 
 import androidx.compose.foundation.layout.PaddingValues
@@ -26,7 +24,7 @@ fun BottomAppBar(
     windowInsets: WindowInsets = BottomAppBarDefaults.windowInsets,
     content: @Composable RowScope.() -> Unit
 ) {
-    BottomAppBar(
+    androidx.compose.material3.BottomAppBar(
         modifier,
         containerColor,
         contentColor,
@@ -48,7 +46,7 @@ fun CenterAlignedTopAppBar(
     colors: TopAppBarColors = TopAppBarDefaults.centerAlignedTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
-    CenterAlignedTopAppBar(
+    androidx.compose.material3.CenterAlignedTopAppBar(
         title,
         modifier,
         navigationIcon,
@@ -70,7 +68,7 @@ fun MediumTopAppBar(
     colors: TopAppBarColors = TopAppBarDefaults.mediumTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
-    MediumTopAppBar(
+    androidx.compose.material3.MediumTopAppBar(
         title,
         modifier,
         navigationIcon,
@@ -92,7 +90,7 @@ fun LargeTopAppBar(
     colors: TopAppBarColors = TopAppBarDefaults.largeTopAppBarColors(),
     scrollBehavior: TopAppBarScrollBehavior? = null
 ) {
-    LargeTopAppBar(
+    androidx.compose.material3.LargeTopAppBar(
         title,
         modifier,
         navigationIcon,

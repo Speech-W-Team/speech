@@ -27,7 +27,7 @@ fun Button(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    Button(
+    androidx.compose.material3.Button(
         onClick,
         modifier,
         enabled,
@@ -54,7 +54,7 @@ fun ElevatedButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    ElevatedButton(
+    androidx.compose.material3.ElevatedButton(
         onClick,
         modifier,
         enabled,
@@ -81,7 +81,7 @@ fun FilledTonalButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    FilledTonalButton(
+    androidx.compose.material3.FilledTonalButton(
         onClick,
         modifier,
         enabled,
@@ -108,7 +108,7 @@ fun OutlinedButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    OutlinedButton(
+    androidx.compose.material3.OutlinedButton(
         onClick,
         modifier,
         enabled,
@@ -135,7 +135,7 @@ fun TextButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    TextButton(
+    androidx.compose.material3.TextButton(
         onClick,
         modifier,
         enabled,
@@ -158,7 +158,7 @@ fun RadioButton(
     colors: RadioButtonColors = RadioButtonDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    RadioButton(
+    androidx.compose.material3.RadioButton(
         selected,
         onClick,
         modifier,

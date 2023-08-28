@@ -18,7 +18,7 @@ fun Card(
     border: BorderStroke? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Card(
+    androidx.compose.material3.Card(
         modifier,
         shape,
         colors,
@@ -36,7 +36,7 @@ fun ElevatedCard(
     elevation: CardElevation = CardDefaults.elevatedCardElevation(),
     content: @Composable ColumnScope.() -> Unit
 ) {
-    ElevatedCard(
+    androidx.compose.material3.ElevatedCard(
         modifier,
         shape,
         colors,
@@ -54,7 +54,7 @@ fun OutlinedCard(
     border: BorderStroke = CardDefaults.outlinedCardBorder(),
     content: @Composable ColumnScope.() -> Unit
 ) {
-    OutlinedCard(
+    androidx.compose.material3.OutlinedCard(
         modifier,
         shape,
         colors,

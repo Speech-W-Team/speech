@@ -25,7 +25,7 @@ fun ModalNavigationDrawer(
     scrimColor: Color = DrawerDefaults.scrimColor,
     content: @Composable () -> Unit
 ) {
-    ModalNavigationDrawer(
+    androidx.compose.material3.ModalNavigationDrawer(
         drawerContent,
         modifier,
         drawerState,
@@ -46,7 +46,7 @@ fun ModalDrawerSheet(
     windowInsets: WindowInsets = DrawerDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    ModalDrawerSheet(
+    androidx.compose.material3.ModalDrawerSheet(
         modifier,
         drawerShape,
         drawerContainerColor,
@@ -64,7 +64,7 @@ fun PermanentNavigationDrawer(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    PermanentNavigationDrawer(
+    androidx.compose.material3.PermanentNavigationDrawer(
         drawerContent,
         modifier,
         content
@@ -82,7 +82,7 @@ fun PermanentDrawerSheet(
     windowInsets: WindowInsets = DrawerDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    PermanentDrawerSheet(
+    androidx.compose.material3.PermanentDrawerSheet(
         modifier,
         drawerShape,
         drawerContainerColor,
@@ -102,7 +102,7 @@ fun DismissibleNavigationDrawer(
     gesturesEnabled: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    DismissibleNavigationDrawer(
+    androidx.compose.material3.DismissibleNavigationDrawer(
         drawerContent,
         modifier,
         drawerState,
@@ -122,7 +122,7 @@ fun DismissibleDrawerSheet(
     windowInsets: WindowInsets = DrawerDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    DismissibleDrawerSheet(
+    androidx.compose.material3.DismissibleDrawerSheet(
         modifier,
         drawerShape,
         drawerContainerColor,

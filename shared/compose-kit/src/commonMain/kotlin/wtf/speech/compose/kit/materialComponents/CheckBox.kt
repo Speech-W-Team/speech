@@ -17,7 +17,7 @@ fun Checkbox(
     colors: CheckboxColors = CheckboxDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    Checkbox(
+    androidx.compose.material3.Checkbox(
         checked,
         onCheckedChange,
         modifier,
@@ -36,7 +36,7 @@ fun TriStateCheckbox(
     colors: CheckboxColors = CheckboxDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    TriStateCheckbox(
+    androidx.compose.material3.TriStateCheckbox(
         state,
         onClick,
         modifier,

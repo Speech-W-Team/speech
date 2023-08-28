@@ -21,7 +21,7 @@ fun NavigationRail(
     windowInsets: WindowInsets = NavigationRailDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    NavigationRail(
+    androidx.compose.material3.NavigationRail(
         modifier,
         containerColor,
         contentColor,
@@ -43,7 +43,7 @@ fun NavigationRailItem(
     colors: NavigationRailItemColors = NavigationRailItemDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    NavigationRailItem(
+    androidx.compose.material3.NavigationRailItem(
         selected,
         onClick,
         icon,

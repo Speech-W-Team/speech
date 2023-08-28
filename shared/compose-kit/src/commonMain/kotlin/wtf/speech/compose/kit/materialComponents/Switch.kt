@@ -17,7 +17,7 @@ fun Switch(
     colors: SwitchColors = SwitchDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    Switch(
+    androidx.compose.material3.Switch(
         checked,
         onCheckedChange,
         modifier,

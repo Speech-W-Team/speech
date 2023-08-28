@@ -19,7 +19,7 @@ fun IconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    IconButton(
+    androidx.compose.material3.IconButton(
         onClick,
         modifier,
         enabled,
@@ -39,7 +39,7 @@ fun IconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    IconToggleButton(
+    androidx.compose.material3.IconToggleButton(
         checked,
         onCheckedChange,
         modifier,
@@ -60,7 +60,7 @@ fun FilledIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    FilledIconButton(
+    androidx.compose.material3.FilledIconButton(
         onClick,
         modifier,
         enabled,
@@ -82,7 +82,7 @@ fun FilledIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    FilledIconToggleButton(
+    androidx.compose.material3.FilledIconToggleButton(
         checked,
         onCheckedChange,
         modifier,
@@ -104,7 +104,7 @@ fun FilledTonalIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    FilledTonalIconButton(
+    androidx.compose.material3.FilledTonalIconButton(
         onClick,
         modifier,
         enabled,
@@ -126,7 +126,7 @@ fun FilledTonalIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    FilledTonalIconToggleButton(
+    androidx.compose.material3.FilledTonalIconToggleButton(
         checked,
         onCheckedChange,
         modifier,
@@ -149,7 +149,7 @@ fun OutlinedIconButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    OutlinedIconButton(
+    androidx.compose.material3.OutlinedIconButton(
         onClick,
         modifier,
         enabled,
@@ -173,7 +173,7 @@ fun OutlinedIconToggleButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    OutlinedIconToggleButton(
+    androidx.compose.material3.OutlinedIconToggleButton(
         checked,
         onCheckedChange,
         modifier,

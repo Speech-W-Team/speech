@@ -24,37 +24,12 @@ fun NavigationBar(
     windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
     content: @Composable RowScope.() -> Unit
 ) {
-    NavigationBar(
+    androidx.compose.material3.NavigationBar(
         modifier,
         containerColor,
         contentColor,
         tonalElevation,
         windowInsets,
         content
-    )
-}
-
-@Composable
-fun RowScope.NavigationBarItem(
-    selected: Boolean,
-    onClick: () -> Unit,
-    icon: @Composable () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    label: (@Composable () -> Unit)? = null,
-    alwaysShowLabel: Boolean = true,
-    colors: NavigationBarItemColors = NavigationBarItemDefaults.colors(),
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
-) {
-    NavigationBarItem(
-        selected,
-        onClick,
-        icon,
-        modifier,
-        enabled,
-        label,
-        alwaysShowLabel,
-        colors,
-        interactionSource
     )
 }

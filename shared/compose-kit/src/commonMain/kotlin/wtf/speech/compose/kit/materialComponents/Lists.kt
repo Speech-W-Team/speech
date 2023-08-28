@@ -20,7 +20,7 @@ fun ListItem(
     tonalElevation: Dp = ListItemDefaults.Elevation,
     shadowElevation: Dp = ListItemDefaults.Elevation
 ) {
-    ListItem(
+    androidx.compose.material3.ListItem(
         headlineContent,
         modifier,
         overlineContent,

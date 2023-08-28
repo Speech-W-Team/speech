@@ -19,7 +19,7 @@ fun Snackbar(
     actionContentColor: Color = SnackbarDefaults.actionContentColor,
     dismissActionContentColor: Color = SnackbarDefaults.dismissActionContentColor
 ) {
-    Snackbar(
+    androidx.compose.material3.Snackbar(
         snackbarData,
         modifier,
         actionOnNewLine,

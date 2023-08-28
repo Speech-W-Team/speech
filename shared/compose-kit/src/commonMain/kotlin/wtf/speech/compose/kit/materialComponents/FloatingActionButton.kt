@@ -22,7 +22,7 @@ fun FloatingActionButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    FloatingActionButton(
+    androidx.compose.material3.FloatingActionButton(
         onClick,
         modifier,
         shape,
@@ -45,7 +45,7 @@ fun SmallFloatingActionButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    SmallFloatingActionButton(
+    androidx.compose.material3.SmallFloatingActionButton(
         onClick,
         modifier,
         shape,
@@ -68,7 +68,7 @@ fun LargeFloatingActionButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    LargeFloatingActionButton(
+    androidx.compose.material3.LargeFloatingActionButton(
         onClick,
         modifier,
         shape,
@@ -91,7 +91,7 @@ fun ExtendedFloatingActionButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    ExtendedFloatingActionButton(
+    androidx.compose.material3.ExtendedFloatingActionButton(
         onClick,
         modifier,
         shape,
