@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 
 @Composable
-fun IconButton(
+fun IconButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -30,7 +30,7 @@ fun IconButton(
 }
 
 @Composable
-fun IconToggleButton(
+fun IconToggleButtonSpeech(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -51,7 +51,7 @@ fun IconToggleButton(
 }
 
 @Composable
-fun FilledIconButton(
+fun FilledIconButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -72,7 +72,7 @@ fun FilledIconButton(
 }
 
 @Composable
-fun FilledIconToggleButton(
+fun FilledIconToggleButtonSpeech(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -95,7 +95,7 @@ fun FilledIconToggleButton(
 }
 
 @Composable
-fun FilledTonalIconButton(
+fun FilledTonalIconButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -116,7 +116,7 @@ fun FilledTonalIconButton(
 }
 
 @Composable
-fun FilledTonalIconToggleButton(
+fun FilledTonalIconToggleButtonSpeech(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -139,7 +139,7 @@ fun FilledTonalIconToggleButton(
 }
 
 @Composable
-fun OutlinedIconButton(
+fun OutlinedIconButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -162,7 +162,7 @@ fun OutlinedIconButton(
 }
 
 @Composable
-fun OutlinedIconToggleButton(
+fun OutlinedIconToggleButtonSpeech(
     checked: Boolean,
     onCheckedChange: (Boolean) -> Unit,
     modifier: Modifier = Modifier,

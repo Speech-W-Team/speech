@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 
 @Composable
-fun NavigationBar(
+fun NavigationBarSpeech(
     modifier: Modifier = Modifier,
     containerColor: Color = NavigationBarDefaults.containerColor,
     contentColor: Color = MaterialTheme.colorScheme.contentColorFor(containerColor),
@@ -31,5 +31,30 @@ fun NavigationBar(
         tonalElevation,
         windowInsets,
         content
+    )
+}
+
+@Composable
+fun RowScope.NavigationBarItemSpeech(
+    selected: Boolean,
+    onClick: () -> Unit,
+    icon: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    label: (@Composable () -> Unit)? = null,
+    alwaysShowLabel: Boolean = true,
+    colors: NavigationBarItemColors = NavigationBarItemDefaults.colors(),
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
+) {
+    NavigationBarItem(
+        selected,
+        onClick,
+        icon,
+        modifier,
+        enabled,
+        label,
+        alwaysShowLabel,
+        colors,
+        interactionSource
     )
 }

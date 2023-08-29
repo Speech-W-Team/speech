@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 
 @Composable
-fun FloatingActionButton(
+fun FloatingActionButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = FloatingActionButtonDefaults.shape,
@@ -35,7 +35,7 @@ fun FloatingActionButton(
 }
 
 @Composable
-fun SmallFloatingActionButton(
+fun SmallFloatingActionButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = FloatingActionButtonDefaults.smallShape,
@@ -58,7 +58,7 @@ fun SmallFloatingActionButton(
 }
 
 @Composable
-fun LargeFloatingActionButton(
+fun LargeFloatingActionButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = FloatingActionButtonDefaults.largeShape,
@@ -81,7 +81,7 @@ fun LargeFloatingActionButton(
 }
 
 @Composable
-fun ExtendedFloatingActionButton(
+fun ExtendedFloatingActionButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = FloatingActionButtonDefaults.extendedFabShape,

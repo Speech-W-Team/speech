@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.Dp
 
 @ExperimentalMaterial3Api
 @Composable
-fun ListItem(
+fun ListItemSpeech(
     headlineContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     overlineContent: (@Composable () -> Unit)? = null,

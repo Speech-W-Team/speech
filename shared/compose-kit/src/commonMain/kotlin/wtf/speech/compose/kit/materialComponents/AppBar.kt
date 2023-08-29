@@ -15,7 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 
 @Composable
-fun BottomAppBar(
+fun BottomAppBarSpeech(
     modifier: Modifier = Modifier,
     containerColor: Color = BottomAppBarDefaults.containerColor,
     contentColor: Color = contentColorFor(containerColor),
@@ -37,7 +37,7 @@ fun BottomAppBar(
 
 @ExperimentalMaterial3Api
 @Composable
-fun CenterAlignedTopAppBar(
+fun CenterAlignedTopAppBarSpeech(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {},
@@ -59,7 +59,7 @@ fun CenterAlignedTopAppBar(
 
 @ExperimentalMaterial3Api
 @Composable
-fun MediumTopAppBar(
+fun MediumTopAppBarSpeech(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {},
@@ -81,7 +81,7 @@ fun MediumTopAppBar(
 
 @ExperimentalMaterial3Api
 @Composable
-fun LargeTopAppBar(
+fun LargeTopAppBarSpeech(
     title: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {},

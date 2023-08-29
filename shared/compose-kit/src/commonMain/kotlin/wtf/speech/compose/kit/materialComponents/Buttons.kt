@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 
 @Composable
-fun Button(
+fun ButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -42,7 +42,7 @@ fun Button(
 }
 
 @Composable
-fun ElevatedButton(
+fun ElevatedButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -69,7 +69,7 @@ fun ElevatedButton(
 }
 
 @Composable
-fun FilledTonalButton(
+fun FilledTonalButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -96,7 +96,7 @@ fun FilledTonalButton(
 }
 
 @Composable
-fun OutlinedButton(
+fun OutlinedButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -123,7 +123,7 @@ fun OutlinedButton(
 }
 
 @Composable
-fun TextButton(
+fun TextButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -150,7 +150,7 @@ fun TextButton(
 }
 
 @Composable
-fun RadioButton(
+fun RadioButtonSpeech(
     selected: Boolean,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
