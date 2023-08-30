@@ -35,7 +35,7 @@ fun NavigationBar(
 }
 
 @Composable
-fun RowScope.NavigationBarItem(
+fun RowScope.NavigationBarItemSpeech(
     selected: Boolean,
     onClick: () -> Unit,
     icon: @Composable () -> Unit,
