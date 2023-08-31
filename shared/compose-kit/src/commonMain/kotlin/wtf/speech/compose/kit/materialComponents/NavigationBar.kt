@@ -16,7 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 
 @Composable
-fun NavigationBar(
+fun NavigationBarSpeech(
     modifier: Modifier = Modifier,
     containerColor: Color = NavigationBarDefaults.containerColor,
     contentColor: Color = MaterialTheme.colorScheme.contentColorFor(containerColor),
@@ -24,7 +24,7 @@ fun NavigationBar(
     windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
     content: @Composable RowScope.() -> Unit
 ) {
-    NavigationBar(
+    androidx.compose.material3.NavigationBar(
         modifier,
         containerColor,
         contentColor,
@@ -35,7 +35,7 @@ fun NavigationBar(
 }
 
 @Composable
-fun RowScope.NavigationBarItem(
+fun RowScope.NavigationBarItemSpeech(
     selected: Boolean,
     onClick: () -> Unit,
     icon: @Composable () -> Unit,

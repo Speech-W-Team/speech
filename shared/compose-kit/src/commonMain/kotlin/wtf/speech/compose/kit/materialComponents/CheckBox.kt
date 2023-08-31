@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.state.ToggleableState
 
 @Composable
-fun Checkbox(
+fun CheckboxSpeech(
     checked: Boolean,
     onCheckedChange: ((Boolean) -> Unit)?,
     modifier: Modifier = Modifier,
@@ -17,7 +17,7 @@ fun Checkbox(
     colors: CheckboxColors = CheckboxDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    Checkbox(
+    androidx.compose.material3.Checkbox(
         checked,
         onCheckedChange,
         modifier,
@@ -28,7 +28,7 @@ fun Checkbox(
 }
 
 @Composable
-fun TriStateCheckbox(
+fun TriStateCheckboxSpeech(
     state: ToggleableState,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
@@ -36,7 +36,7 @@ fun TriStateCheckbox(
     colors: CheckboxColors = CheckboxDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    TriStateCheckbox(
+    androidx.compose.material3.TriStateCheckbox(
         state,
         onClick,
         modifier,

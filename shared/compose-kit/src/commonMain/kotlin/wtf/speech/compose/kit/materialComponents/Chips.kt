@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Shape
 
 @ExperimentalMaterial3Api
 @Composable
-fun AssistChip(
+fun AssistChipSpeech(
     onClick: () -> Unit,
     label: @Composable () -> Unit,
     modifier: Modifier = Modifier,
@@ -32,7 +32,7 @@ fun AssistChip(
     border: ChipBorder? = AssistChipDefaults.assistChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    AssistChip(
+    androidx.compose.material3.AssistChip(
         onClick,
         label,
         modifier,
@@ -49,7 +49,7 @@ fun AssistChip(
 
 @ExperimentalMaterial3Api
 @Composable
-fun ElevatedAssistChip(
+fun ElevatedAssistChipSpeech(
     onClick: () -> Unit,
     label: @Composable () -> Unit,
     modifier: Modifier = Modifier,
@@ -62,7 +62,7 @@ fun ElevatedAssistChip(
     border: ChipBorder? = null,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    ElevatedAssistChip(
+    androidx.compose.material3.ElevatedAssistChip(
         onClick,
         label,
         modifier,
@@ -79,7 +79,7 @@ fun ElevatedAssistChip(
 
 @ExperimentalMaterial3Api
 @Composable
-fun FilterChip(
+fun FilterChipSpeech(
     selected: Boolean,
     onClick: () -> Unit,
     label: @Composable () -> Unit,
@@ -93,7 +93,7 @@ fun FilterChip(
     border: SelectableChipBorder? = FilterChipDefaults.filterChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    FilterChip(
+    androidx.compose.material3.FilterChip(
         selected,
         onClick,
         label,
@@ -111,7 +111,7 @@ fun FilterChip(
 
 @ExperimentalMaterial3Api
 @Composable
-fun ElevatedFilterChip(
+fun ElevatedFilterChipSpeech(
     selected: Boolean,
     onClick: () -> Unit,
     label: @Composable () -> Unit,
@@ -143,7 +143,7 @@ fun ElevatedFilterChip(
 
 @ExperimentalMaterial3Api
 @Composable
-fun InputChip(
+fun InputChipSpeech(
     selected: Boolean,
     onClick: () -> Unit,
     label: @Composable () -> Unit,
@@ -158,7 +158,7 @@ fun InputChip(
     border: SelectableChipBorder? = InputChipDefaults.inputChipBorder(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    InputChip(
+    androidx.compose.material3.InputChip(
         selected,
         onClick,
         label,
@@ -177,7 +177,7 @@ fun InputChip(
 
 @ExperimentalMaterial3Api
 @Composable
-fun SuggestionChip(
+fun SuggestionChipSpeech(
     onClick: () -> Unit,
     label: @Composable () -> Unit,
     modifier: Modifier = Modifier,
@@ -205,7 +205,7 @@ fun SuggestionChip(
 
 @ExperimentalMaterial3Api
 @Composable
-fun ElevatedSuggestionChip(
+fun ElevatedSuggestionChipSpeech(
     onClick: () -> Unit,
     label: @Composable () -> Unit,
     modifier: Modifier = Modifier,

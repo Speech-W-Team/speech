@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 
 @Composable
-fun NavigationRail(
+fun NavigationRailSpeech(
     modifier: Modifier = Modifier,
     containerColor: Color = NavigationRailDefaults.ContainerColor,
     contentColor: Color = contentColorFor(containerColor),
@@ -21,7 +21,7 @@ fun NavigationRail(
     windowInsets: WindowInsets = NavigationRailDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    NavigationRail(
+    androidx.compose.material3.NavigationRail(
         modifier,
         containerColor,
         contentColor,
@@ -32,7 +32,7 @@ fun NavigationRail(
 }
 
 @Composable
-fun NavigationRailItem(
+fun NavigationRailItemSpeech(
     selected: Boolean,
     onClick: () -> Unit,
     icon: @Composable () -> Unit,
@@ -43,7 +43,7 @@ fun NavigationRailItem(
     colors: NavigationRailItemColors = NavigationRailItemDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    NavigationRailItem(
+    androidx.compose.material3.NavigationRailItem(
         selected,
         onClick,
         icon,

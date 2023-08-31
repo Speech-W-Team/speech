@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 
 @Composable
-fun FloatingActionButton(
+fun FloatingActionButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = FloatingActionButtonDefaults.shape,
@@ -22,7 +22,7 @@ fun FloatingActionButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    FloatingActionButton(
+    androidx.compose.material3.FloatingActionButton(
         onClick,
         modifier,
         shape,
@@ -35,7 +35,7 @@ fun FloatingActionButton(
 }
 
 @Composable
-fun SmallFloatingActionButton(
+fun SmallFloatingActionButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = FloatingActionButtonDefaults.smallShape,
@@ -45,7 +45,7 @@ fun SmallFloatingActionButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    SmallFloatingActionButton(
+    androidx.compose.material3.SmallFloatingActionButton(
         onClick,
         modifier,
         shape,
@@ -58,7 +58,7 @@ fun SmallFloatingActionButton(
 }
 
 @Composable
-fun LargeFloatingActionButton(
+fun LargeFloatingActionButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = FloatingActionButtonDefaults.largeShape,
@@ -68,7 +68,7 @@ fun LargeFloatingActionButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit
 ) {
-    LargeFloatingActionButton(
+    androidx.compose.material3.LargeFloatingActionButton(
         onClick,
         modifier,
         shape,
@@ -81,7 +81,7 @@ fun LargeFloatingActionButton(
 }
 
 @Composable
-fun ExtendedFloatingActionButton(
+fun ExtendedFloatingActionButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = FloatingActionButtonDefaults.extendedFabShape,
@@ -91,7 +91,7 @@ fun ExtendedFloatingActionButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    ExtendedFloatingActionButton(
+    androidx.compose.material3.ExtendedFloatingActionButton(
         onClick,
         modifier,
         shape,

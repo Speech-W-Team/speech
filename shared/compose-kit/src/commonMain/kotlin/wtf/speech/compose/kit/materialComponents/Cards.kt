@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 
 @Composable
-fun Card(
+fun CardSpeech(
     modifier: Modifier = Modifier,
     shape: Shape = CardDefaults.shape,
     colors: CardColors = CardDefaults.cardColors(),
@@ -18,7 +18,7 @@ fun Card(
     border: BorderStroke? = null,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    Card(
+    androidx.compose.material3.Card(
         modifier,
         shape,
         colors,
@@ -29,14 +29,14 @@ fun Card(
 }
 
 @Composable
-fun ElevatedCard(
+fun ElevatedCardSpeech(
     modifier: Modifier = Modifier,
     shape: Shape = CardDefaults.elevatedShape,
     colors: CardColors = CardDefaults.elevatedCardColors(),
     elevation: CardElevation = CardDefaults.elevatedCardElevation(),
     content: @Composable ColumnScope.() -> Unit
 ) {
-    ElevatedCard(
+    androidx.compose.material3.ElevatedCard(
         modifier,
         shape,
         colors,
@@ -46,7 +46,7 @@ fun ElevatedCard(
 }
 
 @Composable
-fun OutlinedCard(
+fun OutlinedCardSpeech(
     modifier: Modifier = Modifier,
     shape: Shape = CardDefaults.outlinedShape,
     colors: CardColors = CardDefaults.outlinedCardColors(),
@@ -54,7 +54,7 @@ fun OutlinedCard(
     border: BorderStroke = CardDefaults.outlinedCardBorder(),
     content: @Composable ColumnScope.() -> Unit
 ) {
-    OutlinedCard(
+    androidx.compose.material3.OutlinedCard(
         modifier,
         shape,
         colors,

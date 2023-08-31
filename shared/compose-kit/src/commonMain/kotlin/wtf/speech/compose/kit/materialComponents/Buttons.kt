@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 
 @Composable
-fun Button(
+fun ButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -27,7 +27,7 @@ fun Button(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    Button(
+    androidx.compose.material3.Button(
         onClick,
         modifier,
         enabled,
@@ -42,7 +42,7 @@ fun Button(
 }
 
 @Composable
-fun ElevatedButton(
+fun ElevatedButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -54,7 +54,7 @@ fun ElevatedButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    ElevatedButton(
+    androidx.compose.material3.ElevatedButton(
         onClick,
         modifier,
         enabled,
@@ -69,7 +69,7 @@ fun ElevatedButton(
 }
 
 @Composable
-fun FilledTonalButton(
+fun FilledTonalButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -81,7 +81,7 @@ fun FilledTonalButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    FilledTonalButton(
+    androidx.compose.material3.FilledTonalButton(
         onClick,
         modifier,
         enabled,
@@ -96,7 +96,7 @@ fun FilledTonalButton(
 }
 
 @Composable
-fun OutlinedButton(
+fun OutlinedButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -108,7 +108,7 @@ fun OutlinedButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    OutlinedButton(
+    androidx.compose.material3.OutlinedButton(
         onClick,
         modifier,
         enabled,
@@ -123,7 +123,7 @@ fun OutlinedButton(
 }
 
 @Composable
-fun TextButton(
+fun TextButtonSpeech(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
@@ -135,7 +135,7 @@ fun TextButton(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable RowScope.() -> Unit
 ) {
-    TextButton(
+    androidx.compose.material3.TextButton(
         onClick,
         modifier,
         enabled,
@@ -150,7 +150,7 @@ fun TextButton(
 }
 
 @Composable
-fun RadioButton(
+fun RadioButtonSpeech(
     selected: Boolean,
     onClick: (() -> Unit)?,
     modifier: Modifier = Modifier,
@@ -158,7 +158,7 @@ fun RadioButton(
     colors: RadioButtonColors = RadioButtonDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    RadioButton(
+    androidx.compose.material3.RadioButton(
         selected,
         onClick,
         modifier,

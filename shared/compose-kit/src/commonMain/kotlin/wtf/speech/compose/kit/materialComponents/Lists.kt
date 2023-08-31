@@ -9,7 +9,7 @@ import androidx.compose.ui.unit.Dp
 
 @ExperimentalMaterial3Api
 @Composable
-fun ListItem(
+fun ListItemSpeech(
     headlineContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     overlineContent: (@Composable () -> Unit)? = null,
@@ -20,7 +20,7 @@ fun ListItem(
     tonalElevation: Dp = ListItemDefaults.Elevation,
     shadowElevation: Dp = ListItemDefaults.Elevation
 ) {
-    ListItem(
+    androidx.compose.material3.ListItem(
         headlineContent,
         modifier,
         overlineContent,

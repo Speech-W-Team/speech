@@ -10,7 +10,7 @@ import androidx.compose.ui.graphics.Color
 
 @ExperimentalMaterial3Api
 @Composable
-fun Badge(
+fun BadgeSpeech(
     modifier: Modifier = Modifier,
     containerColor: Color = BadgeDefaults.containerColor,
     contentColor: Color = contentColorFor(containerColor),

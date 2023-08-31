@@ -25,7 +25,7 @@ fun ModalNavigationDrawer(
     scrimColor: Color = DrawerDefaults.scrimColor,
     content: @Composable () -> Unit
 ) {
-    ModalNavigationDrawer(
+    androidx.compose.material3.ModalNavigationDrawer(
         drawerContent,
         modifier,
         drawerState,
@@ -37,7 +37,7 @@ fun ModalNavigationDrawer(
 
 @ExperimentalMaterial3Api
 @Composable
-fun ModalDrawerSheet(
+fun ModalDrawerSheetSpeech(
     modifier: Modifier = Modifier,
     drawerShape: Shape = DrawerDefaults.shape,
     drawerContainerColor: Color = DrawerDefaults.containerColor,
@@ -46,7 +46,7 @@ fun ModalDrawerSheet(
     windowInsets: WindowInsets = DrawerDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    ModalDrawerSheet(
+    androidx.compose.material3.ModalDrawerSheet(
         modifier,
         drawerShape,
         drawerContainerColor,
@@ -59,12 +59,12 @@ fun ModalDrawerSheet(
 
 @ExperimentalMaterial3Api
 @Composable
-fun PermanentNavigationDrawer(
+fun PermanentNavigationDrawerSpeech(
     drawerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    PermanentNavigationDrawer(
+    androidx.compose.material3.PermanentNavigationDrawer(
         drawerContent,
         modifier,
         content
@@ -73,7 +73,7 @@ fun PermanentNavigationDrawer(
 
 @ExperimentalMaterial3Api
 @Composable
-fun PermanentDrawerSheet(
+fun PermanentDrawerSheetSpeech(
     modifier: Modifier = Modifier,
     drawerShape: Shape = RectangleShape,
     drawerContainerColor: Color = DrawerDefaults.containerColor,
@@ -82,7 +82,7 @@ fun PermanentDrawerSheet(
     windowInsets: WindowInsets = DrawerDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    PermanentDrawerSheet(
+    androidx.compose.material3.PermanentDrawerSheet(
         modifier,
         drawerShape,
         drawerContainerColor,
@@ -95,14 +95,14 @@ fun PermanentDrawerSheet(
 
 @ExperimentalMaterial3Api
 @Composable
-fun DismissibleNavigationDrawer(
+fun DismissibleNavigationDrawerSpeech(
     drawerContent: @Composable () -> Unit,
     modifier: Modifier = Modifier,
     drawerState: DrawerState = rememberDrawerState(DrawerValue.Closed),
     gesturesEnabled: Boolean = true,
     content: @Composable () -> Unit
 ) {
-    DismissibleNavigationDrawer(
+    androidx.compose.material3.DismissibleNavigationDrawer(
         drawerContent,
         modifier,
         drawerState,
@@ -113,7 +113,7 @@ fun DismissibleNavigationDrawer(
 
 @ExperimentalMaterial3Api
 @Composable
-fun DismissibleDrawerSheet(
+fun DismissibleDrawerSheetSpeech(
     modifier: Modifier = Modifier,
     drawerShape: Shape = RectangleShape,
     drawerContainerColor: Color = DrawerDefaults.containerColor,
@@ -122,7 +122,7 @@ fun DismissibleDrawerSheet(
     windowInsets: WindowInsets = DrawerDefaults.windowInsets,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    DismissibleDrawerSheet(
+    androidx.compose.material3.DismissibleDrawerSheet(
         modifier,
         drawerShape,
         drawerContainerColor,

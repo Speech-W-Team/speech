@@ -8,7 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 
 @Composable
-fun Snackbar(
+fun SnackbarSpeech(
     snackbarData: SnackbarData,
     modifier: Modifier = Modifier,
     actionOnNewLine: Boolean = false,
@@ -19,7 +19,7 @@ fun Snackbar(
     actionContentColor: Color = SnackbarDefaults.actionContentColor,
     dismissActionContentColor: Color = SnackbarDefaults.dismissActionContentColor
 ) {
-    Snackbar(
+    androidx.compose.material3.Snackbar(
         snackbarData,
         modifier,
         actionOnNewLine,
