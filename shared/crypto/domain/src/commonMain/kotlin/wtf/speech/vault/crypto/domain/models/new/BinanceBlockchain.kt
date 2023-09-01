@@ -21,7 +21,7 @@ object BinanceTestnetBlockchain : Blockchain(
     isTestnet = true
 )
 
-object BinanceBlockchainProvider: BlockchainProvider() {
+object BinanceBlockchainProvider : BlockchainProvider() {
     override fun get(isTestnet: Boolean): Blockchain = if (isTestnet) BinanceTestnetBlockchain else BinanceMainnetBlockchain
 }
 

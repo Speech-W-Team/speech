@@ -2,8 +2,10 @@ package wtf.speech.vault.crypto.domain.usecases
 
 import wtf.speech.shared.core.domain.models.PrivateKey
 import wtf.speech.vault.crypto.domain.models.Blockchain
-import wtf.speech.vault.crypto.domain.models.CurveType
 import wtf.speech.vault.crypto.domain.models.Wallet
+import wtf.speech.vault.crypto.domain.usecases.generator.AddressGenerator
+import wtf.speech.vault.crypto.domain.usecases.generator.BitcoinAddressGenerator
+import wtf.speech.vault.crypto.domain.usecases.generator.EthereumAddressGenerator
 
 /**
  * A factory class responsible for creating and recovering wallets for various blockchains.
@@ -59,5 +61,19 @@ class WalletFactory(
             addresses = mutableSetOf(address),
             tokens = mutableSetOf()
         )
+    }
+
+    companion object {
+        fun create(blockchain: Blockchain, keyGenerator: KeyGenerator): WalletFactory {
+            return WalletFactory(
+                addressGenerator = when(blockchain) {
+                    Blockchain.BINANCE, Blockchain.ETHEREUM,  -> EthereumAddressGenerator
+                    Blockchain.BITCOIN -> BitcoinAddressGenerator
+                    Blockchain.ETHEREUM_CLASSIC -> EthereumAddressGenerator
+                    Blockchain.LITECOIN -> EthereumAddressGenerator
+                },
+                keyGenerator = keyGenerator
+            )
+        }
     }
 }

@@ -21,24 +21,32 @@ object AndroidKeyGenerator : KeyGenerator {
     }
 
     override suspend fun generateKeyPair(blockchain: Blockchain): KeyPair {
-        val ecSpec = ECGenParameterSpec(blockchain.curveType.curveName)
-        val g = KeyPairGenerator.getInstance("ECDSA", "BC")
-        g.initialize(ecSpec)
+        val parameterSpec = when (blockchain) {
+            Blockchain.BINANCE, Blockchain.ETHEREUM, Blockchain.BITCOIN -> "secp256k1"
+            else -> "secp256k1"
+        }
 
-        val keyPair = g.generateKeyPair()
-        return KeyPair(PublicKey(keyPair.public.encoded), PrivateKey(keyPair.private.encoded))
+        val keyPairGenerator = KeyPairGenerator.getInstance("EC")
+        val ecSpec = ECGenParameterSpec(parameterSpec)
+        keyPairGenerator.initialize(ecSpec)
+
+        val keyPair = keyPairGenerator.generateKeyPair()
+        return KeyPair(
+            privateKey = PrivateKey(keyPair.private.encoded),
+            publicKey = PublicKey(keyPair.public.encoded)
+        )
     }
 
     override suspend fun generatePrivateKey(blockchain: Blockchain): PrivateKey {
         val keyPair = generateKeyPair(blockchain)
+
         return keyPair.privateKey
     }
 
     override suspend fun generatePublicKey(privateKey: PrivateKey, blockchain: Blockchain): PublicKey {
         val publicKey = when (blockchain) {
-            Blockchain.BINANCE -> generateBinancePublicKey(privateKey)
-            Blockchain.BITCOIN -> generateBitcoinPublicKey(privateKey)
-            Blockchain.ETHEREUM -> TODO()
+            Blockchain.BINANCE, Blockchain.ETHEREUM -> generateSecp256K1PublicKey(privateKey, false)
+            Blockchain.BITCOIN -> generateSecp256K1PublicKey(privateKey, true)
             Blockchain.ETHEREUM_CLASSIC -> TODO()
             Blockchain.LITECOIN -> TODO()
         }
@@ -46,18 +54,11 @@ object AndroidKeyGenerator : KeyGenerator {
         return PublicKey(publicKey)
     }
 
-    private fun generateBinancePublicKey(privateKey: PrivateKey): ByteArray {
-        val privKey = BigInteger(1, privateKey.value)
+    @OptIn(ExperimentalStdlibApi::class)
+    private fun generateSecp256K1PublicKey(privateKey: PrivateKey, compressed: Boolean): ByteArray {
+        val privKey = BigInteger(privateKey.value.toHexString(), 16)
         val pubKey = SECP_256_K1_EC_PARAMS.g.multiply(privKey)
 
-        return pubKey.getEncoded(false).sliceArray(1 until 65)
-    }
-
-    private fun generateBitcoinPublicKey(privateKey: PrivateKey): ByteArray {
-        val privKey = BigInteger(1, privateKey.value)
-        val pubKey = SECP_256_K1_EC_PARAMS.g.multiply(privKey)
-
-        return pubKey.getEncoded(true)
+        return pubKey.getEncoded(compressed)
     }
 }
-

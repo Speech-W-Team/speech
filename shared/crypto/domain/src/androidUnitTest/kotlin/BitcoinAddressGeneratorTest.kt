@@ -4,12 +4,12 @@ import org.junit.Test
 import wtf.speech.shared.core.domain.models.PrivateKey
 import wtf.speech.vault.crypto.domain.models.Blockchain
 import wtf.speech.vault.crypto.domain.usecases.AndroidKeyGenerator
-import wtf.speech.vault.crypto.domain.usecases.BitcoinAddressGenerator
 import wtf.speech.vault.crypto.domain.usecases.WalletFactory
-import wtf.speech.vault.crypto.domain.usecases.privateKeyFromWIF
+import wtf.speech.vault.crypto.domain.usecases.generator.BitcoinAddressGenerator
+import wtf.speech.vault.crypto.domain.usecases.generator.privateKeyFromWIF
 
 class BitcoinAddressGeneratorTest {
-    private val walletFactory = WalletFactory(BitcoinAddressGenerator, AndroidKeyGenerator)
+    private val walletFactory = WalletFactory.create(Blockchain.BITCOIN, AndroidKeyGenerator)
 
     @Test
     fun testRecoverAddress() = runBlocking {
@@ -23,6 +23,8 @@ class BitcoinAddressGeneratorTest {
     @Test
     fun testGenerateAddress() = runBlocking {
         val wallet = walletFactory.createWallet(Blockchain.BITCOIN)
+
+        println(wallet.addresses.first().value)
 
         assert(BitcoinAddressGenerator.validateAddress(wallet.addresses.first()))
     }

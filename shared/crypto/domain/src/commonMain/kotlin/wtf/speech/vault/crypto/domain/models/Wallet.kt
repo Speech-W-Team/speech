@@ -1,6 +1,5 @@
 package wtf.speech.vault.crypto.domain.models
 
-import com.ionspin.kotlin.bignum.decimal.BigDecimal
 import wtf.speech.shared.core.domain.models.PrivateKey
 import wtf.speech.shared.core.domain.models.PublicKey
 

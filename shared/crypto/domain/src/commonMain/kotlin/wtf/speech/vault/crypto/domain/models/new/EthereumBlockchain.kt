@@ -21,7 +21,7 @@ object EthereumTestnetBlockchain : Blockchain(
     isTestnet = true
 )
 
-object EthereumBlockchainProvider: BlockchainProvider() {
+object EthereumBlockchainProvider : BlockchainProvider() {
     override fun get(isTestnet: Boolean): Blockchain = if (isTestnet) EthereumTestnetBlockchain else EthereumMainnetBlockchain
 }
 
