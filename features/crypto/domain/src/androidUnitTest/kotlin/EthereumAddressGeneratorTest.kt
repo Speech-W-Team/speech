@@ -2,9 +2,9 @@ import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.Test
 import wtf.speech.core.domain.models.PrivateKey
-import wtf.speech.features.crypto.domain.generator.EthereumAddressGenerator
-import wtf.speech.features.crypto.domain.models.blockchains.EthereumBlockchainProvider
-import wtf.speech.features.crypto.domain.usecases.WalletFactory
+import wtf.speech.vault.crypto.domain.generator.EthereumAddressGenerator
+import wtf.speech.vault.crypto.domain.models.blockchains.EthereumBlockchainProvider
+import wtf.speech.vault.crypto.domain.usecases.WalletFactory
 
 class EthereumAddressGeneratorTest {
     private val walletFactory = WalletFactory.create(EthereumBlockchainProvider)

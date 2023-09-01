@@ -1,6 +1,6 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import wtf.speech.features.shared.App
+import wtf.speech.vault.shared.App
 
 @Composable
 fun MainView() = CryptoScreenPreview()

@@ -1,5 +1,5 @@
 import androidx.compose.ui.window.ComposeUIViewController
-import wtf.speech.features.shared.App
+import wtf.speech.vault.shared.App
 
 
 @Suppress

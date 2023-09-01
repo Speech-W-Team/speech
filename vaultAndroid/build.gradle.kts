@@ -10,7 +10,7 @@ kotlin {
 
 android {
     compileSdk = config.versions.android.compileSdk.get().toInt()
-    namespace = "wtf.speech.vault.android.app"
+    namespace = "wtf.speech.vault.app"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 

@@ -2,10 +2,10 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import wtf.speech.core.domain.models.PrivateKey
-import wtf.speech.features.crypto.domain.generator.BitcoinAddressGenerator
-import wtf.speech.features.crypto.domain.generator.privateKeyFromWIF
-import wtf.speech.features.crypto.domain.models.blockchains.BitcoinBlockchainProvider
-import wtf.speech.features.crypto.domain.usecases.WalletFactory
+import wtf.speech.vault.crypto.domain.generator.BitcoinAddressGenerator
+import wtf.speech.vault.crypto.domain.generator.privateKeyFromWIF
+import wtf.speech.vault.crypto.domain.models.blockchains.BitcoinBlockchainProvider
+import wtf.speech.vault.crypto.domain.usecases.WalletFactory
 
 class BitcoinAddressGeneratorTest {
     private val walletFactory = WalletFactory.create(BitcoinBlockchainProvider)
