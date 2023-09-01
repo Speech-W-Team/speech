@@ -2,6 +2,7 @@ package wtf.speech.features.crypto.domain.models
 
 import wtf.speech.core.domain.models.PrivateKey
 import wtf.speech.core.domain.models.PublicKey
+import wtf.speech.features.crypto.domain.models.blockchains.Blockchain
 
 /**
  * Represents a digital cryptocurrency wallet. This class encapsulates

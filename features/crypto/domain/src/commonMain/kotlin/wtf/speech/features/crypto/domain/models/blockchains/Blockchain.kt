@@ -1,8 +1,10 @@
-package wtf.speech.features.crypto.domain.models.new
+package wtf.speech.features.crypto.domain.models.blockchains
 
-import wtf.speech.vault.crypto.domain.models.new.CurveType
+import wtf.speech.features.crypto.domain.generator.AddressGenerator
+import wtf.speech.features.crypto.domain.generator.KeyGenerator
+import wtf.speech.features.crypto.domain.models.CurveType
 
-abstract class Blockchain(
+sealed class Blockchain(
     val id: String,
     val fullName: String,
     val baseUrl: String,
@@ -36,7 +38,11 @@ abstract class Blockchain(
     }
 }
 
-abstract class BlockchainProvider {
+sealed class BlockchainProvider<T : Blockchain> {
 
-    abstract fun get(isTestnet: Boolean = false): Blockchain
+    abstract fun get(isTestnet: Boolean = false): T
+
+    abstract fun getKeyGenerator(): KeyGenerator
+    abstract fun getAddressGenerator(): AddressGenerator
+
 }

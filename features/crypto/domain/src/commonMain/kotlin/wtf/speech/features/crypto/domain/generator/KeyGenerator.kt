@@ -1,10 +1,9 @@
-package wtf.speech.features.crypto.domain.usecases
+package wtf.speech.features.crypto.domain.generator
 
 import wtf.speech.core.domain.models.KeyPair
 import wtf.speech.core.domain.models.PrivateKey
 import wtf.speech.core.domain.models.PublicKey
-import wtf.speech.features.crypto.domain.models.Blockchain
-import wtf.speech.features.crypto.domain.models.CurveType
+
 
 /**
  * KeyGenerator is an interface defining the contract for cryptographic key generation.
@@ -21,7 +20,7 @@ interface KeyGenerator {
      * @see KeyPair
      * @see CurveType
      */
-    suspend fun generateKeyPair(blockchain: Blockchain): KeyPair
+    suspend fun generateKeyPair(): KeyPair
 
     /**
      * Generates a cryptographic private key.
@@ -30,7 +29,7 @@ interface KeyGenerator {
      *
      * @see PrivateKey
      */
-    suspend fun generatePrivateKey(blockchain: Blockchain): PrivateKey
+    suspend fun generatePrivateKey(): PrivateKey
 
     /**
      * Generates a cryptographic public key based on a provided private key.
@@ -44,5 +43,5 @@ interface KeyGenerator {
      * @see PublicKey
      * @see CurveType
      */
-    suspend fun generatePublicKey(privateKey: PrivateKey, blockchain: Blockchain): PublicKey
+    suspend fun generatePublicKey(privateKey: PrivateKey): PublicKey
 }
