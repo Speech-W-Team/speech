@@ -20,8 +20,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
-import wtf.speech.compose.kit.texts.HeadlineLargeText
-import wtf.speech.compose.kit.themes.SpeechTheme
+import wtf.speech.core.design.texts.HeadlineLargeText
+import wtf.speech.core.design.themes.SpeechTheme
 
 @OptIn(ExperimentalResourceApi::class, ExperimentalMaterial3Api::class)
 @Composable

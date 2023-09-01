@@ -6,25 +6,11 @@ plugins {
 
 kotlin {
     androidTarget()
-    sourceSets {
-        val androidMain by getting {
-            dependencies {
-                implementation(compose.preview)
-                val ktorVersion = "2.3.3"
-
-//                implementation(libs.ktor.client.okhttp)
-//                implementation(libs.ktor.ktor.serialization.kotlinx.json)
-
-                implementation(project(":shared"))
-                implementation(project(":shared:crypto:domain"))
-            }
-        }
-    }
 }
 
 android {
     compileSdk = config.versions.android.compileSdk.get().toInt()
-    namespace = "wtf.speech.vault.android.app"
+    namespace = "wtf.speech.vault.app"
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
 
@@ -37,15 +23,17 @@ android {
             versionName = android.versionName.get()
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlin {
         jvmToolchain(11)
     }
 
-    packagingOptions {
+    packaging {
         resources.excludes.add("META-INF/*")
     }
 
@@ -53,8 +41,14 @@ android {
         compose = true
     }
 
-
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.0"
     }
+}
+
+dependencies {
+    implementation(dependencyNotation = projects.shared)
+    implementation(dependencyNotation = libs.compose.activity)
+    implementation(dependencyNotation = libs.appCompat)
+    implementation(dependencyNotation = libs.coreKtx)
 }

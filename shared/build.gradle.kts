@@ -29,8 +29,8 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":shared:crypto:domain"))
-                implementation(project(":shared:core:ui"))
+                implementation(projects.features.crypto.domain)
+                implementation(projects.core.ui)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -42,7 +42,6 @@ kotlin {
         val androidMain by getting {
             dependencies {
                 api(compose.preview)
-
                 api(dependencyNotation = libs.compose.activity)
                 api(dependencyNotation = libs.appCompat)
                 api(dependencyNotation = libs.coreKtx)
@@ -70,7 +69,6 @@ android {
 
     defaultConfig {
         minSdk = config.versions.android.minSdk.get().toInt()
-
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

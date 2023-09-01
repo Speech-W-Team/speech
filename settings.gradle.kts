@@ -1,13 +1,20 @@
 @file:Suppress("UnstableApiUsage")
 
+import org.gradle.api.internal.FeaturePreviews
+
 pluginManagement {
+    includeBuild("build-logic")
+
     repositories {
         google()
         gradlePluginPortal()
         mavenCentral()
-        jcenter {
+        mavenCentral {
             content {
-                includeModule("org.jetbrains.kotlinx", "kotlinx-collections-immutable-jvm")
+                includeModule(
+                    "org.jetbrains.kotlinx",
+                    "kotlinx-collections-immutable-jvm"
+                )
             }
         }
         maven {
@@ -24,6 +31,9 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+    enableFeaturePreview(FeaturePreviews.Feature.STABLE_CONFIGURATION_CACHE.name)
+    enableFeaturePreview(FeaturePreviews.Feature.TYPESAFE_PROJECT_ACCESSORS.name)
+
     repositories {
         google()
         mavenCentral()
@@ -45,11 +55,13 @@ dependencyResolutionManagement {
     }
 }
 
+
 include(":vaultAndroid")
 include(":shared")
-include(":shared:core:domain")
-include(":shared:core:ui")
-include(":shared:compose-kit")
-include(":shared:crypto:domain")
+include(":core:domain")
+include(":core:ui")
+include(":core:design")
+include(":features:crypto")
+include(":features:crypto:domain")
 
 rootProject.name = "speech"
