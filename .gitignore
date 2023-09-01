@@ -42,7 +42,6 @@ build/
 /captures
 .externalNativeBuild
 .cxx
-*.podspec
 vaultIos/Podfile.lock
 vaultIos/Pods/*
 vaultIos/iosApp.xcworkspace/*
