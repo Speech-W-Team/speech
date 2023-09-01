@@ -1,4 +1,4 @@
-package wtf.speech.vault.crypto.domain.usecases.generator
+package wtf.speech.features.crypto.domain.usecases.generator
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
@@ -6,8 +6,8 @@ import org.komputing.khash.keccak.Keccak
 import org.komputing.khash.keccak.KeccakParameter
 import org.komputing.khash.ripemd160.Ripemd160Digest
 import org.komputing.khash.sha256.Sha256
-import wtf.speech.shared.core.domain.models.PublicKey
-import wtf.speech.vault.crypto.domain.models.Address
+import wtf.speech.core.domain.models.PublicKey
+import wtf.speech.features.crypto.domain.models.Address
 import wtf.speech.features.crypto.domain.utils.decodeBase58
 
 /**
