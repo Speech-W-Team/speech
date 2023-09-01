@@ -1,4 +1,4 @@
-package wtf.speech.vault.crypto.domain.usecases.generator
+package wtf.speech.vault.crypto.domain.generator
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import com.ionspin.kotlin.bignum.integer.Sign
