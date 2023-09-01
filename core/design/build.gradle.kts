@@ -15,5 +15,6 @@ kotlin {
 
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
         api(compose.components.resources)
+        implementation(libs.kotlinx.atomicfu)
     }
 }
