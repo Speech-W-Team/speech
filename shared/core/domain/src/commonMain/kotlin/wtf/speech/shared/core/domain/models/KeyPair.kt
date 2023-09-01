@@ -11,7 +11,10 @@ data class KeyPair(val publicKey: PublicKey, val privateKey: PrivateKey)
  * @see <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">Public-key Cryptography</a>
  */
 @JvmInline
-value class PublicKey(val value: ByteArray)
+value class PublicKey(val value: ByteArray) {
+    @OptIn(ExperimentalStdlibApi::class)
+    constructor(value: String) : this(value.hexToByteArray())
+}
 
 /**
  * Represents a private key in a cryptographic system, which should be kept secure.
@@ -20,4 +23,7 @@ value class PublicKey(val value: ByteArray)
  * @see <a href="https://en.wikipedia.org/wiki/Private_key">Private Key</a>
  */
 @JvmInline
-value class PrivateKey(val value: ByteArray)
+value class PrivateKey(val value: ByteArray) {
+    @OptIn(ExperimentalStdlibApi::class)
+    constructor(value: String) : this(value.hexToByteArray())
+}

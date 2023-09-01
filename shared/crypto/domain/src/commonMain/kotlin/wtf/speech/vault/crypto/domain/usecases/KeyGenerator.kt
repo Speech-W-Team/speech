@@ -3,6 +3,7 @@ package wtf.speech.vault.crypto.domain.usecases
 import wtf.speech.shared.core.domain.models.KeyPair
 import wtf.speech.shared.core.domain.models.PrivateKey
 import wtf.speech.shared.core.domain.models.PublicKey
+import wtf.speech.vault.crypto.domain.models.Blockchain
 import wtf.speech.vault.crypto.domain.models.CurveType
 
 /**
@@ -20,7 +21,7 @@ interface KeyGenerator {
      * @see KeyPair
      * @see CurveType
      */
-    suspend fun generateKeyPair(curveType: CurveType): KeyPair
+    suspend fun generateKeyPair(blockchain: Blockchain): KeyPair
 
     /**
      * Generates a cryptographic private key.
@@ -29,7 +30,7 @@ interface KeyGenerator {
      *
      * @see PrivateKey
      */
-    suspend fun generatePrivateKey(): PrivateKey
+    suspend fun generatePrivateKey(blockchain: Blockchain): PrivateKey
 
     /**
      * Generates a cryptographic public key based on a provided private key.
@@ -43,5 +44,5 @@ interface KeyGenerator {
      * @see PublicKey
      * @see CurveType
      */
-    suspend fun generatePublicKey(privateKey: PrivateKey, curveType: CurveType): PublicKey
+    suspend fun generatePublicKey(privateKey: PrivateKey, blockchain: Blockchain): PublicKey
 }

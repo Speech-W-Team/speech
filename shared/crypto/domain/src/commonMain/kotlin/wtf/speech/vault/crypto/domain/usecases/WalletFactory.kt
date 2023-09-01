@@ -2,8 +2,10 @@ package wtf.speech.vault.crypto.domain.usecases
 
 import wtf.speech.shared.core.domain.models.PrivateKey
 import wtf.speech.vault.crypto.domain.models.Blockchain
-import wtf.speech.vault.crypto.domain.models.CurveType
 import wtf.speech.vault.crypto.domain.models.Wallet
+import wtf.speech.vault.crypto.domain.usecases.generator.AddressGenerator
+import wtf.speech.vault.crypto.domain.usecases.generator.BitcoinAddressGenerator
+import wtf.speech.vault.crypto.domain.usecases.generator.EthereumAddressGenerator
 
 /**
  * A factory class responsible for creating and recovering wallets for various blockchains.
@@ -26,12 +28,13 @@ class WalletFactory(
      * @return A [Wallet] instance with generated keys and address.
      */
     suspend fun createWallet(blockchain: Blockchain): Wallet {
-        val keyPair = keyGenerator.generateKeyPair(CurveType.SECP256K1)
+        val keyPair = keyGenerator.generateKeyPair(blockchain)
         val address = addressGenerator.generateAddress(keyPair.publicKey)
 
         return Wallet(
             blockchain = blockchain,
             publicKey = keyPair.publicKey,
+            privateKey = keyPair.privateKey,
             addresses = mutableSetOf(address),
             tokens = mutableSetOf()
         )
@@ -48,14 +51,29 @@ class WalletFactory(
      * @return A [Wallet] instance with recovered keys and address.
      */
     suspend fun recoverWallet(blockchain: Blockchain, privateKey: PrivateKey): Wallet {
-        val publicKey = keyGenerator.generatePublicKey(privateKey, blockchain.curveType)
+        val publicKey = keyGenerator.generatePublicKey(privateKey, blockchain)
         val address = addressGenerator.generateAddress(publicKey)
 
         return Wallet(
             blockchain = blockchain,
             publicKey = publicKey,
+            privateKey = privateKey,
             addresses = mutableSetOf(address),
             tokens = mutableSetOf()
         )
+    }
+
+    companion object {
+        fun create(blockchain: Blockchain, keyGenerator: KeyGenerator): WalletFactory {
+            return WalletFactory(
+                addressGenerator = when(blockchain) {
+                    Blockchain.BINANCE, Blockchain.ETHEREUM,  -> EthereumAddressGenerator
+                    Blockchain.BITCOIN -> BitcoinAddressGenerator
+                    Blockchain.ETHEREUM_CLASSIC -> EthereumAddressGenerator
+                    Blockchain.LITECOIN -> EthereumAddressGenerator
+                },
+                keyGenerator = keyGenerator
+            )
+        }
     }
 }
