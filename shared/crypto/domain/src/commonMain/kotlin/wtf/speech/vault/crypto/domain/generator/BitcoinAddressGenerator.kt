@@ -1,4 +1,4 @@
-package wtf.speech.vault.crypto.domain.usecases.generator
+package wtf.speech.vault.crypto.domain.generator
 
 import wtf.speech.shared.core.domain.models.PublicKey
 import wtf.speech.vault.crypto.domain.models.Address

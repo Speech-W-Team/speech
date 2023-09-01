@@ -1,11 +1,11 @@
 package wtf.speech.vault.crypto.domain.usecases
 
 import wtf.speech.shared.core.domain.models.PrivateKey
-import wtf.speech.vault.crypto.domain.models.Blockchain
 import wtf.speech.vault.crypto.domain.models.Wallet
-import wtf.speech.vault.crypto.domain.usecases.generator.AddressGenerator
-import wtf.speech.vault.crypto.domain.usecases.generator.BitcoinAddressGenerator
-import wtf.speech.vault.crypto.domain.usecases.generator.EthereumAddressGenerator
+import wtf.speech.vault.crypto.domain.models.blockchains.Blockchain
+import wtf.speech.vault.crypto.domain.models.blockchains.BlockchainProvider
+import wtf.speech.vault.crypto.domain.generator.AddressGenerator
+import wtf.speech.vault.crypto.domain.generator.KeyGenerator
 
 /**
  * A factory class responsible for creating and recovering wallets for various blockchains.
@@ -28,7 +28,7 @@ class WalletFactory(
      * @return A [Wallet] instance with generated keys and address.
      */
     suspend fun createWallet(blockchain: Blockchain): Wallet {
-        val keyPair = keyGenerator.generateKeyPair(blockchain)
+        val keyPair = keyGenerator.generateKeyPair()
         val address = addressGenerator.generateAddress(keyPair.publicKey)
 
         return Wallet(
@@ -51,7 +51,7 @@ class WalletFactory(
      * @return A [Wallet] instance with recovered keys and address.
      */
     suspend fun recoverWallet(blockchain: Blockchain, privateKey: PrivateKey): Wallet {
-        val publicKey = keyGenerator.generatePublicKey(privateKey, blockchain)
+        val publicKey = keyGenerator.generatePublicKey(privateKey)
         val address = addressGenerator.generateAddress(publicKey)
 
         return Wallet(
@@ -64,15 +64,10 @@ class WalletFactory(
     }
 
     companion object {
-        fun create(blockchain: Blockchain, keyGenerator: KeyGenerator): WalletFactory {
+        fun <T : Blockchain> create(blockchainProvider: BlockchainProvider<T>): WalletFactory {
             return WalletFactory(
-                addressGenerator = when(blockchain) {
-                    Blockchain.BINANCE, Blockchain.ETHEREUM,  -> EthereumAddressGenerator
-                    Blockchain.BITCOIN -> BitcoinAddressGenerator
-                    Blockchain.ETHEREUM_CLASSIC -> EthereumAddressGenerator
-                    Blockchain.LITECOIN -> EthereumAddressGenerator
-                },
-                keyGenerator = keyGenerator
+                addressGenerator = blockchainProvider.getAddressGenerator(),
+                keyGenerator = blockchainProvider.getKeyGenerator()
             )
         }
     }
