@@ -2,14 +2,18 @@
 agp = "8.1.1"
 bouncycastle = "1.70"
 ktor = "2.3.3"
-compose_bom = "2023.08.00"
 compose_activity = "1.7.2"
+compose_base = "1.5.0"
+compose_plugin = "1.4.3"
 appcompat = "1.6.1"
 coreKtx = "1.10.1"
 kotlin = "1.9.0"
 kotlinx-datetime = "0.4.0"
-coroutines = "1.7.2"
-compose = "1.4.3"
+coroutines = "1.7.3"
+junit = "4.13.2"
+androidx-test-ext-junit = "1.1.5"
+espresso-core = "3.5.1"
+material = "1.9.0"
 
 [libraries]
 bouncycastle = { group = "org.bouncycastle", name = "bcprov-jdk15on", version.ref = "bouncycastle" }
@@ -20,18 +24,36 @@ ktor-serialization = { group = "io.ktor", name = "ktor-client-serialization", ve
 ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose_bom" }
-compose-animation = { group = "androidx.compose.animation", name = "animation" }
-compose-foundation = { group = "androidx.compose.foundation", name = "foundation" }
-compose-ui = { group = "androidx.compose.ui", name = "ui" }
-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "compose_base" }
+compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose_base" }
+compose-runtime = { group = "androidx.compose.runtime", name = "runtime", version.ref = "compose_base" }
+compose-ui = { group = "androidx.compose.ui", name = "ui", version.ref = "compose_base" }
+compose-material3 = { group = "androidx.compose.material3", name = "material3", version = "1.1.1" }
 compose-activity = { group = "androidx.activity", name = "activity-compose", version.ref = "compose_activity" }
 
 appCompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 coreKtx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version = "1.1.0" }
 
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "coroutines" }
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+
+kotlinx-atomicfu = { group = "org.jetbrains.kotlinx", name = "atomicfu", version = "0.21.0" }
+
+khash-sha256 = { group = "com.github.komputing.khash", name = "sha256", version = "1.1.3" }
+khash-keccak = { group = "com.github.komputing.khash", name = "keccak", version = "1.1.3" }
+khash-ripemd160 = { group = "com.github.komputing.khash", name = "ripemd160", version = "1.1.3" }
+ionspin-bignum = { group = "com.ionspin.kotlin", name = "bignum", version = "0.3.8" }
+ionspin-cryptolibsodium = { group = "com.ionspin.kotlin", name = "multiplatform-crypto-libsodium-bindings", version = "0.8.9" }
+
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+compose-gradlePlugin = { group = "org.jetbrains.compose", name = "compose-gradle-plugin", version.ref = "compose_plugin" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
+espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -40,4 +62,8 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
+compose = { id = "org.jetbrains.compose", version.ref = "compose_plugin" }
+
+speech-multiplatform-core = { id = "wtf.speech.multiplatform.core" }
+speech-multiplatform-ui = { id = "wtf.speech.multiplatform.ui" }
+speech-multiplatform-domain = { id = "wtf.speech.multiplatform.domain" }
