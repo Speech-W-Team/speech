@@ -61,7 +61,7 @@ include(":shared")
 include(":core:domain")
 include(":core:ui")
 include(":core:design")
-include(":features:crypto")
-include(":features:crypto:domain")
+include(":features:wallet")
+include(":features:wallet:domain")
 
 rootProject.name = "speech"

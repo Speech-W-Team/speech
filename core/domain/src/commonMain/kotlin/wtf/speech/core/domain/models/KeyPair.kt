@@ -1,19 +1,24 @@
 package wtf.speech.core.domain.models
 
-import kotlin.jvm.JvmInline
-
 data class KeyPair(val publicKey: PublicKey, val privateKey: PrivateKey)
 
-/**
- * Represents a public key in a cryptographic system.
- *
- * @property value The string representation of the public key.
- * @see <a href="https://en.wikipedia.org/wiki/Public-key_cryptography">Public-key Cryptography</a>
- */
-@JvmInline
-value class PublicKey(val value: ByteArray) {
+
+data class PublicKey(val value: ByteArray) {
     @OptIn(ExperimentalStdlibApi::class)
     constructor(value: String) : this(value.hexToByteArray())
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PublicKey) return false
+
+        if (!value.contentEquals(other.value)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return value.contentHashCode()
+    }
 }
 
 /**
@@ -22,8 +27,20 @@ value class PublicKey(val value: ByteArray) {
  * @property value The string representation of the private key.
  * @see <a href="https://en.wikipedia.org/wiki/Private_key">Private Key</a>
  */
-@JvmInline
-value class PrivateKey(val value: ByteArray) {
+data class PrivateKey(val value: ByteArray) {
     @OptIn(ExperimentalStdlibApi::class)
     constructor(value: String) : this(value.hexToByteArray())
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is PrivateKey) return false
+
+        if (!value.contentEquals(other.value)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return value.contentHashCode()
+    }
 }

@@ -29,7 +29,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.features.crypto.domain)
+                implementation(projects.features.wallet.domain)
                 implementation(projects.core.ui)
 
                 implementation(compose.runtime)
