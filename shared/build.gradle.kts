@@ -29,8 +29,14 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(projects.features.wallet.domain)
-                implementation(projects.core.ui)
+                api(projects.features.home.ui)
+                
+                api(projects.features.wallet.domain)
+                api(projects.features.wallet.ui)
+
+                api(projects.core.ui)
+                api(projects.core.domain)
+                api(projects.core.design)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)

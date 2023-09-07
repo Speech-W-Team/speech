@@ -42,7 +42,6 @@ class MultiPlatformUiConventionPlugin : Plugin<Project> {
             commonDependencies {
                 implementation(composeExtension.dependencies.ui)
                 implementation(composeExtension.dependencies.foundation)
-                implementation(composeExtension.dependencies.preview)
                 implementation(composeExtension.dependencies.runtime)
             }
         }
