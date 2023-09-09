@@ -21,7 +21,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -86,15 +85,6 @@ private fun ScaffoldHomeScreen(state: HomeScreenState) {
 }
 
 @Composable
-private fun ContentHomeScreen(paddingValues: PaddingValues, state: HomeScreenState) {
-    LazyColumn(contentPadding = paddingValues, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-        stickyHeader { AmountHeader(state) }
-        item { TitleLargeText("Wallets", modifier = Modifier.padding(start = 16.dp)) }
-        item { Wallets(state.wallets) }
-    }
-}
-
-@Composable
 fun HomeTopBar(username: String, avatar: String, notificationsCount: String) {
     TopAppBar(
         title = { UserProfileTitle(username) },
@@ -104,6 +94,14 @@ fun HomeTopBar(username: String, avatar: String, notificationsCount: String) {
             NotificationsButton({}, notificationsCount)
         },
     )
+}
+
+@Composable
+private fun ContentHomeScreen(paddingValues: PaddingValues, state: HomeScreenState) {
+    LazyColumn(contentPadding = paddingValues, verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        stickyHeader { AmountHeader(state) }
+        item { Wallets(state.wallets) }
+    }
 }
 
 @Composable
@@ -128,15 +126,19 @@ private fun AmountHeader(state: HomeScreenState) {
 
 @Composable
 fun Wallets(items: List<ContentState<WalletUI>>) {
-    LazyRow(
-        Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
-        contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 12.dp, bottom = 16.dp)
-    ) {
-        items(items) { item ->
-            when (item) {
-                is ContentState.Error<*> -> TODO()
-                else -> WalletCard({}, item.item)
+    Column {
+        TitleLargeText("Wallets", modifier = Modifier.padding(start = 16.dp))
+
+        LazyRow(
+            Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(start = 16.dp, end = 16.dp, top = 12.dp)
+        ) {
+            items(items) { item ->
+                when (item) {
+                    is ContentState.Error<*> -> TODO()
+                    else -> WalletCard({}, item.item)
+                }
             }
         }
     }
@@ -149,7 +151,7 @@ private fun UserProfileTitle(username: String) {
         modifier = Modifier.fillMaxWidth(),
     ) {
         Image(
-            imageVector = Icons.Default.AccountCircle,
+            painter = painterResource("compose-multiplatform.xml"),
             contentDescription = null,
             modifier = Modifier
                 .size(32.dp)
