@@ -1,4 +1,4 @@
-package wtf.speech.core.design.materialComponents
+package wtf.speech.core.design.components
 
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItemColors

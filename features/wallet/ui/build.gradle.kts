@@ -10,12 +10,8 @@ android.namespace = "wtf.speech.features.wallet.ui"
 
 kotlin {
     commonDependencies {
-        implementation(projects.core.design)
         implementation(projects.core.ui)
-
-        implementation(compose.foundation)
-        implementation(compose.ui)
-        implementation(compose.runtime)
+        implementation(projects.features.wallet.domain)
     }
 
     androidDependencies {

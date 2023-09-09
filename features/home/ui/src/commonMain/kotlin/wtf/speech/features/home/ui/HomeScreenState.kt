@@ -10,22 +10,50 @@ import wtf.speech.core.ui.ScreenState
 import wtf.speech.feature.wallet.ui.models.WalletUI
 
 data class HomeScreenState(
-    val amountFiatOnAllWallets: BigDecimal,
     val amountFiatOnAllWalletsCurrency: String,
     val wallets: List<ContentState<WalletUI>>,
     val username: String,
     val avatar: String,
-    val notificationsCount: Int
+    private val notificationsCount: Int,
 ) : ScreenState.Content() {
+
+    val notificationsCountText: String
+        get() = if (notificationsCount > 9) {
+            "9+"
+        } else {
+            notificationsCount.toString()
+        }
+
+    private val amountFiatOnAllWallets: BigDecimal
+        get() {
+            var amount = BigDecimal.ZERO
+
+            wallets.forEach {
+                when (it) {
+                    is ContentState.Success -> amount = amount.add(it.data.amountFiat)
+                    else -> Unit
+                }
+            }
+
+            return amount
+        }
+
+
+    val formattedAmountFiatOnAllWallets: String
+        get() = "$amountFiatOnAllWalletsCurrency${amountFiatOnAllWallets.toPlainString()}"
+
 
     companion object {
         val initial = HomeScreenState(
-            amountFiatOnAllWallets = BigDecimal.ZERO,
-            amountFiatOnAllWalletsCurrency = "USD",
-            wallets = emptyList(),
+            amountFiatOnAllWalletsCurrency = "$",
+            wallets = listOf(
+                ContentState.Success(WalletUI.preview),
+                ContentState.Success(WalletUI.preview),
+                ContentState.Success(WalletUI.preview)
+            ),
             username = "nie",
             avatar = "",
-            notificationsCount = 1
+            notificationsCount = 10
         )
     }
 }

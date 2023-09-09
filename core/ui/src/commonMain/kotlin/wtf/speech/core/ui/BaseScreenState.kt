@@ -6,10 +6,10 @@ import androidx.compose.runtime.Stable
  * A class represents content state
  */
 @Stable
-sealed class ContentState<T> {
-    abstract class Success<T>(val item: T) : ContentState<T>()
-    abstract class Error<E: ErrorState>(val error: E) : ContentState<Unit>()
-    data object Loading : ContentState<Unit>()
+sealed class ContentState<T>(val item: T?) {
+    data class Success<T>(val data: T) : ContentState<T>(data)
+    data class Error<E: ErrorState>(val error: E) : ContentState<Nothing>(null)
+    class Loading<T> : ContentState<T>(null)
 }
 
 /**

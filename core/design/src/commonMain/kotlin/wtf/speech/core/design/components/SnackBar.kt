@@ -1,4 +1,4 @@
-package wtf.speech.core.design.materialComponents
+package wtf.speech.core.design.components
 
 import androidx.compose.material3.SnackbarData
 import androidx.compose.material3.SnackbarDefaults

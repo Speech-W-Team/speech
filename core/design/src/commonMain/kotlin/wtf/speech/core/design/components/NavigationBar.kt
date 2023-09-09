@@ -1,38 +1,41 @@
-package wtf.speech.core.design.materialComponents
+package wtf.speech.core.design.components
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.material3.NavigationRailDefaults
-import androidx.compose.material3.NavigationRailItemColors
-import androidx.compose.material3.NavigationRailItemDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemColors
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
 
 @Composable
-fun NavigationRailSpeech(
+fun NavigationBarSpeech(
     modifier: Modifier = Modifier,
-    containerColor: Color = NavigationRailDefaults.ContainerColor,
-    contentColor: Color = contentColorFor(containerColor),
-    header: (@Composable ColumnScope.() -> Unit)? = null,
-    windowInsets: WindowInsets = NavigationRailDefaults.windowInsets,
-    content: @Composable ColumnScope.() -> Unit
+    containerColor: Color = NavigationBarDefaults.containerColor,
+    contentColor: Color = MaterialTheme.colorScheme.contentColorFor(containerColor),
+    tonalElevation: Dp = NavigationBarDefaults.Elevation,
+    windowInsets: WindowInsets = NavigationBarDefaults.windowInsets,
+    content: @Composable RowScope.() -> Unit
 ) {
-    androidx.compose.material3.NavigationRail(
+    androidx.compose.material3.NavigationBar(
         modifier,
         containerColor,
         contentColor,
-        header,
+        tonalElevation,
         windowInsets,
         content
     )
 }
 
 @Composable
-fun NavigationRailItemSpeech(
+fun RowScope.NavigationBarItemSpeech(
     selected: Boolean,
     onClick: () -> Unit,
     icon: @Composable () -> Unit,
@@ -40,10 +43,10 @@ fun NavigationRailItemSpeech(
     enabled: Boolean = true,
     label: (@Composable () -> Unit)? = null,
     alwaysShowLabel: Boolean = true,
-    colors: NavigationRailItemColors = NavigationRailItemDefaults.colors(),
+    colors: NavigationBarItemColors = NavigationBarItemDefaults.colors(),
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() }
 ) {
-    androidx.compose.material3.NavigationRailItem(
+    NavigationBarItem(
         selected,
         onClick,
         icon,
