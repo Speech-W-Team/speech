@@ -2,20 +2,26 @@ package wtf.speech.core.ui
 
 import androidx.compose.runtime.Stable
 
-
+/**
+ * A class represents content state
+ */
 @Stable
-abstract class ScreenState<E : ErrorState> {
-    /**
-     * A value represents loading state
-     * @return true if the state is an loading state, false otherwise
-     */
-    abstract val isLoading: Boolean
+sealed class ContentState<T>(val item: T?) {
+    data class Success<T>(val data: T) : ContentState<T>(data)
+    data class Error<E: ErrorState>(val error: E) : ContentState<Nothing>(null)
+    class Loading<T> : ContentState<T>(null)
+}
 
-    /**
-     * A value of error state
-     * @return null if state is not error and ErrorState instance if state is error
-     */
-    abstract val error: E?
+/**
+ * A base class for representing the states of a screen in MVI architecture
+ */
+@Stable
+interface ScreenState {
+    abstract class Content : ScreenState
+
+    abstract class Error<E: ErrorState>(open val error: E) : ScreenState
+
+    data object Loading : ScreenState
 }
 
 /**

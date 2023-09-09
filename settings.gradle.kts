@@ -58,10 +58,14 @@ dependencyResolutionManagement {
 
 include(":vaultAndroid")
 include(":shared")
+
 include(":core:domain")
 include(":core:ui")
 include(":core:design")
-include(":features:wallet")
+
+include(":features:home:ui")
+
 include(":features:wallet:domain")
+include(":features:wallet:ui")
 
 rootProject.name = "speech"

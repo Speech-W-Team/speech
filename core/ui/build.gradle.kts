@@ -13,3 +13,9 @@ commonDependencies {
     api(libs.ionspin.bignum)
     implementation(libs.kotlinx.atomicfu)
 }
+
+android {
+    buildFeatures.compose = true
+
+    composeOptions.kotlinCompilerExtensionVersion = "1.5.0"
+}

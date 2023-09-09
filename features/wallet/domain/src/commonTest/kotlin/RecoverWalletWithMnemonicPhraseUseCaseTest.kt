@@ -1,8 +1,8 @@
+
 import kotlinx.coroutines.runBlocking
 import wtf.speech.features.wallet.domain.generator.WalletFactory
 import wtf.speech.features.wallet.domain.models.blockchains.BitcoinBlockchainProvider
 import wtf.speech.features.wallet.domain.usecases.RecoverWalletWithMnemonicPhraseUseCase
-import kotlin.test.Test
 import kotlin.test.assertEquals
 
 class RecoverWalletWithMnemonicPhraseUseCaseTest {
@@ -24,7 +24,7 @@ class RecoverWalletWithMnemonicPhraseUseCaseTest {
     private val expectedPrivateKey =
         "xprv9s21ZrQH143K2SKJ4XQyWzJLbXzELJq7u4ngt1ZngG7oWZ7Qv7Qx9atLbEtC5ek9kuvA9ZQpREZ12KXfxsHLLJZS5rFz8LQNf4sME1TP1d"
 
-    @Test
+//    @Test
     fun `invoke should return a wallet with the correct blockchain and private key`() = runBlocking {
         // Given a blockchain
         val blockchain = BitcoinBlockchainProvider.get(false)

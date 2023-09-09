@@ -12,6 +12,7 @@ kotlin {
         api(compose.runtime)
         api(compose.foundation)
         api(compose.material3)
+        api(compose.ui)
 
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
         api(compose.components.resources)

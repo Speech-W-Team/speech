@@ -1,6 +1,7 @@
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import wtf.speech.vault.shared.App
+import wtf.speech.features.home.ui.HomeScreen
+import wtf.speech.features.home.ui.HomeViewModel
 
 @Composable
 fun MainView() = CryptoScreenPreview()
@@ -11,5 +12,5 @@ fun MainView() = CryptoScreenPreview()
 @Composable
 @Preview
 fun CryptoScreenPreview() {
-    App()
+    HomeScreen(HomeViewModel())
 }
