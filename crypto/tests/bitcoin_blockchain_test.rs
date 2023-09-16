@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    use crypto::blockchains::bitcoin_blockchain::*;
+    use crypto::blockchains::ethereum_blockchain::*;
 
     #[test]
     fn test_generate_keypair() {

@@ -1,1 +1,2 @@
-pub mod ethereum_blockchains;
+pub mod ethereum_blockchain;
+pub mod bitcoin_blockchain;

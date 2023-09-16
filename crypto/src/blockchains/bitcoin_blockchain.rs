@@ -5,13 +5,12 @@ use rand::Rng;
 
 pub fn generate_keypair() -> Result<(SecretKey, PublicKey), &'static str> {
     let mut rng = rand::thread_rng();
-
     let private_key_bytes: [u8; 32] = rng.gen();
 
-    let secp = Secp256k1::new();
     let private_key =
         SecretKey::from_slice(&private_key_bytes).map_err(|_| "Invalid private key")?;
 
+    let secp = Secp256k1::new();
     let public_key = PublicKey::from_secret_key(&secp, &private_key);
 
     Ok((private_key, public_key))
