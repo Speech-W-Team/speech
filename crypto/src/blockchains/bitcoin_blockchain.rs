@@ -3,17 +3,24 @@ use sha3::{Digest, Keccak256};
 use hex::encode;
 use rand::Rng;
 
-pub fn generate_keypair() -> Result<(SecretKey, PublicKey), &'static str> {
+pub fn generate_private_key() -> Result<Vec<u8>, &'static str> {
     let mut rng = rand::thread_rng();
     let private_key_bytes: [u8; 32] = rng.gen();
 
     let private_key =
         SecretKey::from_slice(&private_key_bytes).map_err(|_| "Invalid private key")?;
 
+    Ok(private_key[..].to_vec())
+}
+
+pub fn generate_public_key(private_key: &Vec<u8>) -> Result<Vec<u8>, &'static str> {
+    let private_key =
+        SecretKey::from_slice(&private_key).map_err(|_| "Invalid private key")?;
+
     let secp = Secp256k1::new();
     let public_key = PublicKey::from_secret_key(&secp, &private_key);
 
-    Ok((private_key, public_key))
+    Ok(public_key.serialize_uncompressed().to_vec())
 }
 
 pub fn get_address(public_key_bytes: &Vec<u8>) -> String {

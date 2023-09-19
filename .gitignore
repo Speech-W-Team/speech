@@ -52,3 +52,4 @@ shared/shared.podspec
 
 # rust
 crypto/target
+Cargo.lock

@@ -1,20 +1,33 @@
 #[cfg(test)]
 mod tests {
-    use crypto::blockchains::bitcoin_blockchain::*;
+    use crypto::blockchains::ethereum_blockchain::*;
 
     #[test]
-    fn test_generate_keypair() {
-        let (private_key, public_key) = generate_keypair().expect("Failed to generate keypair");
+    fn test_generate_private_key() {
+        let private_key = generate_private_key()
+            .expect("Failed to generate private key");
+        println!("private_key: {:?}", private_key);
+        assert_eq!(private_key.len(), 32);
+    }
 
-        assert_eq!(private_key.to_string().len(), 64);
-        assert_eq!(public_key.serialize_uncompressed().len(), 65);
+    #[test]
+    fn test_generate_public_key() {
+        let private_key = generate_private_key()
+            .expect("Failed to generate private key");
+        let public_key = generate_public_key(&private_key)
+            .expect("Failed to generate public key");
+
+        assert_eq!(public_key.len(), 65);
     }
 
     #[test]
     fn test_keypair_not_equal() {
-        let (private_key, public_key) = generate_keypair().expect("Failed to generate keypair");
+        let private_key = generate_private_key()
+            .expect("Failed to generate private key");
+        let public_key = generate_public_key(&private_key)
+            .expect("Failed to generate public key");
 
-        assert_ne!(private_key.to_string(), public_key.to_string());
+        assert_ne!(private_key, public_key);
     }
 
     #[test]
