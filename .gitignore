@@ -49,3 +49,7 @@ vaultIos/iosApp.xcodeproj/*
 !vaultIos/iosApp.xcodeproj/project.pbxproj
 shared/shared.podspec
 >>>>>>> a133881 (Compose Multiplatform Mobile project template)
+
+# rust
+crypto/target
+Cargo.lock
