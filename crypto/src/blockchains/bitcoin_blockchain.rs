@@ -1,4 +1,5 @@
 use secp256k1::{PublicKey, Secp256k1, SecretKey};
+use bip39::{Error, Mnemonic};
 use sha3::{Digest, Keccak256};
 use hex::encode;
 use rand::Rng;
@@ -32,4 +33,10 @@ pub fn get_address(public_key_bytes: &Vec<u8>) -> String {
     let address = encode(hash);
 
     address
+}
+
+pub fn get_mnemonics(private_key_bytes: &Vec<u8>) -> Result<String, Error> {
+    let mnemonic = Mnemonic::from_entropy(&private_key_bytes)?;
+    let phrase: Vec<String> = mnemonic.word_iter().map(|s| s.to_string()).collect();
+    Ok(phrase.join(" "))
 }
