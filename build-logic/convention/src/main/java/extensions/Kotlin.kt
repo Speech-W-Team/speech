@@ -26,7 +26,7 @@ internal fun Project.configureKotlin() {
     tasks.withType<KotlinCompile>().configureEach {
         kotlinOptions {
             // Add any additional compiler arguments if needed.
-            freeCompilerArgs = freeCompilerArgs + listOf()
+            freeCompilerArgs = freeCompilerArgs + listOf(/*"-Xexplicit-api=strict"*/)
         }
     }
 }

@@ -4,13 +4,13 @@ import wtf.speech.features.home.ui.HomeScreen
 import wtf.speech.features.home.ui.HomeViewModel
 
 @Composable
-fun MainView() = CryptoScreenPreview()
+fun MainView() = HomeScreen(HomeViewModel())
 
 /**
  * A function for displaying the preview version of the screen with cryptocurrencies.
  */
 @Composable
 @Preview
-fun CryptoScreenPreview() {
-    HomeScreen(HomeViewModel())
+fun MainPreview() {
+    MainView()
 }

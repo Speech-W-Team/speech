@@ -48,6 +48,7 @@ android {
 
 dependencies {
     implementation(dependencyNotation = projects.shared)
+    implementation(dependencyNotation = projects.compass.core)
     implementation(dependencyNotation = libs.compose.activity)
     implementation(dependencyNotation = libs.appCompat)
     implementation(dependencyNotation = libs.coreKtx)
