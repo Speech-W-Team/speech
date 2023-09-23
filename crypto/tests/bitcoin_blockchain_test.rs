@@ -7,7 +7,6 @@ mod tests {
     fn test_generate_private_key() {
         let private_key = generate_private_key()
             .expect("Failed to generate private key");
-        println!("private_key: {:?}", private_key);
         assert_eq!(private_key.len(), 32);
     }
 
@@ -43,9 +42,11 @@ mod tests {
 
     #[test]
     fn test_get_mnemonics() {
-        let secret_key_bytes = generate_private_key().expect("Failed to generate keypair");
-        let mnemonic = Mnemonic::from_entropy(&secret_key_bytes).expect("Failed to generate mnemonic phrase");
-        let expected_phrase: String = mnemonic.word_iter().map(|s| s.to_string()).collect::<Vec<String>>().join(" ");
+        let secret_key_bytes = generate_private_key()
+            .expect("Failed to generate keypair");
+        let mnemonic = Mnemonic::from_entropy(&secret_key_bytes)
+            .expect("Failed to generate mnemonic phrase");
+        let expected_phrase = mnemonic.to_string();
 
         let result = get_mnemonics(&secret_key_bytes).unwrap();
 
@@ -58,5 +59,24 @@ mod tests {
         let result = get_mnemonics(&invalid_entropy);
 
         assert!(result.is_err());
+    }
+
+    #[test]
+    fn test_recover_wallet() {
+        let private_key_bytes = generate_private_key().unwrap();
+        let mnemonics = get_mnemonics(&private_key_bytes).unwrap();
+
+        let wallet = recover_wallet(&mnemonics.as_str()).unwrap();
+
+        assert_eq!(wallet, private_key_bytes);
+    }
+
+    #[test]
+    fn test_recover_wallet_with_wrong_mnemonic_format() {
+        let mnemonics = String::from("i am invalid mnemonics format");
+
+        let wallet = recover_wallet(&mnemonics.as_str());
+
+        assert!(wallet.is_err());
     }
 }
