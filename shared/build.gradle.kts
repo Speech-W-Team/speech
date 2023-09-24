@@ -30,7 +30,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(projects.features.home.ui)
-                
+                api(projects.compass.core)
                 api(projects.features.wallet.domain)
                 api(projects.features.wallet.ui)
 

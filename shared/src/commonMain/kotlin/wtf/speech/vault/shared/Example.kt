@@ -1,4 +1,4 @@
-package wtf.speech.vault.app.example
+package wtf.speech.vault.shared
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

@@ -5,8 +5,11 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
 import wtf.speech.compass.core.graph.Screen
 
+@Serializable
 public sealed class BackStackEvent {
     data class ScreenPushed(val screen: Screen) : BackStackEvent()
     data class ScreenPopped(val screen: Screen) : BackStackEvent()
@@ -29,8 +32,10 @@ public interface Backstack {
     fun removeUntilRoot()
 }
 
-internal class DefaultBackstack(initialScreen: Screen) : Backstack {
+@Serializable
+internal class DefaultBackstack(private val initialScreen: Screen) : Backstack {
 
+    @Contextual
     private val screens: ArrayDeque<Screen> = ArrayDeque(listOf(initialScreen))
     private var _currentScreen: MutableState<Screen> = mutableStateOf(initialScreen)
     override val currentScreen: State<Screen> = _currentScreen

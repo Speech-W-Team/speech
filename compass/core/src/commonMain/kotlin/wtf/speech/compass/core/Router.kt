@@ -8,6 +8,8 @@ import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateMap
+import kotlinx.serialization.Contextual
+import kotlinx.serialization.Serializable
 import wtf.speech.compass.core.graph.Screen
 
 @Suppress("TooManyFunctions", "ComplexInterface")
@@ -34,9 +36,11 @@ interface Router {
 }
 
 @Suppress("TooManyFunctions")
+@Serializable
 public class SimpleRouter internal constructor(private val initialScreen: Screen) : Router {
     private val currentBackstackId: MutableState<Screen.Id> = mutableStateOf(initialScreen.id)
 
+    @Contextual
     private val backstacks: SnapshotStateMap<Screen.Id, Backstack> = mutableStateMapOf(
         currentBackstackId.value to DefaultBackstack(initialScreen)
     )

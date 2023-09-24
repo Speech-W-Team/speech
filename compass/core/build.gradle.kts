@@ -3,6 +3,7 @@ import extensions.commonDependencies
 
 plugins {
     id(libs.plugins.speech.multiplatform.core.get().pluginId)
+    kotlin("plugin.serialization") version "1.9.0"
     alias(libs.plugins.compose)
 }
 
@@ -32,6 +33,7 @@ kotlin {
 
         @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
         api(compose.components.resources)
+        implementation(libs.kotlinx.serialization.json)
         implementation(libs.kotlinx.atomicfu)
     }
 

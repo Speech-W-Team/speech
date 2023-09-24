@@ -3,12 +3,13 @@ agp = "8.1.1"
 bouncycastle = "1.70"
 ktor = "2.3.3"
 compose_activity = "1.7.2"
-compose_base = "1.5.0"
+compose_base = "1.5.1"
 compose_plugin = "1.4.3"
 appcompat = "1.6.1"
-coreKtx = "1.10.1"
+coreKtx = "1.12.0"
 kotlin = "1.9.0"
 kotlinx-datetime = "0.4.0"
+kotlinx-serialization-json = "1.5.1"
 coroutines = "1.7.3"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
@@ -23,6 +24,7 @@ ktor-ktor-serialization-kotlinx-json = { module = "io.ktor:ktor-serialization-ko
 ktor-serialization = { group = "io.ktor", name = "ktor-client-serialization", version.ref = "ktor" }
 ktor-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization-json" }
 
 compose-animation = { group = "androidx.compose.animation", name = "animation", version.ref = "compose_base" }
 compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "compose_base" }

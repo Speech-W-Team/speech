@@ -58,7 +58,7 @@ include(":vaultAndroid")
 include(":shared")
 
 include(":compass:core")
-include(":compass:navigation")
+//include(":compass:navigation")
 
 include(":core:domain")
 include(":core:ui")
