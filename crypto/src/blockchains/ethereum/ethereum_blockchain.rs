@@ -3,16 +3,19 @@ use bip39::Mnemonic;
 use sha3::{Digest, Keccak256};
 use rand::Rng;
 use std::str::FromStr;
-use crate::blockchains::abstract_blockchain::AbstractBlockchain;
+use crate::blockchains::abstract_blockchain::Blockchain;
 
-pub struct BitcoinBlockchain {}
+pub struct EthereumBlockchain {}
 
-impl AbstractBlockchain for BitcoinBlockchain {
+impl Blockchain for EthereumBlockchain {
+    fn new() -> EthereumBlockchain {
+        EthereumBlockchain {}
+    }
 
     ///generate random private key with [`secp256k1`]
     ///
     /// [`secp256k1`]: https://docs.rs/secp256k1/0.27.0/secp256k1
-    fn generate_private_key() -> Result<Vec<u8>, &'static str> {
+    fn generate_private_key(&self) -> Result<Vec<u8>, &'static str> {
         let mut rng = rand::thread_rng();
         let private_key_bytes: [u8; 32] = rng.gen();
 
@@ -25,7 +28,7 @@ impl AbstractBlockchain for BitcoinBlockchain {
     ///generate public key using private key with [`secp256k1`]
     ///
     /// [`secp256k1`]: https://docs.rs/secp256k1/0.27.0/secp256k1
-    fn generate_public_key(private_key_bytes: &Vec<u8>) -> Result<Vec<u8>, &'static str> {
+    fn generate_public_key(&self, private_key_bytes: &Vec<u8>) -> Result<Vec<u8>, &'static str> {
         let private_key =
             SecretKey::from_slice(private_key_bytes).map_err(|_| "Invalid private key")?;
 
@@ -38,7 +41,7 @@ impl AbstractBlockchain for BitcoinBlockchain {
     ///generate address using public key with [`sha3`]
     ///
     /// [`sha3`]: https://docs.rs/sha3/0.10.8/sha3
-    fn get_address(public_key_bytes: &Vec<u8>) -> String {
+    fn get_address(&self, public_key_bytes: &Vec<u8>) -> String {
         let mut hasher = Keccak256::new();
         hasher.update(&public_key_bytes[1..]);
         let hash = hasher.finalize();
@@ -52,7 +55,7 @@ impl AbstractBlockchain for BitcoinBlockchain {
     ///generate mnemonic phrase using private key with [`bip39`]
     ///
     /// [`bip39`]: https://docs.rs/bip39/2.0.0/bip39
-    fn get_mnemonics(private_key_bytes: &Vec<u8>) -> Result<String, &'static str> {
+    fn get_mnemonics(&self, private_key_bytes: &Vec<u8>) -> Result<String, &'static str> {
         let mnemonic = Mnemonic::from_entropy(private_key_bytes)
             .map_err(|_| "Invalid private key")?;
         let phrase: Vec<String> = mnemonic.word_iter().map(|s| s.to_string()).collect();
@@ -64,7 +67,7 @@ impl AbstractBlockchain for BitcoinBlockchain {
     ///# Returns
     ///
     /// private key
-    fn recover_wallet(mnemonic_phrase: &str) -> Result<Vec<u8>, &'static str>{
+    fn recover_wallet(&self, mnemonic_phrase: &str) -> Result<Vec<u8>, &'static str>{
         let mnemonic = Mnemonic::from_str(mnemonic_phrase)
             .map_err(|_| "Invalid mnemonic phrase")?;
         let private_key_bytes = mnemonic.to_entropy();
@@ -72,20 +75,20 @@ impl AbstractBlockchain for BitcoinBlockchain {
     }
 }
 
-impl BitcoinBlockchain {
-    pub fn generate_private_key() -> Result<Vec<u8>, &'static str> {
-        <Self as AbstractBlockchain>::generate_private_key()
+impl EthereumBlockchain {
+    pub fn generate_private_key(&self) -> Result<Vec<u8>, &'static str> {
+        <Self as Blockchain>::generate_private_key(self)
     }
-    pub fn generate_public_key(private_key_bytes: &Vec<u8>) -> Result<Vec<u8>, &'static str> {
-        <Self as AbstractBlockchain>::generate_public_key(private_key_bytes)
+    pub fn generate_public_key(&self, private_key_bytes: &Vec<u8>) -> Result<Vec<u8>, &'static str> {
+        <Self as Blockchain>::generate_public_key(self, private_key_bytes)
     }
-    pub fn get_address(public_key_bytes: &Vec<u8>) -> String {
-        <Self as AbstractBlockchain>::get_address(public_key_bytes)
+    pub fn get_address(&self, public_key_bytes: &Vec<u8>) -> String {
+        <Self as Blockchain>::get_address(self, public_key_bytes)
     }
-    pub fn get_mnemonics(private_key_bytes: &Vec<u8>) -> Result<String, &'static str> {
-        <Self as AbstractBlockchain>::get_mnemonics(private_key_bytes)
+    pub fn get_mnemonics(&self, private_key_bytes: &Vec<u8>) -> Result<String, &'static str> {
+        <Self as Blockchain>::get_mnemonics(self, private_key_bytes)
     }
-    pub fn recover_wallet(mnemonic_phrase: &str) -> Result<Vec<u8>, &'static str> {
-        <Self as AbstractBlockchain>::recover_wallet(mnemonic_phrase)
+    pub fn recover_wallet(&self, mnemonic_phrase: &str) -> Result<Vec<u8>, &'static str> {
+        <Self as Blockchain>::recover_wallet(self, mnemonic_phrase)
     }
 }
