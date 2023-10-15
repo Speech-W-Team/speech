@@ -1,6 +1,6 @@
+use bip39::Mnemonic;
 use std::str::FromStr;
 
-use bip39::Mnemonic;
 use k256::ecdsa::{SigningKey, VerifyingKey};
 use k256::elliptic_curve::rand_core::OsRng;
 use sha3::{Digest, Keccak256};
