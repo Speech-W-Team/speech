@@ -28,7 +28,7 @@ templates.forEach { (arch, target) ->
     )
 
     tasks.create(
-        name = "rustCryptoDeploy_$arch",
+        name = "rustCryptoCopy_$arch",
         type = Copy::class,
         configuration = {
             from("$rustBasePath/target/$target/release")
@@ -37,16 +37,6 @@ templates.forEach { (arch, target) ->
             dependsOn("rustCryptoBuild_$arch")
         }
     )
-
-    tasks.withType<JavaCompile> {
-        dependsOn("rustCryptoDeploy_$arch")
-    }
-}
-
-tasks.preBuild {
-    dependsOn(
-        templates.map { "rustCryptoDeploy_${it.key}" }
-    )
 }
 
 tasks.register(
@@ -54,6 +44,16 @@ tasks.register(
     type = Delete::class,
     configurationAction = {
         delete("$rustBasePath/target", "src/androidMain/jniLibs")
+    }
+)
+
+tasks.register(
+    name = "rustCryptoDeploy",
+    type = Sync::class,
+    configurationAction = {
+        dependsOn(
+            templates.map { "rustCryptoCopy_${it.key}" }
+        )
     }
 )
 
