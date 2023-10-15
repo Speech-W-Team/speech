@@ -3,14 +3,18 @@ name = "crypto"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
 name = "crypto"
 path = "src/lib.rs"
+crate-type = ["cdylib"]
 
 [dependencies]
+jni = { version = "0.21.1", default-features = false }
 rand = "0.8.5"
 sha3 = "0.10.8"
-secp256k1 = "0.27.0"
+k256 = "0.13.1"
 hex = "0.4.3"
 bip39 = "2.0.0"
+
+[profile.release]
+lto = true
