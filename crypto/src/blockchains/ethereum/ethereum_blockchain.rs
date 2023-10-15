@@ -1,8 +1,10 @@
-use secp256k1::{PublicKey, Secp256k1, SecretKey};
-use bip39::Mnemonic;
-use sha3::{Digest, Keccak256};
-use rand::Rng;
 use std::str::FromStr;
+
+use bip39::Mnemonic;
+use k256::ecdsa::{SigningKey, VerifyingKey};
+use k256::elliptic_curve::rand_core::OsRng;
+use sha3::{Digest, Keccak256};
+
 use crate::blockchains::abstract_blockchain::Blockchain;
 
 pub struct EthereumBlockchain {}
@@ -12,30 +14,24 @@ impl Blockchain for EthereumBlockchain {
         EthereumBlockchain {}
     }
 
-    ///generate random private key with [`secp256k1`]
+    ///generate random private key with [`k256`]
     ///
-    /// [`secp256k1`]: https://docs.rs/secp256k1/0.27.0/secp256k1
+    /// https://docs.rs/k256/latest/k256/ecdsa/
     fn generate_private_key(&self) -> Result<Vec<u8>, &'static str> {
-        let mut rng = rand::thread_rng();
-        let private_key_bytes: [u8; 32] = rng.gen();
-
-        let private_key =
-            SecretKey::from_slice(&private_key_bytes).map_err(|_| "Invalid private key")?;
-
-        Ok(private_key[..].to_vec())
+        let mut csprng = OsRng;
+        let private_key = SigningKey::random(&mut csprng);
+        Ok(private_key.to_bytes().to_vec())
     }
 
-    ///generate public key using private key with [`secp256k1`]
+    ///generate public key using private key with [`k256`]
     ///
-    /// [`secp256k1`]: https://docs.rs/secp256k1/0.27.0/secp256k1
+    /// https://docs.rs/k256/latest/k256/ecdsa/
     fn generate_public_key(&self, private_key_bytes: &Vec<u8>) -> Result<Vec<u8>, &'static str> {
-        let private_key =
-            SecretKey::from_slice(private_key_bytes).map_err(|_| "Invalid private key")?;
+        let private_key = SigningKey::from_slice(private_key_bytes).unwrap();
 
-        let secp = Secp256k1::new();
-        let public_key = PublicKey::from_secret_key(&secp, &private_key);
+        let public_key = VerifyingKey::from(&private_key);
 
-        Ok(public_key.serialize_uncompressed().to_vec())
+        Ok(public_key.to_encoded_point(false).as_bytes().to_vec())
     }
 
     ///generate address using public key with [`sha3`]
@@ -67,7 +63,7 @@ impl Blockchain for EthereumBlockchain {
     ///# Returns
     ///
     /// private key
-    fn recover_wallet(&self, mnemonic_phrase: &str) -> Result<Vec<u8>, &'static str>{
+    fn recover_wallet(&self, mnemonic_phrase: &str) -> Result<Vec<u8>, &'static str> {
         let mnemonic = Mnemonic::from_str(mnemonic_phrase)
             .map_err(|_| "Invalid mnemonic phrase")?;
         let private_key_bytes = mnemonic.to_entropy();

@@ -62,6 +62,7 @@ include(":shared")
 include(":core:domain")
 include(":core:ui")
 include(":core:design")
+include(":core:crypto-kt")
 
 include(":features:home:ui")
 
