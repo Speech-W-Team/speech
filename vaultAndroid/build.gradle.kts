@@ -48,6 +48,8 @@ android {
 
 dependencies {
     implementation(dependencyNotation = projects.shared)
+    implementation(dependencyNotation = projects.core.cryptoKt)
+
     implementation(dependencyNotation = libs.compose.activity)
     implementation(dependencyNotation = libs.appCompat)
     implementation(dependencyNotation = libs.coreKtx)
