@@ -1,2 +1,4 @@
-pub mod ethereum_blockchain;
-pub mod bitcoin_blockchain;
+pub mod abstract_blockchain;
+pub mod factory;
+pub mod ethereum;
+pub mod bitcoin;
