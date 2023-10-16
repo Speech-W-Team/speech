@@ -8,7 +8,7 @@ import androidx.compose.runtime.Stable
 @Stable
 sealed class ContentState<T>(val item: T?) {
     data class Success<T>(val data: T) : ContentState<T>(data)
-    data class Error<E: ErrorState>(val error: E) : ContentState<Nothing>(null)
+    data class Error<T, E : ErrorState>(val error: E) : ContentState<T>(null)
     class Loading<T> : ContentState<T>(null)
 }
 
@@ -19,7 +19,7 @@ sealed class ContentState<T>(val item: T?) {
 interface ScreenState {
     abstract class Content : ScreenState
 
-    abstract class Error<E: ErrorState>(open val error: E) : ScreenState
+    abstract class Error<E : ErrorState>(open val error: E) : ScreenState
 
     data object Loading : ScreenState
 }
@@ -28,14 +28,13 @@ interface ScreenState {
  * A subclass of ScreenState that represents an error state
  */
 @Stable
-abstract class ErrorState(val error: Throwable) {
+abstract class ErrorState(error: Throwable) {
 
     /**
      * A value to get the error message
      * @return the error message or "Unknown error" if the message is null
      */
     val message = error.message ?: "Unknown error"
-
 }
 
 /**

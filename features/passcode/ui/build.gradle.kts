@@ -6,19 +6,14 @@ plugins {
     alias(libs.plugins.compose)
 }
 
-android.namespace = "wtf.speech.features.wallet.domain"
+android.namespace = "wtf.speech.features.passcode.ui"
 
 kotlin {
     commonDependencies {
-        implementation(compose.foundation)
-        implementation(compose.ui)
-        implementation(compose.runtime)
-        implementation(libs.kotlinx.datetime)
-        implementation(libs.ionspin.bignum)
-        implementation(libs.ionspin.cryptolibsodium)
-        implementation(libs.khash.keccak)
-        implementation(libs.khash.ripemd160)
-        implementation(libs.khash.sha256)
+        implementation(libs.voyager.navigator)
+        implementation(projects.core.ui)
+        implementation(projects.features.passcode.domain)
+        implementation(projects.core.design)
     }
 
     androidDependencies {
@@ -47,4 +42,8 @@ kotlin {
             iosSimulatorArm64Main.dependsOn(this)
         }
     }
+}
+
+android {
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
 }

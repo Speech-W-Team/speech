@@ -7,7 +7,6 @@ object SpeechColor {
     val White = Color(0xFFFFFFFF)
     val Black = Color(0x000)
 
-
     val SkyBlue = Color(0xFF006688)
     val LightSkyBlue = Color(0xFFC2E8FF)
     val DarkNavy = Color(0xFF001E2B)
