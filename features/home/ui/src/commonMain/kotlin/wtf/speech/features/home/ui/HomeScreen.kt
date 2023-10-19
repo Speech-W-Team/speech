@@ -136,7 +136,7 @@ fun Wallets(items: List<ContentState<WalletUI>>) {
         ) {
             items(items) { item ->
                 when (item) {
-                    is ContentState.Error<*> -> TODO()
+                    is ContentState.Error<*, *> -> TODO()
                     else -> WalletCard({}, item.item)
                 }
             }

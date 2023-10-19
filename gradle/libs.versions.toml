@@ -1,5 +1,5 @@
 [versions]
-agp = "8.1.1"
+agp = "8.1.2"
 bouncycastle = "1.70"
 ktor = "2.3.3"
 compose_activity = "1.7.2"
@@ -14,6 +14,7 @@ junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 material = "1.9.0"
+voyager = "1.0.0-rc05"
 
 [libraries]
 bouncycastle = { group = "org.bouncycastle", name = "bcprov-jdk15on", version.ref = "bouncycastle" }
@@ -54,6 +55,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+voyager-navigator = { group = "cafe.adriel.voyager", name = "voyager-navigator", version.ref = "voyager" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

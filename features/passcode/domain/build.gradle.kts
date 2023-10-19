@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.compose)
 }
 
-android.namespace = "wtf.speech.features.wallet.domain"
+android.namespace = "wtf.speech.features.passcode.domain"
 
 kotlin {
     commonDependencies {

@@ -3,12 +3,10 @@ package wtf.speech.core.ui
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 /**
@@ -18,7 +16,9 @@ import kotlinx.coroutines.launch
  * @param E the type of the event on the screen.
  * @param F the type of the effect on the screen.
  */
-abstract class BaseViewModel<E : ErrorState, S : ScreenState, A : ScreenAction, V : ScreenEvent, F : ScreenEffect>(initialState: S) {
+abstract class BaseViewModel<E : ErrorState, S : ScreenState, A : ScreenAction, V : ScreenEvent, F : ScreenEffect>(
+    initialState: S
+) {
     /**
      * A MutableStateFlow for storing the screen state.
      */
