@@ -86,8 +86,7 @@ class DeepLinkScreen(private val params: Map<String, String>?, private val extra
     }
 }
 
-object Home2Screen : Screen() {
-    const val ID = "HomeScreen"
+class Home2Screen : Screen() {
     override val id: String
         get() = ID
 
@@ -95,16 +94,37 @@ object Home2Screen : Screen() {
     override fun Content() {
         Text("Home Screen Graph 2")
     }
+
+    companion object : ScreenBuilder {
+        const val ID = "HomeScreen"
+
+        override val id: String
+            get() = ID
+
+        override fun build(params: Map<String, String>?, extra: Extra?): Screen {
+            return Home2Screen()
+        }
+    }
 }
 
-object Settings2Screen : Screen() {
-    const val ID = "SettingsScreen"
+class Settings2Screen : Screen() {
     override val id: String
         get() = ID
 
     @Composable
     override fun Content() {
         Text("Settings Screen Graph 2")
+    }
+
+    companion object : ScreenBuilder {
+        const val ID = "SettingsScreen"
+
+        override val id: String
+            get() = ID
+
+        override fun build(params: Map<String, String>?, extra: Extra?): Screen {
+            return Settings2Screen()
+        }
     }
 }
 
@@ -122,22 +142,22 @@ val mainGraph = NavigationGraph(
     register(Route(DeepLinkScreen.ID, DeepLinkScreen.Builder))
 }
 
-//val settingsGraph = NavigationGraph(
-//    id = "settings",
-//    paths = mapOf(
-//        "SettingsScreen" to setOf("HomeScreen"),
-//        "HomeScreen" to setOf("SettingsScreen")
-//    ),
-//    initialScreen = Settings2Screen
-//).apply {
-//    register(Route(Settings2Screen))
-//    register(Route(Home2Screen))
-//}
+val settingsGraph = NavigationGraph(
+    id = "settings",
+    paths = mapOf(
+        "SettingsScreen" to setOf("HomeScreen"),
+        "HomeScreen" to setOf("SettingsScreen")
+    ),
+    initialScreen = Settings2Screen
+).apply {
+    register(Route(Settings2Screen.ID, Settings2Screen))
+    register(Route(Home2Screen.ID, Home2Screen))
+}
 
 // Usage
 val routeManager = RouteManagerImpl(mainGraph).apply {
     registerGraph(mainGraph)
-//    registerGraph(settingsGraph)
+    registerGraph(settingsGraph)
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
