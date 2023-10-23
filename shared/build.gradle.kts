@@ -39,6 +39,7 @@ kotlin {
                 api(projects.core.ui)
                 api(projects.core.domain)
                 api(projects.core.design)
+                api(projects.compass.core)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)

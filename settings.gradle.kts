@@ -62,6 +62,8 @@ include(":core:ui")
 include(":core:design")
 include(":core:crypto-kt")
 
+include(":compass:core")
+
 include(":features:home:ui")
 
 include(":features:wallet:domain")
