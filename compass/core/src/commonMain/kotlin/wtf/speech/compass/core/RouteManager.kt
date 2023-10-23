@@ -3,10 +3,25 @@ package wtf.speech.compass.core
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 
+/**
+ * Interface defining the core functionalities of the navigation system.
+ */
 interface RouteManager {
+    /**
+     * The currently active [NavigationGraph].
+     */
     val activeGraph: MutableState<NavigationGraph?>
+
+    /**
+     * The currently displayed screen.
+     */
     val currentScreen: Screen?
 
+    /**
+     * Registers a new [NavigationGraph] with the manager.
+     *
+     * @param graph The navigation graph to register.
+     */
     fun registerGraph(graph: NavigationGraph)
 
     /**
@@ -16,18 +31,50 @@ interface RouteManager {
      * @return True if the switch was successful, false otherwise.
      */
     fun switchToGraph(graphId: String): Boolean
+
+    /**
+     * Navigates to a specified screen.
+     *
+     * @param screenId The ID of the screen to navigate to.
+     * @param params Optional parameters to pass to the screen.
+     * @param extras Optional extras to pass to the screen.
+     * @return True if the navigation was successful, false otherwise.
+     */
     fun navigateTo(screenId: String, params: Map<String, String>? = null, extras: Extra? = null): Boolean
+
+    /**
+     * Navigates back to the previous screen or closes the current graph if there's no previous screen.
+     *
+     * @return True if the back navigation was successful, false otherwise.
+     */
     fun navigateBack(): Boolean
+
+    /**
+     * Closes the currently active navigation graph.
+     *
+     * @return True if the graph was closed successfully, false otherwise.
+     */
     fun closeActiveGraph(): Boolean
+
+    /**
+     * Handles deep link navigation.
+     *
+     * @param deepLink The deep link URI.
+     * @return True if the deep link was handled successfully, false otherwise.
+     */
     fun handleDeepLink(deepLink: String): Boolean
 }
 
+/**
+ * Implementation of [RouteManager].
+ *
+ * @param initialGraph The initial navigation graph to start with.
+ */
 class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
     private val graphs = mutableMapOf<String, NavigationGraph>().apply { put(initialGraph.id, initialGraph) }
     private val activeGraphStack = mutableListOf<NavigationGraph>().apply { add(initialGraph) }
 
     override val activeGraph: MutableState<NavigationGraph?> = mutableStateOf(graphs[initialGraph.id])
-
     override val currentScreen: Screen?
         get() = activeGraph.value?.currentScreen?.value?.screen
 
@@ -35,12 +82,6 @@ class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
         graphs[graph.id] = graph
     }
 
-    /**
-     * Switches to a different navigation graph and navigates to its initial screen.
-     *
-     * @param graphId The ID of the graph to switch to.
-     * @return True if the switch was successful, false otherwise.
-     */
     override fun switchToGraph(graphId: String): Boolean {
         val graph = graphs[graphId]
         if (graph != null) {
@@ -66,7 +107,7 @@ class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
     }
 
     override fun closeActiveGraph(): Boolean {
-        if (activeGraphStack.isNotEmpty()) {
+        if (activeGraphStack.size > 1) {
             activeGraphStack.removeLast() // Remove current graph
 
             // Set the previous graph as the active graph
@@ -90,13 +131,15 @@ class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
 
         matchingScreenBuilder?.let {
             val parameters = it.extractParameters(deepLink)
-            // Handle the parameters as needed, e.g., pass them to the screen
             navigateTo(matchingScreenBuilder.id, parameters, null)
             return true
         }
         return false
     }
 
+    /**
+     * Updates the currently active navigation graph.
+     */
     private fun updateActiveGraph() {
         activeGraph.value = activeGraphStack.last()
     }
