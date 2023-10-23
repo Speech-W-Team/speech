@@ -21,14 +21,48 @@ This library facilitates navigation for Compose Multiplatform applications on iO
 All screens should implement the `Screen` interface. For screens that support deep linking, implement the `DeepLinkScreen` interface.
 
 ```kotlin
-object HomeScreen : BaseDeepLinkScreen() {
-    override val id = "HomeScreen"
-    override val deepLinkPattern = "app://home"
-    // ... other properties ...
+class HomeScreen : Screen() {
+    override val id: String
+        get() = ID
 
     @Composable
     override fun Content() {
-        // Composable content for the screen
+        Text("Home Screen Graph 1")
+    }
+
+    companion object Builder : ScreenBuilder {
+        const val ID = "HomeScreen"
+        override val id: String
+            get() = ID
+
+        override fun build(params: Map<String, String>?, extra: Extra?): Screen {
+            return HomeScreen()
+        }
+    }
+}
+
+class ArticleScreen(private val params: Map<String, String>?, private val extra: Extra?) : Screen() {
+
+    override val id: String
+        get() = ID
+
+    @Composable
+    override fun Content() {
+        val id = params?.get("articleId") ?: ""
+        Text("id: $id")
+    }
+
+    companion object Builder: BaseDeepLinkScreenBuilder() {
+        const val ID = "ArticleScreen"
+        override val deepLinkPattern: String
+            get() = "app://article/{articleId}"
+
+        override val id: String
+            get() = ID
+
+        override fun build(params: Map<String, String>?, extra: Extra?): Screen {
+            return ArticleScreen(params, extra)
+        }
     }
 }
 ```
@@ -40,7 +74,8 @@ The `RouteManager` is responsible for managing navigation. Initialize it with a 
 ```kotlin
 val routeManager = RouteManager(
     routes = mapOf(
-        "HomeScreen" to HomeScreenBuilder(),
+        "HomeScreen" to HomeScreen.Builder,
+        "ArticleScreen" to ArticleScreen.Builder,
         // ... other routes ...
     )
 )
@@ -57,7 +92,7 @@ routeManager.navigateTo("HomeScreen")
 To pass parameters or extras:
 
 ```kotlin
-routeManager.navigateTo("ArticleScreen", params = mapOf("articleId" to "12345"), extras = listOf(SpecialConfigExtra()))
+routeManager.navigateTo("ArticleScreen", params = mapOf("articleId" to "12345"))
 ```
 
 ### 4. **Handle Back Navigation**
