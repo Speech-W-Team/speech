@@ -1,10 +1,10 @@
 package wtf.speech.vault.app
 
+import MainView
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import wtf.speech.vault.shared.App
 import wtf.speech.core.cryptokt.CryptoApi
 
 class MainActivity : AppCompatActivity() {
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App()
+            MainView()
         }
 
         val creator = CryptoApi()
