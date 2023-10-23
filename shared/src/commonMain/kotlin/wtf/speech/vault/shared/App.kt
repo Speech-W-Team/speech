@@ -61,7 +61,7 @@ class SettingsScreen : Screen() {
     }
 }
 
-class DeepLinkScreen(private val params: Map<String, String>?, private val extra: Extra?) : Screen() {
+class ArticleScreen(private val params: Map<String, String>?) : Screen() {
 
     override val id: String
         get() = ID
@@ -81,7 +81,7 @@ class DeepLinkScreen(private val params: Map<String, String>?, private val extra
             get() = ID
 
         override fun build(params: Map<String, String>?, extra: Extra?): Screen {
-            return DeepLinkScreen(params, extra)
+            return ArticleScreen(params)
         }
     }
 }
@@ -139,7 +139,7 @@ val mainGraph = NavigationGraph(
 ).apply {
     register(Route(HomeScreen.ID, HomeScreen))
     register(Route(SettingsScreen.ID, SettingsScreen))
-    register(Route(DeepLinkScreen.ID, DeepLinkScreen.Builder))
+    register(Route(ArticleScreen.ID, ArticleScreen.Builder))
 }
 
 val settingsGraph = NavigationGraph(

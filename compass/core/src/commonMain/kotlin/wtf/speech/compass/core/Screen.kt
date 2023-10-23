@@ -18,4 +18,3 @@ public abstract class Screen {
     @Composable
     abstract fun Content()
 }
-
