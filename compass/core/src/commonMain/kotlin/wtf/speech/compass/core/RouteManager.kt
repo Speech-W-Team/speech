@@ -1,7 +1,9 @@
 package wtf.speech.compass.core
 
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 
 /**
  * Interface defining the core functionalities of the navigation system.
@@ -143,4 +145,9 @@ class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
     private fun updateActiveGraph() {
         activeGraph.value = activeGraphStack.last()
     }
+}
+
+@Composable
+fun rememberRouteManager(initialGraph: NavigationGraph): RouteManager {
+    return remember { RouteManagerImpl(initialGraph) }
 }
