@@ -2,6 +2,7 @@ package wtf.speech.compass.core
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 
@@ -150,4 +151,8 @@ class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
 @Composable
 fun rememberRouteManager(initialGraph: NavigationGraph): RouteManager {
     return remember { RouteManagerImpl(initialGraph) }
+}
+
+val LocalRouteManager = compositionLocalOf<RouteManager> {
+    error("No RouteManager provided!")
 }

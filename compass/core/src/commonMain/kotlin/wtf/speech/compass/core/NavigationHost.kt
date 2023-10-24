@@ -16,7 +16,7 @@ import androidx.compose.runtime.Composable
  */
 @ExperimentalAnimationApi
 @Composable
-fun NavigationHost(routeManager: RouteManagerImpl) {
+fun NavigationHost(routeManager: RouteManager) {
     val currentScreen: Screen? = routeManager.currentScreen
 
     AnimatedContent(

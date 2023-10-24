@@ -2,10 +2,11 @@ package wtf.speech.feature.passcode.ui
 
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import wtf.speech.core.ui.BaseViewModel
+import wtf.speech.core.ui.ContentState
 
 internal typealias PasscodeViewModel = BaseViewModel<PasscodeScreenError, PasscodeScreenState, PasscodeScreenAction, PasscodeScreenEvent, PasscodeScreenEffect>
 
-internal open class BasePasscodeViewModel(
+internal abstract class BasePasscodeViewModel(
     state: PasscodeScreenState = PasscodeScreenState()
 ) : PasscodeViewModel(state) {
 
@@ -16,11 +17,12 @@ internal open class BasePasscodeViewModel(
         return when (event) {
             is PasscodeScreenEvent.EnterNumber -> copy(enteredPasscode = enteredPasscode.apply { add(event.number) })
             PasscodeScreenEvent.DeletePasscode -> copy(enteredPasscode = enteredPasscode.apply { removeLastOrNull() })
-            PasscodeScreenEvent.NonEqualsPasscodes -> this
-            PasscodeScreenEvent.StartBiometricAuthentication -> this
-            is PasscodeScreenEvent.Success -> this
+            PasscodeScreenEvent.NonEqualsPasscodes -> copy(contentState = ContentState.Error(PasscodeScreenError.InvalidPasscode))
+            PasscodeScreenEvent.StartBiometricAuthentication -> onStartBiometricAuth()
+            is PasscodeScreenEvent.Success -> onSuccess(event.passcode)
         }
     }
+
 
     override suspend fun processAction(action: PasscodeScreenAction): PasscodeScreenEvent {
         return when (action) {
@@ -38,9 +40,9 @@ internal open class BasePasscodeViewModel(
         }
     }
 
-    protected open fun checkPasscode(passcode: List<Int>): PasscodeScreenEvent {
-        return PasscodeScreenEvent.Success(passcode)
-    }
+    protected abstract fun checkPasscode(passcode: List<Int>): PasscodeScreenEvent
+    protected abstract fun PasscodeScreenState.onSuccess(passcode: List<Int>): PasscodeScreenState
+    protected abstract fun PasscodeScreenState.onStartBiometricAuth(): PasscodeScreenState
 
     private fun enterNumber(number: Int): PasscodeScreenEvent {
         val passcode = enteredPasscode

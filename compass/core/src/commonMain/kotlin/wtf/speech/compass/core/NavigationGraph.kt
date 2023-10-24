@@ -17,7 +17,7 @@ data class NavigationGraph(
     val initialScreen: ScreenBuilder,
     val extra: Extra? = null,
     val parameters: Map<String, String> = emptyMap(),
-    private val paths: Map<String, Set<String>>,
+    private val paths: Map<String, Set<String>>
 ) {
     internal val routes = mutableMapOf<String, ScreenBuilder>()
     private val backStack = mutableListOf(NavigationEntry(initialScreen.build(parameters, extra), parameters, extra))

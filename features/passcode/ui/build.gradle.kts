@@ -14,6 +14,7 @@ kotlin {
         implementation(projects.core.ui)
         implementation(projects.features.passcode.domain)
         implementation(projects.core.design)
+        implementation(projects.compass.core)
     }
 
     androidDependencies {
