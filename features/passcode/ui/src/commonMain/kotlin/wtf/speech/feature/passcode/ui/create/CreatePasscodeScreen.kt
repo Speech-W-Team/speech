@@ -26,7 +26,7 @@ class CreatePasscodeScreen private constructor(private val viewModel: CreatePass
         val effect by viewModel.effect.collectAsState(null)
         val passcode = state.enteredPasscode
 
-        LaunchedEffect(state) {
+        LaunchedEffect(state.contentState) {
             when (state.contentState) {
                 is ContentState.Error<*, *> -> {
                     delay(ERROR_ANIMATION_DELAY)
@@ -40,20 +40,20 @@ class CreatePasscodeScreen private constructor(private val viewModel: CreatePass
 
         LaunchedEffect(effect) {
             when (effect) {
-                is PasscodeScreenEffect.AuthSuccess -> routeManager.navigateTo(
-                    ConfirmPasscodeScreen.ID,
-                    extras = ConfirmPasscodeScreen.ConfirmPasscodeExtra(passcode)
-                )
-
-                is PasscodeScreenEffect.StartBiometricAuth -> Unit
-                null -> Unit
+                is PasscodeScreenEffect.AuthSuccess -> {
+                    routeManager.navigateTo(
+                        ConfirmPasscodeScreen.ID,
+                        extras = ConfirmPasscodeScreen.ConfirmPasscodeExtra(passcode)
+                    )
+                }
+                else -> Unit
             }
         }
 
         PasscodeContent(
-            onPasscodeEntered = passcode::add,
+            onPasscodeEntered = viewModel::addNumber,
             title = "Create Passcode",
-            onDeletePressed = passcode::removeLastOrNull,
+            onDeletePressed = viewModel::backspace,
             passcodeScreenState = state
         )
     }

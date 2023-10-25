@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.snapshots.SnapshotStateList
 import kotlinx.coroutines.delay
 import wtf.speech.compass.core.Extra
-import wtf.speech.compass.core.LocalRouteManager
 import wtf.speech.compass.core.Screen
 import wtf.speech.compass.core.ScreenBuilder
 import wtf.speech.core.ui.ContentState
@@ -30,14 +30,14 @@ class ConfirmPasscodeScreen private constructor(private val viewModel: ConfirmPa
         }
 
         PasscodeContent(
-            onPasscodeEntered = passcode::add,
-            title = "Create Passcode",
-            onDeletePressed = passcode::removeLastOrNull,
+            onPasscodeEntered = viewModel::addNumber,
+            title = "Confirm Passcode",
+            onDeletePressed = viewModel::backspace,
             passcodeScreenState = state
         )
     }
 
-    public data class ConfirmPasscodeExtra(val passcode: List<Int>) : Extra {
+    public data class ConfirmPasscodeExtra(val passcode: SnapshotStateList<Int>) : Extra {
         override val key: String = KEY
         override val data: Any = passcode
 
@@ -46,13 +46,13 @@ class ConfirmPasscodeScreen private constructor(private val viewModel: ConfirmPa
         }
     }
 
-    public companion object Builder : ScreenBuilder {
+    companion object Builder : ScreenBuilder {
         const val ID = "ConfirmPasscode"
         override val id: String
             get() = ID
 
         override fun build(params: Map<String, String>?, extra: Extra?): Screen {
-            val passcode = extra?.data as? ConfirmPasscodeExtra ?: throw IllegalArgumentException("Illegal arguments passed: $extra")
+            val passcode = (extra as? ConfirmPasscodeExtra) ?: throw IllegalArgumentException("Illegal arguments passed: $extra")
             val checkPasscodeUseCase = CheckPasscodesEqualsUseCase()
             return ConfirmPasscodeScreen(ConfirmPasscodeViewModel(passcode, checkPasscodeUseCase))
         }

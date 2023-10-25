@@ -8,10 +8,10 @@ import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 
-public abstract class Screen {
+abstract class Screen {
 
-    val enterTransition: EnterTransition = slideInHorizontally() + fadeIn()
-    val exitTransition: ExitTransition = slideOutHorizontally() + fadeOut()
+    open val enterTransition: EnterTransition = slideInHorizontally() + fadeIn()
+    open val exitTransition: ExitTransition = slideOutHorizontally() + fadeOut()
 
     abstract val id: String
 

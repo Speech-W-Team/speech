@@ -32,7 +32,7 @@ data class NavigationGraph(
     fun navigateTo(screenId: String, params: Map<String, String>?, extras: Extra? ): Boolean {
         val screenBuilder = routes[screenId]
         if (screenBuilder != null && canNavigateTo(screenId)) {
-            backStack.add(NavigationEntry(screenBuilder.build(params, extra), params, extras))
+            backStack.add(NavigationEntry(screenBuilder.build(params, extras), params, extras))
             updateCurrentScreen()
             return true
         }
@@ -42,7 +42,7 @@ data class NavigationGraph(
     fun navigateBack(): Boolean {
         if (backStack.size > 1) {
             backStack.removeLast()
-            currentScreen.value = backStack.last()
+            updateCurrentScreen()
             return true
         }
         return false

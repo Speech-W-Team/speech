@@ -13,20 +13,25 @@ internal abstract class BasePasscodeViewModel(
     private val enteredPasscode: SnapshotStateList<Int>
         get() = state.value.enteredPasscode
 
+    fun addNumber(number: Int) {
+        handleAction(PasscodeScreenAction.EnterNumber(number))
+    }
+    fun backspace() {
+        handleAction(PasscodeScreenAction.Backspace)
+    }
+
     override fun PasscodeScreenState.reduce(event: PasscodeScreenEvent): PasscodeScreenState {
         return when (event) {
-            is PasscodeScreenEvent.EnterNumber -> copy(enteredPasscode = enteredPasscode.apply { add(event.number) })
+            is PasscodeScreenEvent.EnterNumber -> this.apply { enteredPasscode.add(event.number) }
             PasscodeScreenEvent.DeletePasscode -> copy(enteredPasscode = enteredPasscode.apply { removeLastOrNull() })
             PasscodeScreenEvent.NonEqualsPasscodes -> copy(contentState = ContentState.Error(PasscodeScreenError.InvalidPasscode))
             PasscodeScreenEvent.StartBiometricAuthentication -> onStartBiometricAuth()
-            is PasscodeScreenEvent.Success -> onSuccess(event.passcode)
         }
     }
 
-
     override suspend fun processAction(action: PasscodeScreenAction): PasscodeScreenEvent {
         return when (action) {
-            PasscodeScreenAction.DeletePasscode -> PasscodeScreenEvent.DeletePasscode
+            PasscodeScreenAction.Backspace -> PasscodeScreenEvent.DeletePasscode
             PasscodeScreenAction.EnableBiometricAuth -> PasscodeScreenEvent.StartBiometricAuthentication
             is PasscodeScreenAction.EnterNumber -> enterNumber(action.number)
         }
@@ -34,13 +39,13 @@ internal abstract class BasePasscodeViewModel(
 
     override fun handleEvent(event: PasscodeScreenEvent): PasscodeScreenEffect? {
         return when (event) {
-            is PasscodeScreenEvent.Success -> PasscodeScreenEffect.AuthSuccess()
+            is PasscodeScreenEvent.EnterNumber -> checkPasscode(enteredPasscode)
             PasscodeScreenEvent.StartBiometricAuthentication -> PasscodeScreenEffect.StartBiometricAuth()
             else -> null
         }
     }
 
-    protected abstract fun checkPasscode(passcode: List<Int>): PasscodeScreenEvent
+    protected abstract fun checkPasscode(passcode: List<Int>): PasscodeScreenEffect?
     protected abstract fun PasscodeScreenState.onSuccess(passcode: List<Int>): PasscodeScreenState
     protected abstract fun PasscodeScreenState.onStartBiometricAuth(): PasscodeScreenState
 
@@ -48,7 +53,6 @@ internal abstract class BasePasscodeViewModel(
         val passcode = enteredPasscode
         return when {
             passcode.size < MAX_PASSCODE_SIZE -> PasscodeScreenEvent.EnterNumber(number)
-            passcode.size == MAX_PASSCODE_SIZE -> checkPasscode(passcode)
             else -> PasscodeScreenEvent.EnterNumber(number)
         }
     }

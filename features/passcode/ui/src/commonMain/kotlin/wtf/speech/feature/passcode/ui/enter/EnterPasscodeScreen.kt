@@ -31,9 +31,9 @@ class EnterPasscodeScreen private constructor(private val viewModel: EnterPassco
 
         Column {
             PasscodeContent(
-                onPasscodeEntered = passcode::add,
+                onPasscodeEntered = viewModel::addNumber,
                 title = "Enter Passcode",
-                onDeletePressed = passcode::removeLastOrNull,
+                onDeletePressed = viewModel::backspace,
                 passcodeScreenState = state
             )
         }
