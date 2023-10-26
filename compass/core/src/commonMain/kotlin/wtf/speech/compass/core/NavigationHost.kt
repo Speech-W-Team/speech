@@ -8,6 +8,7 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.with
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 
 /**
  * A composable that observes changes to the current screen in [RouteManagerImpl] and displays its content.
@@ -17,18 +18,20 @@ import androidx.compose.runtime.Composable
 @ExperimentalAnimationApi
 @Composable
 fun NavigationHost(routeManager: RouteManager) {
-    val currentScreen: Screen? = routeManager.currentScreen
+    CompositionLocalProvider(LocalRouteManager provides routeManager) {
+        val currentScreen: Screen? = routeManager.currentScreen
 
-    AnimatedContent(
-        currentScreen,
-        transitionSpec = {
-            val target = targetState ?: return@AnimatedContent fadeIn(animationSpec = tween(220, delayMillis = 90)) +
-                    scaleIn(initialScale = 0.92f, animationSpec = tween(220, delayMillis = 90)) with
-                    fadeOut(animationSpec = tween(90))
+        AnimatedContent(
+            currentScreen,
+            transitionSpec = {
+                val target = targetState ?: return@AnimatedContent fadeIn(animationSpec = tween(220, delayMillis = 90)) +
+                        scaleIn(initialScale = 0.92f, animationSpec = tween(220, delayMillis = 90)) with
+                        fadeOut(animationSpec = tween(90))
 
-            target.enterTransition with target.exitTransition
+                target.enterTransition with target.exitTransition
+            }
+        ) {
+            currentScreen?.Content()
         }
-    ) {
-        currentScreen?.Content()
     }
 }

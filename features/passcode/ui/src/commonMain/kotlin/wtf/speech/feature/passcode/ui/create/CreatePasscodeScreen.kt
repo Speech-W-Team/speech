@@ -1,6 +1,7 @@
 package wtf.speech.feature.passcode.ui.create
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -48,6 +49,10 @@ class CreatePasscodeScreen private constructor(private val viewModel: CreatePass
                 }
                 else -> Unit
             }
+        }
+
+        DisposableEffect(Unit) {
+            onDispose { viewModel.clear() }
         }
 
         PasscodeContent(

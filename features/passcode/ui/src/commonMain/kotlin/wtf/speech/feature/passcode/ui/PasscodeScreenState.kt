@@ -22,12 +22,15 @@ internal data class PasscodeScreenState(
 internal sealed class PasscodeScreenEvent : ScreenEvent {
     data class EnterNumber(val number: Int) : PasscodeScreenEvent()
     data object NonEqualsPasscodes : PasscodeScreenEvent()
-    data object DeletePasscode : PasscodeScreenEvent()
     data object StartBiometricAuthentication : PasscodeScreenEvent()
+    data object ClearPasscode : PasscodeScreenEvent()
+    data object DeleteLastPasscode : PasscodeScreenEvent()
+
 }
 
 internal sealed class PasscodeScreenAction : ScreenAction {
     data class EnterNumber(val number: Int) : PasscodeScreenAction()
+    data object Clear : PasscodeScreenAction()
     data object Backspace : PasscodeScreenAction()
     data object EnableBiometricAuth : PasscodeScreenAction()
 }

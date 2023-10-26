@@ -16,23 +16,30 @@ internal abstract class BasePasscodeViewModel(
     fun addNumber(number: Int) {
         handleAction(PasscodeScreenAction.EnterNumber(number))
     }
+
     fun backspace() {
         handleAction(PasscodeScreenAction.Backspace)
+    }
+
+    fun clear() {
+        handleAction(PasscodeScreenAction.Clear)
     }
 
     override fun PasscodeScreenState.reduce(event: PasscodeScreenEvent): PasscodeScreenState {
         return when (event) {
             is PasscodeScreenEvent.EnterNumber -> this.apply { enteredPasscode.add(event.number) }
-            PasscodeScreenEvent.DeletePasscode -> copy(enteredPasscode = enteredPasscode.apply { removeLastOrNull() })
+            PasscodeScreenEvent.DeleteLastPasscode -> copy(enteredPasscode = enteredPasscode.apply { removeLastOrNull() })
             PasscodeScreenEvent.NonEqualsPasscodes -> copy(contentState = ContentState.Error(PasscodeScreenError.InvalidPasscode))
             PasscodeScreenEvent.StartBiometricAuthentication -> onStartBiometricAuth()
+            PasscodeScreenEvent.ClearPasscode -> copy(enteredPasscode = enteredPasscode.apply { clear() })
         }
     }
 
     override suspend fun processAction(action: PasscodeScreenAction): PasscodeScreenEvent {
         return when (action) {
-            PasscodeScreenAction.Backspace -> PasscodeScreenEvent.DeletePasscode
+            PasscodeScreenAction.Backspace -> PasscodeScreenEvent.DeleteLastPasscode
             PasscodeScreenAction.EnableBiometricAuth -> PasscodeScreenEvent.StartBiometricAuthentication
+            PasscodeScreenAction.Clear -> PasscodeScreenEvent.ClearPasscode
             is PasscodeScreenAction.EnterNumber -> enterNumber(action.number)
         }
     }
@@ -50,10 +57,6 @@ internal abstract class BasePasscodeViewModel(
     protected abstract fun PasscodeScreenState.onStartBiometricAuth(): PasscodeScreenState
 
     private fun enterNumber(number: Int): PasscodeScreenEvent {
-        val passcode = enteredPasscode
-        return when {
-            passcode.size < MAX_PASSCODE_SIZE -> PasscodeScreenEvent.EnterNumber(number)
-            else -> PasscodeScreenEvent.EnterNumber(number)
-        }
+        return  PasscodeScreenEvent.EnterNumber(number)
     }
 }
