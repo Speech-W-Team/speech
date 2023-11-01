@@ -36,3 +36,46 @@ impl Transaction for EthereumTransaction {
         sig.to_bytes().to_vec()
     }
 }
+
+impl EthereumTransaction {
+    pub fn from(&self) -> &String {
+        &self.from
+    }
+
+    pub fn to(&self) -> &String {
+        &self.to
+    }
+
+    pub fn gas_limit(&self) -> u64 {
+        self.gas_limit
+    }
+
+    pub fn max_fee_per_gas(&self) -> u64 {
+        self.max_fee_per_gas
+    }
+
+    pub fn max_priority_fee_per_gas(&self) -> u64 {
+        self.max_priority_fee_per_gas
+    }
+
+    pub fn nonce(&self) -> u64 {
+        self.nonce
+    }
+
+    pub fn value(&self) -> u64 {
+        self.value
+    }
+
+    pub fn data(&self) -> &Vec<u8> {
+        &self.data
+    }
+
+    pub fn new(params: (String, String, u64, u64, u64, u64, u64, Vec<u8>)) -> Self {
+        <Self as Transaction>::new(params)
+    }
+
+    pub fn sign(&self, private_key: &Vec<u8>, data_to_sign: &[u8]) -> Vec<u8> {
+        <Self as Transaction>::sign(self, private_key, data_to_sign)
+    }
+}
+
