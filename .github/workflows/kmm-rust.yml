@@ -1,0 +1,103 @@
+name: Kotlin Multiplatform Build
+
+on:
+  push:
+    branches:
+      - 'main'
+      - 'develop'
+  pull_request:
+    branches:
+      - 'main'
+      - 'develop'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - platform: android
+            sdk: android
+            ndk: 21.3.6528147
+          - platform: ios
+            sdk: macosx
+            xcode: "12.4"
+            device: "iPhone 8"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # Setup JDK for Kotlin
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: 'adopt'
+
+      # Cache dependencies
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
+      # Setup Rust environment
+      - name: Set up Rust environment
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      # Install Android SDK & NDK if Android platform is chosen
+      - name: Install Android SDK and NDK
+        if: matrix.platform == 'android'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential patch ruby-full ruby-bundler lib32stdc++6 libstdc++6 libcurl4-openssl-dev libssl-dev zlib1g-dev
+          echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --install "ndk;${matrix.ndk}"
+          echo "y" | sudo ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
+
+      # Install iOS tools if iOS platform is chosen
+      - name: Install iOS tools
+        if: matrix.platform == 'ios'
+        run: |
+          sudo xcode-select --install
+          sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer
+          sudo gem install cocoapods
+          sudo gem install xcpretty
+
+      # Restore Rust cache
+      - name: Cache Rust target directory
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-rust-target-${{ hashFiles('**/Cargo.lock') }}
+
+      # Build Rust Libraries
+      - name: Build Rust libraries
+        run: |
+          # Add additional commands to build your Rust library for the correct architecture
+          cargo build --release
+
+      # Build the Kotlin Multiplatform project
+      - name: Build Kotlin Multiplatform project
+        run: ./gradlew build
+
+      # Additional steps for Android
+      - name: Build Android app
+        if: matrix.platform == 'android'
+        run: ./gradlew assembleDebug
+
+      # Additional steps for iOS
+      - name: Build iOS app
+        if: matrix.platform == 'ios'
+        run: |
+          pod install --project-directory=iosApp/
+          xcodebuild -workspace iosApp/iosApp.xcworkspace -scheme iosApp -sdk ${{ matrix.sdk }} -configuration Debug ONLY_ACTIVE_ARCH=NO BUILD_LIBRARY_FOR_DISTRIBUTION=YES | xcpretty
