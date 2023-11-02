@@ -53,4 +53,6 @@ dependencies {
     implementation(dependencyNotation = libs.compose.activity)
     implementation(dependencyNotation = libs.appCompat)
     implementation(dependencyNotation = libs.coreKtx)
+
+    implementation(projects.features.passcode.ui)
 }

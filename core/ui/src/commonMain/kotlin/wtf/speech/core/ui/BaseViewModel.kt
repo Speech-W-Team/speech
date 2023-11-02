@@ -32,7 +32,7 @@ abstract class BaseViewModel<E : ErrorState, S : ScreenState, A : ScreenAction, 
     /**
      * A Channel for sending effects to the screen.
      */
-    private val _effect = MutableSharedFlow<F>(replay = 1, extraBufferCapacity = 1)
+    private val _effect = MutableSharedFlow<F>(replay = 0, extraBufferCapacity = 1)
 
     /**
      * A property for sending effects to the screen.

@@ -1,46 +1,34 @@
 package wtf.speech.feature.passcode.ui.create
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import kotlinx.coroutines.delay
+import wtf.speech.compass.core.Extra
+import wtf.speech.compass.core.LocalRouteManager
+import wtf.speech.compass.core.Screen
+import wtf.speech.compass.core.ScreenBuilder
 import wtf.speech.core.ui.ContentState
-import wtf.speech.feature.passcode.ui.MAX_PASSCODE_SIZE
 import wtf.speech.feature.passcode.ui.PasscodeContent
-import wtf.speech.feature.passcode.ui.PasscodeScreenError
-import wtf.speech.feature.passcode.ui.PasscodeScreenState
+import wtf.speech.feature.passcode.ui.PasscodeScreenEffect
+import wtf.speech.feature.passcode.ui.confirm.ConfirmPasscodeScreen
 
-class CreatePasscodeScreen {
+class CreatePasscodeScreen private constructor(private val viewModel: CreatePasscodeViewModel) : Screen() {
+    override val id: String
+        get() = ID
 
     @Composable
-    fun Content() {
-        val passcode = remember { mutableStateListOf<Int>() }
+    override fun Content() {
+        val routeManager = LocalRouteManager.current
 
-        val passcodeContentState: ContentState<Unit>? by remember(passcode.size) {
-            mutableStateOf(
-                when {
-                    passcode.size < MAX_PASSCODE_SIZE -> null
-                    passcode.size == MAX_PASSCODE_SIZE -> ContentState.Success(Unit)
-                    else -> ContentState.Error(PasscodeScreenError.InvalidPasscode)
-                }
-            )
-        }
+        val state by viewModel.state.collectAsState()
+        val effect by viewModel.effect.collectAsState(null)
+        val passcode = state.enteredPasscode
 
-        val passcodeScreenState by remember(passcode.size, passcodeContentState) {
-            mutableStateOf(
-                PasscodeScreenState(
-                    passcode,
-                    passcode.size - 1,
-                    passcodeContentState
-                )
-            )
-        }
-
-        LaunchedEffect(passcodeContentState) {
-            when (passcodeContentState) {
+        LaunchedEffect(state.contentState) {
+            when (state.contentState) {
                 is ContentState.Error<*, *> -> {
                     delay(ERROR_ANIMATION_DELAY)
                     passcode.clear()
@@ -51,16 +39,40 @@ class CreatePasscodeScreen {
             }
         }
 
+        LaunchedEffect(effect) {
+            when (effect) {
+                is PasscodeScreenEffect.AuthSuccess -> {
+                    routeManager.navigateTo(
+                        ConfirmPasscodeScreen.ID,
+                        extras = ConfirmPasscodeScreen.ConfirmPasscodeExtra(passcode)
+                    )
+                }
+                else -> Unit
+            }
+        }
+
+        DisposableEffect(Unit) {
+            onDispose { viewModel.clear() }
+        }
+
         PasscodeContent(
-            onPasscodeEntered = passcode::add,
+            onPasscodeEntered = viewModel::addNumber,
             title = "Create Passcode",
-            onDeletePressed = passcode::removeLastOrNull,
-            passcodeScreenState = passcodeScreenState
+            onDeletePressed = viewModel::backspace,
+            passcodeScreenState = state
         )
     }
 
-    companion object {
+    companion object Builder : ScreenBuilder {
         private const val ERROR_ANIMATION_DELAY = 600L
         private const val SUCCESS_ANIMATION_DELAY = 600L
+        const val ID = "CreatePasscode"
+
+        override val id: String
+            get() = ID
+
+        override fun build(params: Map<String, String>?, extra: Extra?): Screen {
+            return CreatePasscodeScreen(CreatePasscodeViewModel())
+        }
     }
 }
