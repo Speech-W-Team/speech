@@ -13,7 +13,10 @@ import wtf.speech.core.ui.ContentState
 import wtf.speech.feature.passcode.ui.PasscodeContent
 import wtf.speech.features.passcode.domain.usecase.CheckPasscodesEqualsUseCase
 
-class ConfirmPasscodeScreen private constructor(private val viewModel: ConfirmPasscodeViewModel) : Screen() {
+private const val PASSCODE_CLEAR_DELAY = 600L
+
+class ConfirmPasscodeScreen private constructor(private val viewModel: ConfirmPasscodeViewModel) :
+    Screen() {
     override val id: String
         get() = ID
 
@@ -24,7 +27,7 @@ class ConfirmPasscodeScreen private constructor(private val viewModel: ConfirmPa
 
         LaunchedEffect(state) {
             if (state.contentState is ContentState.Error<*, *>) {
-                delay(600L)
+                delay(PASSCODE_CLEAR_DELAY)
                 passcode.clear()
             }
         }
@@ -52,7 +55,8 @@ class ConfirmPasscodeScreen private constructor(private val viewModel: ConfirmPa
             get() = ID
 
         override fun build(params: Map<String, String>?, extra: Extra?): Screen {
-            val passcode = (extra as? ConfirmPasscodeExtra) ?: throw IllegalArgumentException("Illegal arguments passed: $extra")
+            val passcode = (extra as? ConfirmPasscodeExtra)
+                ?: throw IllegalArgumentException("Illegal arguments passed: $extra")
             val checkPasscodeUseCase = CheckPasscodesEqualsUseCase()
             return ConfirmPasscodeScreen(ConfirmPasscodeViewModel(passcode, checkPasscodeUseCase))
         }

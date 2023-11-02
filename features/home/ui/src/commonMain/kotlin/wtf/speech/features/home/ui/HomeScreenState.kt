@@ -62,15 +62,9 @@ data class Error(override val error: HomeErrorState) : ScreenState.Error<HomeErr
 
 sealed class HomeErrorState(error: Throwable) : ErrorState(error)
 
-sealed class HomeScreenEvent : ScreenEvent {
+class HomeScreenEvent : ScreenEvent
 
-}
+class HomeScreenAction : ScreenAction
 
-sealed class HomeScreenAction : ScreenAction {
-
-}
-
-sealed class HomeScreenEffect : ScreenEffect {
-
-}
+class HomeScreenEffect : ScreenEffect
 

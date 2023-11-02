@@ -45,12 +45,8 @@ interface AddressGenerator {
     suspend fun validateAddress(address: Address): Boolean
 }
 
+@Suppress("MagicNumber")
 fun privateKeyFromWIF(wif: String): BigInteger {
-    val decoded = wif.decodeBase58()
-    return BigInteger.fromByteArray(decoded.sliceArray(1 until 33), Sign.POSITIVE)
-}
-
-fun wifFromPrivateKey(wif: String): BigInteger {
     val decoded = wif.decodeBase58()
     return BigInteger.fromByteArray(decoded.sliceArray(1 until 33), Sign.POSITIVE)
 }
@@ -73,6 +69,6 @@ fun ripemd160(data: ByteArray): ByteArray {
     return output
 }
 
-fun mnemonicToSeed(mnemonicPhrase: List<String>, passphrase: String): ByteArray {
+fun mnemonicToSeed(): ByteArray {
     return byteArrayOf()
 }

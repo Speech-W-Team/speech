@@ -1,5 +1,6 @@
 package wtf.speech.features.wallet.domain.models.blockchains
 
+import wtf.speech.features.wallet.domain.generator.AddressGenerator
 import wtf.speech.features.wallet.domain.generator.BitcoinAddressGenerator
 import wtf.speech.features.wallet.domain.generator.BitcoinKeyGenerator
 import wtf.speech.features.wallet.domain.generator.KeyGenerator
@@ -40,5 +41,5 @@ data object BitcoinBlockchainProvider : BlockchainProvider<BitcoinBlockchain>() 
 
     override fun getKeyGenerator(): KeyGenerator = BitcoinKeyGenerator
 
-    override fun getAddressGenerator(): wtf.speech.features.wallet.domain.generator.AddressGenerator = BitcoinAddressGenerator
+    override fun getAddressGenerator(): AddressGenerator = BitcoinAddressGenerator
 }

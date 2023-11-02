@@ -10,6 +10,7 @@ import java.math.BigInteger
 import java.security.SecureRandom
 import java.security.Security
 
+@Suppress("MagicNumber")
 actual object BitcoinKeyGenerator : KeyGenerator {
     private val parameterSpec = CurveType.SECP256K1.curveName
 

@@ -1,5 +1,6 @@
 package wtf.speech.features.wallet.domain.models.blockchains
 
+import wtf.speech.features.wallet.domain.generator.AddressGenerator
 import wtf.speech.features.wallet.domain.generator.EthereumAddressGenerator
 import wtf.speech.features.wallet.domain.generator.EthereumKeyGenerator
 import wtf.speech.features.wallet.domain.generator.KeyGenerator
@@ -40,5 +41,5 @@ data object BinanceSmartChainBlockchainProvider :
 
     override fun getKeyGenerator(): KeyGenerator = EthereumKeyGenerator
 
-    override fun getAddressGenerator(): wtf.speech.features.wallet.domain.generator.AddressGenerator = EthereumAddressGenerator
+    override fun getAddressGenerator(): AddressGenerator = EthereumAddressGenerator
 }
