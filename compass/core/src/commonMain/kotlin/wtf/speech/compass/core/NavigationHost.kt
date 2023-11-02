@@ -25,9 +25,18 @@ fun NavigationHost(routeManager: RouteManager, vararg values: ProvidedValue<*>) 
         AnimatedContent(
             currentScreen,
             transitionSpec = {
-                val target = targetState ?: return@AnimatedContent fadeIn(animationSpec = tween(220, delayMillis = 90)) +
-                        scaleIn(initialScale = 0.92f, animationSpec = tween(220, delayMillis = 90)) with
-                        fadeOut(animationSpec = tween(90))
+                val target = targetState ?: return@AnimatedContent fadeIn(
+                    animationSpec = tween(
+                        durationMillis = 220,
+                        delayMillis = 90
+                    )
+                ) + scaleIn(
+                    initialScale = 0.92f,
+                    animationSpec = tween(
+                        durationMillis = 220,
+                        delayMillis = 90
+                    )
+                ) with fadeOut(animationSpec = tween(durationMillis = 90))
 
                 target.enterTransition with target.exitTransition
             }

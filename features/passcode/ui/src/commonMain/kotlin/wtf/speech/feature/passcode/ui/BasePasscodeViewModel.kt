@@ -4,7 +4,13 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import wtf.speech.core.ui.BaseViewModel
 import wtf.speech.core.ui.ContentState
 
-internal typealias PasscodeViewModel = BaseViewModel<PasscodeScreenError, PasscodeScreenState, PasscodeScreenAction, PasscodeScreenEvent, PasscodeScreenEffect>
+internal typealias PasscodeViewModel = BaseViewModel<
+        PasscodeScreenError,
+        PasscodeScreenState,
+        PasscodeScreenAction,
+        PasscodeScreenEvent,
+        PasscodeScreenEffect
+        >
 
 internal abstract class BasePasscodeViewModel(
     state: PasscodeScreenState = PasscodeScreenState()
@@ -45,6 +51,6 @@ internal abstract class BasePasscodeViewModel(
     protected abstract fun PasscodeScreenState.onStartBiometricAuth(): PasscodeScreenState
 
     private fun enterNumber(number: Int): PasscodeScreenEvent {
-        return  PasscodeScreenEvent.EnterNumber(number)
+        return PasscodeScreenEvent.EnterNumber(number)
     }
 }

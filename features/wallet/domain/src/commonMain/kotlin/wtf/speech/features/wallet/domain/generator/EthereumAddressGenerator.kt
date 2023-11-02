@@ -3,6 +3,7 @@ package wtf.speech.features.wallet.domain.generator
 import wtf.speech.core.domain.models.PublicKey
 import wtf.speech.features.wallet.domain.models.Address
 
+@Suppress("MagicNumber")
 object EthereumAddressGenerator : AddressGenerator {
 
     @OptIn(ExperimentalStdlibApi::class)

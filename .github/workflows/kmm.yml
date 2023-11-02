@@ -25,6 +25,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
+      - name: Static code analyse
+        run: ./gradlew detekt
+
       - name: Build Android and shared code
         run: ./gradlew build
 

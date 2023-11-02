@@ -92,7 +92,11 @@ data class ExtendedWallet(
          *
          * @return a new default wallet instance
          */
-        fun defaultWallet(blockchain: Blockchain, publicKey: PublicKey, privateKey: PrivateKey): ExtendedWallet {
+        fun defaultWallet(
+            blockchain: Blockchain,
+            publicKey: PublicKey,
+            privateKey: PrivateKey
+        ): ExtendedWallet {
             return ExtendedWallet(blockchain, mutableSetOf(), publicKey, mutableSetOf(), privateKey)
         }
 
@@ -105,8 +109,19 @@ data class ExtendedWallet(
          *
          * @return a new default wallet instance
          */
-        fun defaultWallet(blockchain: Blockchain, publicKey: PublicKey, privateKey: PrivateKey, address: Address): ExtendedWallet {
-            return ExtendedWallet(blockchain, mutableSetOf(address), publicKey, mutableSetOf(), privateKey)
+        fun defaultWallet(
+            blockchain: Blockchain,
+            publicKey: PublicKey,
+            privateKey: PrivateKey,
+            address: Address
+        ): ExtendedWallet {
+            return ExtendedWallet(
+                blockchain,
+                mutableSetOf(address),
+                publicKey,
+                mutableSetOf(),
+                privateKey
+            )
         }
     }
 }

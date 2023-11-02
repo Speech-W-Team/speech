@@ -3,6 +3,7 @@ package wtf.speech.features.wallet.domain.usecases
 import org.bouncycastle.util.encoders.Hex
 import java.math.BigInteger
 
+@Suppress("MagicNumber", "ReturnCount")
 object Base58 {
     private val encodeTable = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz".toCharArray()
     private val reverseTable = computeReverseTable()

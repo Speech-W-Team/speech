@@ -20,9 +20,9 @@ import org.komputing.khash.sha256.extensions.sha256
 private const val ENCODED_ZERO = '1'
 private const val CHECKSUM_SIZE = 4
 
-private const val alphabet = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+private const val ALPHABET = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
 private val alphabetIndices by lazy {
-    IntArray(128) { alphabet.indexOf(it.toChar()) }
+    IntArray(128) { ALPHABET.indexOf(it.toChar()) }
 }
 
 /**
@@ -46,7 +46,8 @@ fun ByteArray.encodeToBase58String(): String {
     var outputStart = encoded.size
     var inputStart = zeros
     while (inputStart < input.size) {
-        encoded[--outputStart] = alphabet[divmod(input, inputStart.toUInt(), 256.toUInt(), 58.toUInt()).toInt()]
+        encoded[--outputStart] =
+            ALPHABET[divmod(input, inputStart.toUInt(), 256.toUInt(), 58.toUInt()).toInt()]
         if (input[inputStart].toInt() == 0) {
             ++inputStart // optimization - skip leading zeros
         }
@@ -68,6 +69,7 @@ fun ByteArray.encodeToBase58String(): String {
  * @return the decoded data bytes
  * @throws NumberFormatException if the string is not a valid base58 string
  */
+@Suppress("MagicNumber")
 @Throws(NumberFormatException::class)
 fun String.decodeBase58(): ByteArray {
     if (isEmpty()) {
@@ -93,7 +95,8 @@ fun String.decodeBase58(): ByteArray {
     var outputStart = decoded.size
     var inputStart = zeros
     while (inputStart < input58.size) {
-        decoded[--outputStart] = divmod(input58, inputStart.toUInt(), 58.toUInt(), 256.toUInt()).toByte()
+        decoded[--outputStart] =
+            divmod(input58, inputStart.toUInt(), 58.toUInt(), 256.toUInt()).toByte()
         if (input58[inputStart].toInt() == 0) {
             ++inputStart // optimization - skip leading zeros
         }
@@ -142,6 +145,7 @@ private fun divmod(number: ByteArray, firstDigit: UInt, base: UInt, divisor: UIn
 //
 //}.encodeToBase58String()
 
+@Suppress("TooGenericExceptionThrown")
 fun String.decodeBase58WithChecksum(): ByteArray {
     val rawBytes = decodeBase58()
     if (rawBytes.size < CHECKSUM_SIZE) {
@@ -154,9 +158,9 @@ fun String.decodeBase58WithChecksum(): ByteArray {
     val hash = payload.sha256().sha256()
     val computedChecksum = hash.copyOfRange(0, CHECKSUM_SIZE)
 
-    if (checksum.contentEquals(computedChecksum)) {
-        return payload
-    } else {
-        throw IllegalArgumentException("Checksum mismatch: $checksum is not computed checksum $computedChecksum")
+    require(checksum.contentEquals(computedChecksum)) {
+        "Checksum mismatch: $checksum is not computed checksum $computedChecksum"
     }
+
+    return payload
 }

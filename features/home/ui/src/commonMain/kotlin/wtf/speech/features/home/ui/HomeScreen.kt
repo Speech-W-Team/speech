@@ -1,4 +1,8 @@
-@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalResourceApi::class, ExperimentalFoundationApi::class)
+@file:OptIn(
+    ExperimentalMaterial3Api::class,
+    ExperimentalResourceApi::class,
+    ExperimentalFoundationApi::class
+)
 
 package wtf.speech.features.home.ui
 
@@ -71,7 +75,14 @@ class HomeScreen internal constructor(override val id: String, private val viewM
 }
 
 @Composable
-fun HomeScreen(homeViewModel: BaseViewModel<HomeErrorState, HomeScreenState, HomeScreenAction, HomeScreenEvent, HomeScreenEffect>) {
+fun HomeScreen(
+    homeViewModel: BaseViewModel<
+            HomeErrorState,
+            HomeScreenState,
+            HomeScreenAction,
+            HomeScreenEvent,
+            HomeScreenEffect>
+) {
     val state by homeViewModel.state.collectAsState()
     val effect by homeViewModel.effect.collectAsState(initial = null)
 
@@ -96,7 +107,6 @@ private fun ScaffoldHomeScreen(state: HomeScreenState) {
         topBar = {
             HomeTopBar(
                 username = state.username,
-                avatar = state.avatar,
                 notificationsCount = state.notificationsCountText,
             )
         },
@@ -105,7 +115,7 @@ private fun ScaffoldHomeScreen(state: HomeScreenState) {
 }
 
 @Composable
-fun HomeTopBar(username: String, avatar: String, notificationsCount: String) {
+fun HomeTopBar(username: String, notificationsCount: String) {
     TopAppBar(
         title = { UserProfileTitle(username) },
         actions = {
@@ -127,7 +137,10 @@ private fun ContentHomeScreen(paddingValues: PaddingValues, state: HomeScreenSta
 @Composable
 private fun AmountHeader(state: HomeScreenState) {
     Column {
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Start) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
             TitleLargeText(
                 text = state.formattedAmountFiatOnAllWallets,
                 modifier = Modifier
@@ -135,8 +148,16 @@ private fun AmountHeader(state: HomeScreenState) {
                     .padding(horizontal = 16.dp, vertical = 36.dp)
             )
 
-            OperationItem(onClick = {}, icon = painterResource("ic_arrow_up_circle.xml"), title = "Send")
-            OperationItem(onClick = {}, icon = painterResource("ic_arrow_down_circle.xml"), title = "Receive")
+            OperationItem(
+                onClick = {},
+                icon = painterResource("ic_arrow_up_circle.xml"),
+                title = "Send"
+            )
+            OperationItem(
+                onClick = {},
+                icon = painterResource("ic_arrow_down_circle.xml"),
+                title = "Receive"
+            )
         }
 
         Divider(Modifier.fillMaxWidth())
@@ -188,7 +209,11 @@ private fun UserProfileTitle(username: String) {
 @Composable
 private fun ScanButton() {
     IconButton(onClick = {}) {
-        Icon(painterResource("ic_qr_maximize.xml"), contentDescription = null, modifier = Modifier.size(24.dp))
+        Icon(
+            painterResource("ic_qr_maximize.xml"),
+            contentDescription = null,
+            modifier = Modifier.size(24.dp)
+        )
     }
 }
 
@@ -197,7 +222,11 @@ private fun ScanButton() {
 private fun NotificationsButton(onClick: () -> Unit, notificationsCount: String) {
     IconButton(onClick = onClick) {
         Box(contentAlignment = Alignment.Center, modifier = Modifier.size(48.dp)) {
-            Icon(painterResource("ic_notifications_bell.xml"), contentDescription = null, modifier = Modifier.size(24.dp))
+            Icon(
+                painterResource("ic_notifications_bell.xml"),
+                contentDescription = null,
+                modifier = Modifier.size(24.dp)
+            )
             LabelsSmallText(
                 text = notificationsCount,
                 color = MaterialTheme.colorScheme.onErrorContainer,

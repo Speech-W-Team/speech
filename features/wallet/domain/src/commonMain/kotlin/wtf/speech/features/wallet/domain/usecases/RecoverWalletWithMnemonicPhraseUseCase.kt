@@ -11,7 +11,7 @@ class RecoverWalletWithMnemonicPhraseUseCase(
     private val walletFactory: WalletFactory
 ) : CoroutineUseCase<RecoverWalletWithMnemonicPhraseUseCase.Param, Wallet>() {
     override suspend fun invoke(input: Param): Wallet {
-        val privateKey = mnemonicToSeed(input.mnemonic, input.passphrase)
+        val privateKey = mnemonicToSeed()
         return walletFactory.recoverWallet(input.blockchain, PrivateKey(privateKey))
     }
 
