@@ -1,9 +1,11 @@
 import com.android.build.api.dsl.LibraryExtension
 import extensions.configureAndroid
+import extensions.configureDetekt
 import extensions.configureJvmToolchain
 import extensions.configureKotlin
 import extensions.configureKotlinJvm
 import extensions.configureTarget
+import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -19,10 +21,15 @@ class MultiPlatformCoreConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.multiplatform")
+                apply("io.gitlab.arturbosch.detekt")
             }
 
             extensions.configure<LibraryExtension> {
-                configureAndroid(this)
+                configureAndroid(extension = this)
+            }
+
+            extensions.configure<DetektExtension> {
+                configureDetekt(extension = this)
             }
 
             configureKotlinJvm()

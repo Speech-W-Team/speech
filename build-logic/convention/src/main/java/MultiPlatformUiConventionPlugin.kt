@@ -2,12 +2,15 @@ import com.android.build.api.dsl.LibraryExtension
 import extensions.commonDependencies
 import extensions.configureAndroid
 import extensions.configureCompose
+import extensions.configureDetekt
 import extensions.configureJvmToolchain
 import extensions.configureKotlin
 import extensions.configureKotlinJvm
 import extensions.configureTarget
+import io.gitlab.arturbosch.detekt.extensions.DetektExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.getByType
 import org.jetbrains.compose.ComposeExtension
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
@@ -22,6 +25,7 @@ class MultiPlatformUiConventionPlugin : Plugin<Project> {
             with(pluginManager) {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.multiplatform")
+                apply("io.gitlab.arturbosch.detekt")
             }
 
             val libraryExtension = extensions.getByType<LibraryExtension>()
@@ -33,6 +37,10 @@ class MultiPlatformUiConventionPlugin : Plugin<Project> {
 
             configureKotlinJvm()
             configureKotlin()
+
+            extensions.configure<DetektExtension> {
+                configureDetekt(extension = this)
+            }
 
             with(kmpExtension) {
                 configureTarget()

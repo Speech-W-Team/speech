@@ -6,7 +6,9 @@ import wtf.speech.feature.passcode.ui.MAX_PASSCODE_SIZE
 import wtf.speech.feature.passcode.ui.PasscodeScreenEffect
 import wtf.speech.feature.passcode.ui.PasscodeScreenState
 
-internal class CreatePasscodeViewModel(state: PasscodeScreenState = PasscodeScreenState()) : BasePasscodeViewModel(state) {
+internal class CreatePasscodeViewModel(
+    state: PasscodeScreenState = PasscodeScreenState()
+) : BasePasscodeViewModel(state) {
 
     override fun checkPasscode(passcode: List<Int>): PasscodeScreenEffect? {
         return if (passcode.size == MAX_PASSCODE_SIZE) {

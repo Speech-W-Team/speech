@@ -24,6 +24,7 @@ import wtf.speech.features.wallet.domain.utils.encodeToBase58String
  * This process is known as Base58Check encoding and it ensures that Bitcoin addresses are
  * human-readable, case-sensitive, and have built-in error detection.
  */
+@Suppress("MagicNumber")
 object BitcoinAddressGenerator : AddressGenerator {
 
     override suspend fun generateAddress(publicKey: PublicKey): Address {

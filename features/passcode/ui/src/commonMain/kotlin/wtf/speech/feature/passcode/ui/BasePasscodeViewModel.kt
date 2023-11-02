@@ -4,7 +4,13 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import wtf.speech.core.ui.BaseViewModel
 import wtf.speech.core.ui.ContentState
 
-internal typealias PasscodeViewModel = BaseViewModel<PasscodeScreenError, PasscodeScreenState, PasscodeScreenAction, PasscodeScreenEvent, PasscodeScreenEffect>
+internal typealias PasscodeViewModel = BaseViewModel<
+        PasscodeScreenError,
+        PasscodeScreenState,
+        PasscodeScreenAction,
+        PasscodeScreenEvent,
+        PasscodeScreenEffect
+        >
 
 internal abstract class BasePasscodeViewModel(
     state: PasscodeScreenState = PasscodeScreenState()
@@ -27,11 +33,29 @@ internal abstract class BasePasscodeViewModel(
 
     override fun PasscodeScreenState.reduce(event: PasscodeScreenEvent): PasscodeScreenState {
         return when (event) {
-            is PasscodeScreenEvent.EnterNumber -> this.apply { enteredPasscode.add(event.number) }
-            PasscodeScreenEvent.DeleteLastPasscode -> copy(enteredPasscode = enteredPasscode.apply { removeLastOrNull() })
-            PasscodeScreenEvent.NonEqualsPasscodes -> copy(contentState = ContentState.Error(PasscodeScreenError.InvalidPasscode))
-            PasscodeScreenEvent.StartBiometricAuthentication -> onStartBiometricAuth()
-            PasscodeScreenEvent.ClearPasscode -> copy(enteredPasscode = enteredPasscode.apply { clear() })
+            is PasscodeScreenEvent.EnterNumber -> {
+                this.apply { enteredPasscode.add(event.number) }
+            }
+
+            is PasscodeScreenEvent.DeleteLastPasscode -> {
+                copy(enteredPasscode = enteredPasscode.apply { removeLastOrNull() })
+            }
+
+            is PasscodeScreenEvent.NonEqualsPasscodes -> {
+                copy(
+                    contentState = ContentState.Error(
+                        PasscodeScreenError.InvalidPasscode
+                    )
+                )
+            }
+
+            is PasscodeScreenEvent.StartBiometricAuthentication -> {
+                onStartBiometricAuth()
+            }
+
+            is PasscodeScreenEvent.ClearPasscode -> {
+                copy(enteredPasscode = enteredPasscode.apply { clear() })
+            }
         }
     }
 
@@ -57,6 +81,6 @@ internal abstract class BasePasscodeViewModel(
     protected abstract fun PasscodeScreenState.onStartBiometricAuth(): PasscodeScreenState
 
     private fun enterNumber(number: Int): PasscodeScreenEvent {
-        return  PasscodeScreenEvent.EnterNumber(number)
+        return PasscodeScreenEvent.EnterNumber(number)
     }
 }
