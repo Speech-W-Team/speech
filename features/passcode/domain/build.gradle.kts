@@ -19,6 +19,8 @@ kotlin {
         implementation(libs.khash.keccak)
         implementation(libs.khash.ripemd160)
         implementation(libs.khash.sha256)
+
+        api(projects.core.domain)
     }
 
     androidDependencies {

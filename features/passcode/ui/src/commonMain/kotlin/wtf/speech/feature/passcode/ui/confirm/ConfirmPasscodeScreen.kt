@@ -4,28 +4,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import kotlinx.coroutines.delay
 import wtf.speech.compass.core.Extra
 import wtf.speech.compass.core.Screen
 import wtf.speech.compass.core.ScreenBuilder
 import wtf.speech.core.ui.ContentState
+import wtf.speech.feature.passcode.ui.LocalPasscodeNavigator
 import wtf.speech.feature.passcode.ui.PasscodeContent
+import wtf.speech.feature.passcode.ui.PasscodeGraphs.ERROR_ANIMATION_DELAY
+import wtf.speech.feature.passcode.ui.PasscodeScreenEffect
 import wtf.speech.features.passcode.domain.usecase.CheckPasscodesEqualsUseCase
 
-class ConfirmPasscodeScreen private constructor(private val viewModel: ConfirmPasscodeViewModel) : Screen() {
+class ConfirmPasscodeScreen private constructor(
+    private val viewModel: ConfirmPasscodeViewModel
+) : Screen() {
     override val id: String
         get() = ID
 
     @Composable
     override fun Content() {
+        val navigationMediator = LocalPasscodeNavigator.current
         val state by viewModel.state.collectAsState()
-        val passcode = state.enteredPasscode
+        val effect by viewModel.effect.collectAsState(null)
 
         LaunchedEffect(state) {
             if (state.contentState is ContentState.Error<*, *>) {
-                delay(600L)
-                passcode.clear()
+                delay(ERROR_ANIMATION_DELAY)
+                viewModel.clear()
+            }
+        }
+
+        LaunchedEffect(effect) {
+            when (val e = effect) {
+                is PasscodeScreenEffect.EnterPasscodeSuccess -> navigationMediator.onEnterPasscodeSuccess(e.encryptionKey)
+                PasscodeScreenEffect.Logout -> navigationMediator.onLogout()
+                else -> Unit
             }
         }
 
@@ -37,7 +50,7 @@ class ConfirmPasscodeScreen private constructor(private val viewModel: ConfirmPa
         )
     }
 
-    public data class ConfirmPasscodeExtra(val passcode: SnapshotStateList<Int>) : Extra {
+    data class ConfirmPasscodeExtra(val passcode: List<Int>) : Extra {
         override val key: String = KEY
         override val data: Any = passcode
 
@@ -54,6 +67,7 @@ class ConfirmPasscodeScreen private constructor(private val viewModel: ConfirmPa
         override fun build(params: Map<String, String>?, extra: Extra?): Screen {
             val passcode = (extra as? ConfirmPasscodeExtra) ?: throw IllegalArgumentException("Illegal arguments passed: $extra")
             val checkPasscodeUseCase = CheckPasscodesEqualsUseCase()
+
             return ConfirmPasscodeScreen(ConfirmPasscodeViewModel(passcode, checkPasscodeUseCase))
         }
     }

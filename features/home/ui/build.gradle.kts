@@ -8,6 +8,10 @@ plugins {
 
 android.namespace = "wtf.speech.features.home.ui"
 
+commonDependencies {
+    implementation(projects.compass.core)
+}
+
 kotlin {
     commonDependencies {
         implementation(projects.core.ui)

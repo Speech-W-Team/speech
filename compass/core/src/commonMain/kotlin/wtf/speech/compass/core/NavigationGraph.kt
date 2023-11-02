@@ -9,7 +9,7 @@ internal data class NavigationEntry(val screen: Screen, val params: Map<String, 
  * Represents a navigation graph with possible navigation paths, initial screen, and parameters.
  *
  * @property paths Mapping of each screen to its possible destinations.
- * @property initialScreenId The ID of the initial screen for this graph.
+ * @property initialScreen The initial screen for this graph.
  * @property parameters Optional parameters associated with the graph.
  */
 data class NavigationGraph(

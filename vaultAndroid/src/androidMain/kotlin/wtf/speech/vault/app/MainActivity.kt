@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.tooling.preview.Preview
 import wtf.speech.compass.core.rememberRouteManager
 import wtf.speech.core.cryptokt.CryptoApi
 import wtf.speech.feature.passcode.ui.PasscodeGraphs
@@ -22,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         val backPressedDispatcher = onBackPressedDispatcher
         setContent {
             val routeManager = rememberRouteManager(PasscodeGraphs.createPasscodeGraph)
-            backPressedDispatcher.addCallback {
+            backPressedDispatcher.addCallback(this) {
                 if (!routeManager.navigateBack()) super.onBackPressed()
             }
 
@@ -33,4 +35,10 @@ class MainActivity : AppCompatActivity() {
         val array = creator.getPrivateKey()
         Log.d("MainActivity___", "$array")
     }
+}
+
+@Preview
+@Composable
+fun Preview() {
+    MainView(rememberRouteManager(PasscodeGraphs.createPasscodeGraph))
 }

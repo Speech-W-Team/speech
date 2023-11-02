@@ -16,7 +16,7 @@ internal class EnterPasscodeViewModel(
                 if (isEquals) {
                     PasscodeScreenEffect.AuthSuccess(passcode)
                 } else {
-                    PasscodeScreenEffect.WrongPasscode()
+                    PasscodeScreenEffect.WrongPasscode
                 }
             }
     }

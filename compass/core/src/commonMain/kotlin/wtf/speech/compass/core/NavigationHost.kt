@@ -9,6 +9,7 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.with
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ProvidedValue
 
 /**
  * A composable that observes changes to the current screen in [RouteManagerImpl] and displays its content.
@@ -17,8 +18,8 @@ import androidx.compose.runtime.CompositionLocalProvider
  */
 @ExperimentalAnimationApi
 @Composable
-fun NavigationHost(routeManager: RouteManager) {
-    CompositionLocalProvider(LocalRouteManager provides routeManager) {
+fun NavigationHost(routeManager: RouteManager, vararg values: ProvidedValue<*>) {
+    CompositionLocalProvider(LocalRouteManager provides routeManager, *values) {
         val currentScreen: Screen? = routeManager.currentScreen
 
         AnimatedContent(

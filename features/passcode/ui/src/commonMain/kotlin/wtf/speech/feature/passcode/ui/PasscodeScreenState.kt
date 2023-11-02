@@ -2,6 +2,7 @@ package wtf.speech.feature.passcode.ui
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.snapshots.SnapshotStateList
+import wtf.speech.core.domain.models.DecryptedData
 import wtf.speech.core.ui.ContentState
 import wtf.speech.core.ui.ErrorState
 import wtf.speech.core.ui.ScreenAction
@@ -36,9 +37,24 @@ internal sealed class PasscodeScreenAction : ScreenAction {
 }
 
 internal sealed class PasscodeScreenEffect : ScreenEffect {
-    data class AuthSuccess(val passcode: List<Int>) : PasscodeScreenEffect()
-    class WrongPasscode : PasscodeScreenEffect()
-    class StartBiometricAuth : PasscodeScreenEffect()
+    data class EnterPasscodeSuccess(val encryptionKey: DecryptedData) : PasscodeScreenEffect() {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other !is EnterPasscodeSuccess) return false
+
+            if (encryptionKey != other.encryptionKey) return false
+
+            return true
+        }
+
+        override fun hashCode(): Int {
+            return encryptionKey.hashCode()
+        }
+    }
+
+    data object WrongPasscode : PasscodeScreenEffect()
+    data object StartBiometricAuth : PasscodeScreenEffect()
+    data object Logout : PasscodeScreenEffect()
 }
 
 sealed class PasscodeScreenError(error: Throwable) : ErrorState(error) {

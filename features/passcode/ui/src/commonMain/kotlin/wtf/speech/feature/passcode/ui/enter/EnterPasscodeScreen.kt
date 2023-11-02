@@ -13,19 +13,20 @@ import wtf.speech.core.ui.ContentState
 import wtf.speech.feature.passcode.ui.PasscodeContent
 import wtf.speech.features.passcode.domain.usecase.CheckPasscodesEqualsUseCase
 
-class EnterPasscodeScreen private constructor(private val viewModel: EnterPasscodeViewModel) : Screen() {
+class EnterPasscodeScreen private constructor(
+    private val viewModel: EnterPasscodeViewModel
+) : Screen() {
     override val id: String
         get() = ID
 
     @Composable
     override fun Content() {
         val state by viewModel.state.collectAsState()
-        val passcode = state.enteredPasscode
 
         LaunchedEffect(state) {
             if (state.contentState is ContentState.Error<*, *>) {
                 delay(600L)
-                passcode.clear()
+                viewModel.clear()
             }
         }
 
@@ -39,7 +40,7 @@ class EnterPasscodeScreen private constructor(private val viewModel: EnterPassco
         }
     }
 
-    public companion object Builder : ScreenBuilder {
+    companion object Builder : ScreenBuilder {
         const val ID = "ConfirmPasscode"
         override val id: String
             get() = ID

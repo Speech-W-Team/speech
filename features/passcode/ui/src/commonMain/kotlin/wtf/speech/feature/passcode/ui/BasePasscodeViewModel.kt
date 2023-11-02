@@ -13,43 +13,31 @@ internal abstract class BasePasscodeViewModel(
     private val enteredPasscode: SnapshotStateList<Int>
         get() = state.value.enteredPasscode
 
-    fun addNumber(number: Int) {
-        handleAction(PasscodeScreenAction.EnterNumber(number))
+    fun addNumber(number: Int) = handleAction(PasscodeScreenAction.EnterNumber(number))
+
+    fun backspace() = handleAction(PasscodeScreenAction.Backspace)
+
+    fun clear() = handleAction(PasscodeScreenAction.Clear)
+
+    override fun PasscodeScreenState.reduce(event: PasscodeScreenEvent) = when (event) {
+        is PasscodeScreenEvent.EnterNumber -> this.apply { enteredPasscode.add(event.number) }
+        PasscodeScreenEvent.DeleteLastPasscode -> copy(enteredPasscode = enteredPasscode.apply { removeLastOrNull() })
+        PasscodeScreenEvent.NonEqualsPasscodes -> copy(contentState = ContentState.Error(PasscodeScreenError.InvalidPasscode))
+        PasscodeScreenEvent.StartBiometricAuthentication -> onStartBiometricAuth()
+        PasscodeScreenEvent.ClearPasscode -> copy(enteredPasscode = enteredPasscode.apply { clear() })
     }
 
-    fun backspace() {
-        handleAction(PasscodeScreenAction.Backspace)
+    override suspend fun processAction(action: PasscodeScreenAction) = when (action) {
+        PasscodeScreenAction.Backspace -> PasscodeScreenEvent.DeleteLastPasscode
+        PasscodeScreenAction.EnableBiometricAuth -> PasscodeScreenEvent.StartBiometricAuthentication
+        PasscodeScreenAction.Clear -> PasscodeScreenEvent.ClearPasscode
+        is PasscodeScreenAction.EnterNumber -> enterNumber(action.number)
     }
 
-    fun clear() {
-        handleAction(PasscodeScreenAction.Clear)
-    }
-
-    override fun PasscodeScreenState.reduce(event: PasscodeScreenEvent): PasscodeScreenState {
-        return when (event) {
-            is PasscodeScreenEvent.EnterNumber -> this.apply { enteredPasscode.add(event.number) }
-            PasscodeScreenEvent.DeleteLastPasscode -> copy(enteredPasscode = enteredPasscode.apply { removeLastOrNull() })
-            PasscodeScreenEvent.NonEqualsPasscodes -> copy(contentState = ContentState.Error(PasscodeScreenError.InvalidPasscode))
-            PasscodeScreenEvent.StartBiometricAuthentication -> onStartBiometricAuth()
-            PasscodeScreenEvent.ClearPasscode -> copy(enteredPasscode = enteredPasscode.apply { clear() })
-        }
-    }
-
-    override suspend fun processAction(action: PasscodeScreenAction): PasscodeScreenEvent {
-        return when (action) {
-            PasscodeScreenAction.Backspace -> PasscodeScreenEvent.DeleteLastPasscode
-            PasscodeScreenAction.EnableBiometricAuth -> PasscodeScreenEvent.StartBiometricAuthentication
-            PasscodeScreenAction.Clear -> PasscodeScreenEvent.ClearPasscode
-            is PasscodeScreenAction.EnterNumber -> enterNumber(action.number)
-        }
-    }
-
-    override fun handleEvent(event: PasscodeScreenEvent): PasscodeScreenEffect? {
-        return when (event) {
-            is PasscodeScreenEvent.EnterNumber -> checkPasscode(enteredPasscode)
-            PasscodeScreenEvent.StartBiometricAuthentication -> PasscodeScreenEffect.StartBiometricAuth()
-            else -> null
-        }
+    override fun handleEvent(event: PasscodeScreenEvent) = when (event) {
+        is PasscodeScreenEvent.EnterNumber -> checkPasscode(enteredPasscode)
+        PasscodeScreenEvent.StartBiometricAuthentication -> PasscodeScreenEffect.StartBiometricAuth
+        else -> null
     }
 
     protected abstract fun checkPasscode(passcode: List<Int>): PasscodeScreenEffect?
