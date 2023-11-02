@@ -72,4 +72,7 @@ include(":features:wallet:ui")
 include(":features:passcode:domain")
 include(":features:passcode:ui")
 
+include(":features:qrCode:domain")
+include(":features:qrCode:ui")
+
 rootProject.name = "speech"
