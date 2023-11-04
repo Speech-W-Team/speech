@@ -1,6 +1,6 @@
-use k256::ecdsa::{SigningKey, Signature, signature::Signer};
-
+use crate::transactions::abstract_signer::AbstractSigner;
 use crate::transactions::abstract_transaction::Transaction;
+use crate::transactions::ethereum::ethereum_signer::EthereumSigner;
 
 pub struct EthereumTransaction {
     from: String,
@@ -29,11 +29,8 @@ impl Transaction for EthereumTransaction {
         }
     }
 
-    fn sign(&self, private_key: &Vec<u8>, data_to_sign: &[u8]) -> Vec<u8> {
-        let signing_key = SigningKey::from_slice(private_key).expect("32 bytes");
-        let sig: Signature = signing_key.sign(data_to_sign);
-
-        sig.to_bytes().to_vec()
+    fn sign(&self, signer: &dyn AbstractSigner, private_key: &Vec<u8>, data_to_sign: &[u8]) -> Vec<u8> {
+        signer.sign(private_key, data_to_sign)
     }
 }
 
@@ -74,8 +71,8 @@ impl EthereumTransaction {
         <Self as Transaction>::new(params)
     }
 
-    pub fn sign(&self, private_key: &Vec<u8>, data_to_sign: &[u8]) -> Vec<u8> {
-        <Self as Transaction>::sign(self, private_key, data_to_sign)
+    pub fn sign(&self, signer: &EthereumSigner, private_key: &Vec<u8>, data_to_sign: &[u8]) -> Vec<u8> {
+        <Self as Transaction>::sign(self, signer, private_key, data_to_sign)
     }
 }
 
