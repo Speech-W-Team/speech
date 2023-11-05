@@ -3,7 +3,6 @@ package wtf.speech.features.home.ui
 import wtf.speech.core.ui.BaseViewModel
 
 class HomeViewModel : BaseViewModel<
-        HomeErrorState,
         HomeScreenState,
         HomeScreenAction,
         HomeScreenEvent,
@@ -18,7 +17,7 @@ class HomeViewModel : BaseViewModel<
         return HomeScreenEvent()
     }
 
-    override fun handleEvent(event: HomeScreenEvent): HomeScreenEffect? {
+    override suspend fun handleEvent(event: HomeScreenEvent): HomeScreenEffect {
         return HomeScreenEffect()
     }
 }

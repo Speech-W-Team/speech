@@ -1,5 +1,9 @@
 package wtf.speech.feature.passcode.ui.create
 
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -14,21 +18,24 @@ import wtf.speech.feature.passcode.ui.PasscodeScreenEffect
 import wtf.speech.feature.passcode.ui.confirm.ConfirmPasscodeScreen
 
 class CreatePasscodeScreen private constructor(
-    private val viewModel: CreatePasscodeViewModel
-) : Screen() {
+    private val passcodeViewModel: CreatePasscodeViewModel
+) : Screen(passcodeViewModel) {
+    override val enterTransition: EnterTransition = slideInHorizontally(initialOffsetX = { -it })
+    override val exitTransition: ExitTransition = slideOutHorizontally(targetOffsetX = { it })
+
     override val id: String
         get() = ID
 
     @Composable
     override fun Content() {
         val routeManager = LocalRouteManager.current
-        val state by viewModel.state.collectAsState()
-        val effect by viewModel.effect.collectAsState(null)
+        val state by passcodeViewModel.state.collectAsState()
+        val effect by passcodeViewModel.effect.collectAsState(null)
         val passcode = state.enteredPasscode
 
         LaunchedEffect(effect) {
             when (effect) {
-                is PasscodeScreenEffect.EnterPasscodeSuccess -> routeManager.navigateTo(
+                is PasscodeScreenEffect.Success -> routeManager.navigateTo(
                     ConfirmPasscodeScreen.ID,
                     extras = ConfirmPasscodeScreen.ConfirmPasscodeExtra(passcode)
                 )
@@ -37,13 +44,13 @@ class CreatePasscodeScreen private constructor(
         }
 
         DisposableEffect(Unit) {
-            onDispose(viewModel::clear)
+            onDispose(passcodeViewModel::clear)
         }
 
         PasscodeContent(
-            onPasscodeEntered = viewModel::addNumber,
+            onPasscodeEntered = passcodeViewModel::addNumber,
             title = "Create Passcode",
-            onDeletePressed = viewModel::backspace,
+            onDeletePressed = passcodeViewModel::backspace,
             passcodeScreenState = state
         )
     }
@@ -51,8 +58,6 @@ class CreatePasscodeScreen private constructor(
     data class CreatePasscodeExtra(val encryptionKey: ByteArray): Extra {
         override val key: String
             get() = CREATE_PASSCODE_EXTRA_KEY
-        override val data: Any
-            get() = encryptionKey
 
         override fun equals(other: Any?): Boolean {
             if (this === other) return true
@@ -77,7 +82,7 @@ class CreatePasscodeScreen private constructor(
             get() = ID
 
         override fun build(params: Map<String, String>?, extra: Extra?): Screen {
-            if (extra !is CreatePasscodeExtra) throw IllegalArgumentException("Illegal arguments passed: $extra")
+            require(extra is CreatePasscodeExtra)
 
             return CreatePasscodeScreen(CreatePasscodeViewModel(encryptionKey = extra.encryptionKey))
         }

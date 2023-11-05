@@ -2,9 +2,18 @@ package wtf.speech.features.passcode.domain.usecase
 
 import wtf.speech.core.domain.usecases.UseCase
 
-public class CheckPasscodesEqualsUseCase : UseCase<CheckPasscodesEqualsUseCase.Params, Boolean>() {
+interface CheckPasscodesAreEqualUseCase :
+    UseCase<CheckPasscodesAreEqualUseCase.Params, Boolean> {
+    class Params(val currentPasscode: List<Int>, val enteredPasscode: List<Int>)
+}
 
-    override fun invoke(input: Params): Boolean {
+fun provideCheckPasscodesAreEqualUseCase(): CheckPasscodesAreEqualUseCase {
+    return CheckPasscodesAreEqualUseCaseImpl()
+}
+
+internal class CheckPasscodesAreEqualUseCaseImpl : CheckPasscodesAreEqualUseCase {
+
+    override fun invoke(input: CheckPasscodesAreEqualUseCase.Params): Boolean {
         return input.currentPasscode deepEqualTo input.enteredPasscode
     }
 
@@ -24,6 +33,4 @@ public class CheckPasscodesEqualsUseCase : UseCase<CheckPasscodesEqualsUseCase.P
         // collections are same or they are contains same elements with same order
         return true
     }
-
-    public class Params(val currentPasscode: List<Int>, val enteredPasscode: List<Int>)
 }

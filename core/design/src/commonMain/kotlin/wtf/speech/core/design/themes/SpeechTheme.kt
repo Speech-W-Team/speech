@@ -71,6 +71,8 @@ private val DarkColorScheme = darkColorScheme(
     scrim = md_theme_dark_scrim,
 )
 
+val typography = Typography
+
 @Composable
 fun SpeechTheme(
     useDarkTheme: Boolean = isSystemInDarkTheme(),

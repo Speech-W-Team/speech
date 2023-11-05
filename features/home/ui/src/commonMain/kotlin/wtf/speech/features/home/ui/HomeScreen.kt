@@ -52,19 +52,22 @@ import wtf.speech.core.design.texts.BodySmallText
 import wtf.speech.core.design.texts.LabelsSmallText
 import wtf.speech.core.design.texts.TitleLargeText
 import wtf.speech.core.ui.BaseScreenContainer
-import wtf.speech.core.ui.BaseViewModel
 import wtf.speech.core.ui.ContentState
+import wtf.speech.core.ui.BaseViewModel
 import wtf.speech.feature.wallet.ui.models.WalletCard
 import wtf.speech.feature.wallet.ui.models.WalletUI
 
-class HomeScreen internal constructor(override val id: String, private val viewModel: HomeViewModel) : Screen() {
+class HomeScreen internal constructor(
+    override val id: String,
+    private val homeViewModel: HomeViewModel
+) : Screen(homeViewModel) {
 
     @Composable
     override fun Content() {
-        HomeScreen(homeViewModel = viewModel)
+        HomeScreen(homeViewModel = homeViewModel)
     }
 
-    companion object Builder: ScreenBuilder {
+    companion object Builder : ScreenBuilder {
         const val ID = "HomeScreen"
         override val id: String = ID
 
@@ -77,7 +80,6 @@ class HomeScreen internal constructor(override val id: String, private val viewM
 @Composable
 fun HomeScreen(
     homeViewModel: BaseViewModel<
-            HomeErrorState,
             HomeScreenState,
             HomeScreenAction,
             HomeScreenEvent,

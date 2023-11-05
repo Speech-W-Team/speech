@@ -13,7 +13,7 @@ import wtf.speech.features.wallet.domain.repository.WalletRepository
  *
  * @param repository The repository used for fetching the wallets.
  */
-class GetWalletsUseCase(private val repository: WalletRepository) : CoroutineUseCase<Unit, List<Wallet>>() {
+class GetWalletsUseCase(private val repository: WalletRepository) : CoroutineUseCase<Unit, List<Wallet>> {
 
     /**
      * Retrieves a wallet of the specified cryptocurrency type.

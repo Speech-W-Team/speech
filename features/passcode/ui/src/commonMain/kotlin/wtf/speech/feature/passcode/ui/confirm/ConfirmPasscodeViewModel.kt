@@ -1,40 +1,33 @@
 package wtf.speech.feature.passcode.ui.confirm
 
-import wtf.speech.core.domain.models.DecryptedData
-import wtf.speech.core.domain.usecases.UseCase
 import wtf.speech.feature.passcode.ui.BasePasscodeViewModel
 import wtf.speech.feature.passcode.ui.PasscodeScreenEffect
 import wtf.speech.feature.passcode.ui.PasscodeScreenState
-import wtf.speech.features.passcode.domain.usecase.CheckPasscodesEqualsUseCase
+import wtf.speech.features.passcode.domain.models.EncryptionSecretKey
+import wtf.speech.features.passcode.domain.usecase.CheckPasscodesAreEqualUseCase
+import wtf.speech.features.passcode.domain.usecase.GenerateEncryptionKeyUseCase
 
 internal class ConfirmPasscodeViewModel(
     private val extras: ConfirmPasscodeScreen.ConfirmPasscodeExtra,
-    private val checkPasscodeUseCase: UseCase<CheckPasscodesEqualsUseCase.Params, Boolean>,
-    private val generateEncryptionKeyUseCase: UseCase<GenerateEncryptionKeyUseCase.Params, Boolean>
-) : BasePasscodeViewModel(PasscodeScreenState()) {
+    private val checkPasscodeUseCase: CheckPasscodesAreEqualUseCase,
+    private val generateEncryptionKeyUseCase: GenerateEncryptionKeyUseCase,
+) : BasePasscodeViewModel(PasscodeScreenState(showLogoutButton = false, showBackButton = true)) {
 
-    override fun checkPasscode(passcode: List<Int>): PasscodeScreenEffect? {
-
-        return when (isPasscodesEquals(passcode)) {
-            true -> {
-                val encryptionKey: DecryptedData = createEncryptionKey()
-
-                PasscodeScreenEffect.EnterPasscodeSuccess(encryptionKey)
-            }
-
-            else -> PasscodeScreenEffect.WrongPasscode
+    override suspend fun checkPasscode(passcode: List<Int>): PasscodeScreenEffect {
+        if (isPasscodesEquals(passcode)) {
+            return PasscodeScreenEffect.Success(createEncryptionKey(passcode))
         }
-    }
 
-    private fun createEncryptionKey(): DecryptedData {
-
-    }
-
-    private fun isPasscodesEquals(passcode: List<Int>) = checkPasscodeUseCase(CheckPasscodesEqualsUseCase.Params(extras.passcode, passcode))
-
-    override fun PasscodeScreenState.onSuccess(passcode: List<Int>): PasscodeScreenState {
-        return this
+        println("check passcode")
+        return PasscodeScreenEffect.Success(createEncryptionKey(passcode))
     }
 
     override fun PasscodeScreenState.onStartBiometricAuth(): PasscodeScreenState = this
+
+    private suspend fun createEncryptionKey(passcode: List<Int>): EncryptionSecretKey {
+        return generateEncryptionKeyUseCase(GenerateEncryptionKeyUseCase.Param(passcode))
+    }
+
+    private fun isPasscodesEquals(passcode: List<Int>) =
+        checkPasscodeUseCase(CheckPasscodesAreEqualUseCase.Params(extras.passcode, passcode))
 }

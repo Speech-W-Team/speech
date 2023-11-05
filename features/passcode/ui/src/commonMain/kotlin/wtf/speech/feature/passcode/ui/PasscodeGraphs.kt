@@ -17,9 +17,9 @@ object PasscodeGraphs {
     fun getCreatePasscodeGraph(extra: CreatePasscodeScreen.CreatePasscodeExtra): NavigationGraph {
         return NavigationGraph(
             id = CREATE_PASSCODE_GRAPH_ID,
-            initialScreen = CreatePasscodeScreen.Builder,
+            initialScreenBuilder = CreatePasscodeScreen.Builder,
             extra = extra,
-            paths = mapOf(CreatePasscodeScreen.ID to setOf(EnterPasscodeScreen.ID))
+            storeInBackStack = false
         ).apply {
             register(Route(ConfirmPasscodeScreen.ID, ConfirmPasscodeScreen.Builder))
         }
@@ -27,7 +27,7 @@ object PasscodeGraphs {
 
     val enterPasscodeGraph = NavigationGraph(
         id = ENTER_PASSCODE_GRAPH_ID,
-        initialScreen = CreatePasscodeScreen.Builder,
-        paths = mapOf()
+        initialScreenBuilder = EnterPasscodeScreen.Builder,
+        storeInBackStack = false
     )
 }
