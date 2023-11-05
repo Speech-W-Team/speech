@@ -10,7 +10,7 @@ import wtf.speech.features.wallet.domain.repository.TransactionRepository
  */
 class GetTransactionsUseCase(
     private val repository: TransactionRepository
-) : CoroutineUseCase<GetTransactionsUseCase.Param, List<Transaction>>() {
+) : CoroutineUseCase<GetTransactionsUseCase.Param, List<Transaction>> {
 
     /**
      * Fetches a list of transactions for a given cryptocurrency type.

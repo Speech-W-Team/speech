@@ -75,7 +75,7 @@ interface RouteManager {
  */
 class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
     private val graphs = mutableMapOf<String, NavigationGraph>().apply { put(initialGraph.id, initialGraph) }
-    private val activeGraphStack = mutableListOf<NavigationGraph>().apply { add(initialGraph) }
+    private val graphStack = mutableListOf<NavigationGraph>().apply { add(initialGraph) }
 
     override val activeGraph: MutableState<NavigationGraph?> = mutableStateOf(graphs[initialGraph.id])
     override val currentScreen: Screen?
@@ -86,13 +86,15 @@ class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
     }
 
     override fun switchToGraph(graphId: String): Boolean {
-        val graph = graphs[graphId]
-        if (graph != null) {
-            activeGraphStack.add(graph)
-            updateActiveGraph()
-            return true
+        val graph = graphs[graphId] ?: return false
+
+        with(graphStack) {
+            lastOrNull()?.let { if (!it.storeInBackStack) removeLastOrNull() }
+            add(graph)
         }
-        return false
+
+        updateActiveGraph()
+        return true
     }
 
     override fun navigateTo(screenId: String, params: Map<String, String>?, extras: Extra?): Boolean {
@@ -110,12 +112,12 @@ class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
     }
 
     override fun closeActiveGraph(): Boolean {
-        if (activeGraphStack.size > 1) {
-            activeGraphStack.removeLast() // Remove current graph
+        if (graphStack.size > 1) {
+            graphStack.removeLast() // Remove current graph
 
             // Set the previous graph as the active graph
-            activeGraph.value = if (activeGraphStack.isNotEmpty()) {
-                activeGraphStack.last()
+            activeGraph.value = if (graphStack.isNotEmpty()) {
+                graphStack.last()
             } else {
                 null
             }
@@ -144,7 +146,7 @@ class RouteManagerImpl(initialGraph: NavigationGraph) : RouteManager {
      * Updates the currently active navigation graph.
      */
     private fun updateActiveGraph() {
-        activeGraph.value = activeGraphStack.last()
+        activeGraph.value = graphStack.last()
     }
 }
 

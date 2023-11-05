@@ -44,20 +44,42 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.unit.dp
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import wtf.speech.compass.core.Extra
+import wtf.speech.compass.core.Screen
+import wtf.speech.compass.core.ScreenBuilder
 import wtf.speech.core.design.texts.BodyMediumText
 import wtf.speech.core.design.texts.BodySmallText
 import wtf.speech.core.design.texts.LabelsSmallText
 import wtf.speech.core.design.texts.TitleLargeText
 import wtf.speech.core.ui.BaseScreenContainer
-import wtf.speech.core.ui.BaseViewModel
 import wtf.speech.core.ui.ContentState
+import wtf.speech.core.ui.BaseViewModel
 import wtf.speech.feature.wallet.ui.models.WalletCard
 import wtf.speech.feature.wallet.ui.models.WalletUI
+
+class HomeScreen internal constructor(
+    override val id: String,
+    private val homeViewModel: HomeViewModel
+) : Screen(homeViewModel) {
+
+    @Composable
+    override fun Content() {
+        HomeScreen(homeViewModel = homeViewModel)
+    }
+
+    companion object Builder : ScreenBuilder {
+        const val ID = "HomeScreen"
+        override val id: String = ID
+
+        override fun build(params: Map<String, String>?, extra: Extra?): Screen {
+            return HomeScreen(ID, HomeViewModel())
+        }
+    }
+}
 
 @Composable
 fun HomeScreen(
     homeViewModel: BaseViewModel<
-            HomeErrorState,
             HomeScreenState,
             HomeScreenAction,
             HomeScreenEvent,

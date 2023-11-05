@@ -9,7 +9,7 @@ import wtf.speech.features.wallet.domain.models.blockchains.Blockchain
 
 class RecoverWalletWithMnemonicPhraseUseCase(
     private val walletFactory: WalletFactory
-) : CoroutineUseCase<RecoverWalletWithMnemonicPhraseUseCase.Param, Wallet>() {
+) : CoroutineUseCase<RecoverWalletWithMnemonicPhraseUseCase.Param, Wallet> {
     override suspend fun invoke(input: Param): Wallet {
         val privateKey = mnemonicToSeed()
         return walletFactory.recoverWallet(input.blockchain, PrivateKey(privateKey))

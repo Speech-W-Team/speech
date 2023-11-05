@@ -9,6 +9,7 @@ android.namespace = "wtf.speech.core.ui"
 commonDependencies {
     api(projects.core.domain)
     api(projects.core.design)
+    api(projects.compass.core)
 
     api(libs.ionspin.bignum)
     implementation(libs.kotlinx.atomicfu)

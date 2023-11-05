@@ -4,28 +4,26 @@ import wtf.speech.core.domain.usecases.UseCase
 import wtf.speech.feature.passcode.ui.BasePasscodeViewModel
 import wtf.speech.feature.passcode.ui.PasscodeScreenEffect
 import wtf.speech.feature.passcode.ui.PasscodeScreenState
-import wtf.speech.features.passcode.domain.usecase.CheckPasscodesEqualsUseCase
+import wtf.speech.features.passcode.domain.models.EncryptionSecretKey
+import wtf.speech.features.passcode.domain.usecase.CheckPasscodesAreEqualUseCase
 
 internal class EnterPasscodeViewModel(
-    private val checkPasscodeUseCase: UseCase<CheckPasscodesEqualsUseCase.Params, Boolean>
+    private val checkPasscodeUseCase: UseCase<CheckPasscodesAreEqualUseCase.Params, Boolean>
 ) : BasePasscodeViewModel(PasscodeScreenState()) {
 
-    override fun checkPasscode(passcode: List<Int>): PasscodeScreenEffect {
-        return checkPasscodeUseCase(CheckPasscodesEqualsUseCase.Params(listOf(1,1,1,1,1,1), passcode))
-            .let { isEquals ->
-                if (isEquals) {
-                    PasscodeScreenEffect.AuthSuccess(passcode)
-                } else {
-                    PasscodeScreenEffect.WrongPasscode()
-                }
-            }
+    override suspend fun checkPasscode(passcode: List<Int>): PasscodeScreenEffect {
+        if (checkPasscodeUseCase(
+                CheckPasscodesAreEqualUseCase.Params(
+                    listOf(1, 1, 1, 1, 1, 1),
+                    passcode
+                )
+            )
+        ) {
+            return PasscodeScreenEffect.Success(EncryptionSecretKey(byteArrayOf()))
+        }
+
+        return PasscodeScreenEffect.InvalidPasscode
     }
 
-    override fun PasscodeScreenState.onSuccess(passcode: List<Int>): PasscodeScreenState {
-        return this
-    }
-
-    override fun PasscodeScreenState.onStartBiometricAuth(): PasscodeScreenState {
-        return this
-    }
+    override fun PasscodeScreenState.onStartBiometricAuth() = this
 }

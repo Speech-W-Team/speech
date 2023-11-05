@@ -55,4 +55,5 @@ dependencies {
     implementation(dependencyNotation = libs.coreKtx)
 
     implementation(projects.features.passcode.ui)
+    implementation(projects.features.passcode.domain)
 }

@@ -16,7 +16,7 @@ import wtf.speech.features.wallet.domain.repository.WalletRepository
 abstract class RecoverWalletFromPrivateKeyUseCase(
     private val walletFactory: WalletFactory,
     private val walletRepository: WalletRepository
-) : CoroutineUseCase<RecoverWalletFromPrivateKeyUseCase.Param, Wallet>() {
+) : CoroutineUseCase<RecoverWalletFromPrivateKeyUseCase.Param, Wallet> {
 
     /**
      * Recovers a wallet from a private key and stores it in the repository.

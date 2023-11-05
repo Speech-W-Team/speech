@@ -16,7 +16,7 @@ import wtf.speech.features.wallet.domain.repository.WalletRepository
  */
 class GetWalletUseCase internal constructor(
     private val repository: WalletRepository
-) : CoroutineUseCase<GetWalletUseCase.Param, Wallet>() {
+) : CoroutineUseCase<GetWalletUseCase.Param, Wallet> {
 
     /**
      * Retrieves a wallet of the specified cryptocurrency type.

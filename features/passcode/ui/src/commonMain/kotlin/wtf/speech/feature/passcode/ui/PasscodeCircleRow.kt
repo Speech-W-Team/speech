@@ -64,7 +64,7 @@ internal fun PasscodeCircleRow(
 
 @Composable
 internal fun SuccessPasscodeCircleRow(passcodeSize: Int, modifier: Modifier = Modifier) {
-    PasscodeCircleRow(passcodeSize, modifier) { currentPosition ->
+    PasscodeCircleRow(passcodeSize, modifier) {
         SuccessPasscodeCircle()
     }
 }
@@ -81,7 +81,7 @@ fun PasscodeCircle(isFilled: Boolean, position: Int, lastPosition: Int) {
     var shouldShowAnimation by remember(isFilled, position) {
         mutableStateOf(shouldChangeSize(isFilled, position, lastPosition))
     }
-    val size by animateDpAsState(targetValue = if (shouldShowAnimation) 18.dp else 16.dp)
+    val size by animateDpAsState(targetValue = if (shouldShowAnimation) 16.dp else 12.dp)
 
     LaunchedEffect(shouldShowAnimation) {
         delay(CIRCLE_ANIMATION_LENGTH)

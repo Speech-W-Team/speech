@@ -9,7 +9,7 @@ import wtf.speech.features.wallet.domain.repository.WalletRepository
 abstract class GenerateWalletUseCase(
     private val walletFactory: WalletFactory,
     private val walletRepository: WalletRepository
-) : CoroutineUseCase<GenerateWalletUseCase.Param, Wallet>() {
+) : CoroutineUseCase<GenerateWalletUseCase.Param, Wallet> {
     override suspend fun invoke(input: Param): Wallet {
         val wallet = walletFactory.createWallet(input.blockchain)
         walletRepository.storeWallet(wallet)

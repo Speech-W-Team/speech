@@ -8,24 +8,62 @@ import wtf.speech.core.ui.ScreenAction
 import wtf.speech.core.ui.ScreenEffect
 import wtf.speech.core.ui.ScreenEvent
 import wtf.speech.core.ui.ScreenState
+import wtf.speech.features.passcode.domain.models.EncryptionSecretKey
 
-const val MAX_PASSCODE_SIZE = 6
+const val PASSCODE_SIZE = 6
 
 internal data class PasscodeScreenState(
     val enteredPasscode: SnapshotStateList<Int> = mutableStateListOf(),
     val position: Int = enteredPasscode.size - 1,
     val contentState: ContentState<Unit>? = null,
+    val maxPasscodeSize: Int = PASSCODE_SIZE,
+    val showBackspaceButton: Boolean = position > -1,
     val isBiometricAuthEnabled: Boolean = false,
-    val maxPasscodeSize: Int = MAX_PASSCODE_SIZE,
-) : ScreenState
+    val showLogoutButton: Boolean = true,
+    val showBackButton: Boolean = false,
+) : ScreenState {
+
+    fun add(number: Int): PasscodeScreenState {
+        enteredPasscode.add(number)
+        return updateLastPosition()
+    }
+
+    fun deleteLast(): PasscodeScreenState {
+        if (enteredPasscode.isEmpty()) return this
+
+        enteredPasscode.removeLast()
+        return updateLastPosition()
+    }
+
+    fun clear(): PasscodeScreenState {
+        if (enteredPasscode.isEmpty()) return this
+
+        enteredPasscode.clear()
+        return updateLastPosition()
+    }
+
+    fun loading(): PasscodeScreenState = copy(
+        contentState = ContentState.Loading(),
+        showBackspaceButton = false
+    )
+
+    fun error(error: PasscodeScreenError): PasscodeScreenState {
+        return copy(contentState = ContentState.Error(error))
+    }
+
+    private fun updateLastPosition() = copy(
+        position = enteredPasscode.size - 1,
+        showBackspaceButton = enteredPasscode.size - 1 > -1,
+        contentState = null
+    )
+}
 
 internal sealed class PasscodeScreenEvent : ScreenEvent {
     data class EnterNumber(val number: Int) : PasscodeScreenEvent()
-    data object NonEqualsPasscodes : PasscodeScreenEvent()
+    data object InvalidPasscode : PasscodeScreenEvent()
     data object StartBiometricAuthentication : PasscodeScreenEvent()
     data object ClearPasscode : PasscodeScreenEvent()
     data object DeleteLastPasscode : PasscodeScreenEvent()
-
 }
 
 internal sealed class PasscodeScreenAction : ScreenAction {
@@ -36,9 +74,10 @@ internal sealed class PasscodeScreenAction : ScreenAction {
 }
 
 internal sealed class PasscodeScreenEffect : ScreenEffect {
-    data class AuthSuccess(val passcode: List<Int>) : PasscodeScreenEffect()
-    class WrongPasscode : PasscodeScreenEffect()
-    class StartBiometricAuth : PasscodeScreenEffect()
+    data class Success(val encryptionKey: EncryptionSecretKey) : PasscodeScreenEffect()
+    data object StartBiometricAuth : PasscodeScreenEffect()
+    data object Logout : PasscodeScreenEffect()
+    data object InvalidPasscode : PasscodeScreenEffect()
 }
 
 sealed class PasscodeScreenError(error: Throwable) : ErrorState(error) {

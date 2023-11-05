@@ -10,7 +10,7 @@ import wtf.speech.features.wallet.domain.repository.TransactionRepository
  */
 class ExecuteTransactionUseCase(
     private val repository: TransactionRepository
-) : CoroutineUseCase<ExecuteTransactionUseCase.Param, Boolean>() {
+) : CoroutineUseCase<ExecuteTransactionUseCase.Param, Boolean> {
 
     /**
      * Executes a cryptocurrency transaction.

@@ -6,7 +6,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 
-abstract class Screen {
+abstract class Screen(private val viewModel: ViewModel) {
     open val enterTransition: EnterTransition = fadeIn()
     open val exitTransition: ExitTransition = fadeOut()
 
@@ -14,4 +14,8 @@ abstract class Screen {
 
     @Composable
     abstract fun Content()
+
+    internal fun onCleared() {
+        viewModel.onCleared()
+    }
 }

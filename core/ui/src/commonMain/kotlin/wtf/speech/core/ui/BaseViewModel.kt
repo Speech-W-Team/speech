@@ -1,5 +1,7 @@
 package wtf.speech.core.ui
 
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -7,75 +9,108 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import wtf.speech.compass.core.ViewModel
 
 /**
- * An abstract class for the base ViewModel, using the MVI (Model-View-Intent) pattern.
- * @param S the type of the screen state.
- * @param A the type of the user action on the screen.
- * @param E the type of the event on the screen.
- * @param F the type of the effect on the screen.
+ * An abstract base ViewModel class following the MVI (Model-View-Intent) architecture pattern.
+ *
+ * @param S The type of the screen state.
+ * @param A The type of the user action on the screen.
+ * @param V The type of the event on the screen.
+ * @param F The type of the effect on the screen.
+ * @param initialState The initial state of the screen.
+ * @param defaultDispatcher The default coroutine dispatcher that the ViewModel will use.
  */
-abstract class BaseViewModel<E : ErrorState, S : ScreenState, A : ScreenAction, V : ScreenEvent, F : ScreenEffect>(
-    initialState: S
-) {
-    /**
-     * A MutableStateFlow for storing the screen state.
-     */
+abstract class BaseViewModel<S : ScreenState, A : ScreenAction, V : ScreenEvent, F : ScreenEffect>(
+    initialState: S,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main.immediate
+) : ViewModel {
     private val _state = MutableStateFlow(initialState)
+    val state: StateFlow<S> = _state.asStateFlow()
+
+    private val _effect = MutableSharedFlow<F>()
+    val effect: Flow<F> = _effect.asSharedFlow()
+
+    private val viewModelJob = SupervisorJob()
+    private val viewModelScope = CoroutineScope(viewModelJob + defaultDispatcher)
 
     /**
-     * A property for storing the screen state.
+     * Handles user actions by converting them into events, then into state changes and possible side effects.
+     *
+     * @param action The user action to be handled.
      */
-    val state: StateFlow<S> = _state
+    @Suppress("TooGenericExceptionCaught")
+    fun handleAction(action: A) {
+        viewModelScope.launch {
+            try {
+                val event = processAction(action)
+                val newState = state.value.reduce(event)
+                _state.emit(newState)
 
-    /**
-     * A Channel for sending effects to the screen.
-     */
-    private val _effect = MutableSharedFlow<F>(replay = 0, extraBufferCapacity = 1)
-
-    /**
-     * A property for sending effects to the screen.
-     */
-    val effect: Flow<F> = _effect
-
-    /**
-     * A CoroutineScope for launching coroutines.
-     */
-    private val viewModelScope = CoroutineScope(Dispatchers.Main + SupervisorJob())
-
-    /**
-     * A function for handling user actions on the screen.
-     * @param action a user action on the screen.
-     */
-    fun handleAction(action: A) = viewModelScope.launch {
-        val event = this@BaseViewModel.processAction(action)
-        val newState = state.value.reduce(event)
-        _state.value = newState
-        val effect = handleEvent(event)
-        if (effect != null) {
-            _effect.emit(effect)
+                handleEvent(event)?.let { _effect.emit(it) }
+            } catch (e: Exception) {
+                onReduceError(e)
+            }
         }
     }
 
     /**
-     * An abstract function for applying an event to the state and getting a new state.
-     * @param event an event on the screen.
-     * @return a new screen state.
+     * A function to be called when an error occurs during the reduction of state.
+     * By default, it does nothing but can be
+     * overridden in subclasses to handle errors appropriately.
+     *
+     * @param exception The exception that occurred during state reduction.
+     */
+    protected open fun onReduceError(exception: Exception) {
+        // Default implementation does nothing
+        exception.printStackTrace()
+    }
+
+    /**
+     * Reduces the current state to a new state based on the given event.
+     *
+     * @param event The event to reduce the state upon.
+     * @return The new state.
      */
     protected abstract fun S.reduce(event: V): S
 
     /**
-     * An abstract function for processing the user action and getting an event.
-     * @param action a user action on the screen.
-     * @return an event on the screen.
+     * Processes a user action and converts it into an event.
+     *
+     * @param action The user action to process.
+     * @return The resulting event.
      */
     protected abstract suspend fun processAction(action: A): V
 
     /**
-     * An abstract function for handling the event and getting an effect if any.
-     * @param event an event on the screen.
-     * @return an effect on the screen or null if there is no effect.
+     * Handles an event and potentially produces a side effect.
+     *
+     * @param event The event to handle.
+     * @return The side effect to emit, or null if no side effect is produced.
      */
-    protected abstract fun handleEvent(event: V): F?
+    protected abstract suspend fun handleEvent(event: V): F?
+
+    /**
+     * Clears the resources of the ViewModel, particularly cancelling any ongoing coroutine work.
+     */
+    override fun onCleared() {
+        viewModelJob.cancel()
+    }
+
+    /**
+     * Launches a coroutine in the ViewModel's scope with an exception handler
+     * to prevent uncaught exceptions from crashing the app.
+     *
+     * @param block The suspending block of code to execute.
+     */
+    protected fun CoroutineScope.launchSafe(
+        block: suspend CoroutineScope.() -> Unit
+    ) = launch(CoroutineExceptionHandler { _, throwable ->
+        // Default error handling
+    }) {
+        block()
+    }
 }
