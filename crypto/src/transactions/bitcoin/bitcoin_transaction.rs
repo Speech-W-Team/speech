@@ -1,4 +1,4 @@
-use crate::transactions::abstract_signer::AbstractSigner;
+use crate::transactions::abstract_signer::Signer;
 use crate::transactions::abstract_transaction::Transaction;
 use crate::transactions::bitcoin::bitcoin_signer::BitcoinSigner;
 
@@ -21,7 +21,7 @@ impl Transaction for BitcoinTransaction {
         }
     }
 
-    fn sign(&self, signer: &dyn AbstractSigner, private_key: &Vec<u8>, data_to_sign: &[u8]) -> Vec<u8> {
+    fn sign(&self, signer: &dyn Signer, private_key: &Vec<u8>, data_to_sign: &[u8]) -> Vec<u8> {
         signer.sign(private_key, data_to_sign)
     }
 }
